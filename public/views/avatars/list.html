@@ -1,0 +1,13 @@
+<section data-ng-controller='AvatarsController' data-ng-init="list()">
+  <ul class='avatar-list'>
+    <li data-ng-repeat='avatar in avatars'>
+      <img src="/img/avatars/{{avatar.name}}" alt="{{avatar.name}}">
+    </li>
+  </ul>
+
+  <div>
+    <label for="newavatar">Upload a new avatar picture</label>
+    <input type="file" name="newavatar" data-ng-file-select="onFileSelect($files)" >
+  </div>
+</section>
+

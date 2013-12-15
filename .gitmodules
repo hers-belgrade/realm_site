@@ -1,0 +1,12 @@
+[submodule "public/lib/hersangularclient"]
+	path = public/lib/hersangularclient
+	url = git@github.com:hers-belgrade/hersangularclient
+[submodule "node_modules/hersdata"]
+	path = node_modules/hersdata
+	url = git@github.com:hers-belgrade/hersdata
+[submodule "public/lib/fabric.js"]
+	path = public/lib/fabric.js
+	url = git@github.com:hers-belgrade/fabric.js
+[submodule "public/lib/casino"]
+	path = public/lib/casino
+	url = hersrepos:hers_repos/web/casino
