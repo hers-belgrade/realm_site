@@ -1,0 +1,12 @@
+<section data-ng-controller="BotsController">
+  <div ng-include="'/views/bots/edit.html'" data-ng-init="list()"></div>
+  <table>
+    <tr>
+      <th>Name</th><th>Avatar</th>
+    </tr>
+    <tr data-ng-repeat='_bot in bots' ng-click="set(_bot)">
+      <td>{{_bot.username}}</td>
+      <td><img src="/img/avatars/{{_bot.avatar}}" width="60px"/></td>
+    </tr>
+  </table>
+</section>

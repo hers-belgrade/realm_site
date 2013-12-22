@@ -1,5 +1,6 @@
-angular.module('mean', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ui.route', 'angularFileUpload', 'mean.system', 'mean.avatars','HERS']);
+angular.module('mean', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ui.route', 'angularFileUpload', 'mean.system', 'mean.avatars', 'mean.bots', 'HERS']);
 
 angular.module('mean.system', []);
 angular.module('mean.avatars', []);
+angular.module('mean.bots', []);
 

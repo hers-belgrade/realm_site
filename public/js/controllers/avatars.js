@@ -20,4 +20,23 @@ angular.module('mean.avatars').controller('AvatarsController',['$scope','$upload
       $scope.list();
     });
   };
-}]);
+}]).
+directive('selectAvatar',function(){
+  return {
+    restrict: 'E',
+    controller: function ($scope, Avatars) {
+      $scope.load = function(){
+        Avatars.query(function(avs){
+          $scope.avatars = avs;
+          console.log($scope.avatars);
+        });
+      }
+      $scope.load();
+    },
+    scope: {
+      av_mdel: '=avMdel',
+      av_size: '@avSize'
+    },
+    template: '<select ng-model="av_mdel"><option data-ng-repeat="avatar in avatars">{{avatar.name}}</option></select><img src="/img/avatars/{{av_mdel}}" width="{{av_size}}"/>'
+  };
+});

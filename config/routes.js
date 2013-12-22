@@ -61,6 +61,11 @@ module.exports = function(app, passport, auth) {
     //Finish with setting up the userId param
     app.param('userId', users.user);
 
+    //Bots Routes
+    var bots = require('../app/controllers/bots');
+    app.get('/bots', bots.all);
+    app.post('/bots/:username', auth.requiresLogin, bots.save);
+
     //Avatar Routes
     var avatars = require('../app/controllers/avatars');
     app.get('/avatars', avatars.all);

@@ -4,7 +4,8 @@
 var express = require('express')
     fs = require('fs'),
     passport = require('passport'),
-    logger = require('mean-logger');
+    logger = require('mean-logger'),
+    dataMaster = require('./app/controllers/datamaster');
 
 /**
  * Main application entry file.
@@ -56,6 +57,7 @@ console.log('Express app started on port ' + port);
 
 //Initializing logger
 logger.init(app, passport, mongoose);
+dataMaster.go();
 
 //expose app
 exports = module.exports = app;

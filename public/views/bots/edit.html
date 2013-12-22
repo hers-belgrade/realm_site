@@ -1,0 +1,15 @@
+<form name="botform" data-ng-submit="save()">
+  <div class="control-group">
+    <label class="control-label" for="name">Name</label>
+    <div class="controls">
+      <input type="text" id="username" name="username" data-ng-model="bot.username" required></input>
+    </div>
+    <label class="control-label" for="avatar">Avatar</label>
+    <div class="controls">
+        <select-avatar av-mdel="bot.avatar" av-size="80px"></select-avatar>
+    </div>
+    <div class="controls">
+      <input type="submit" class="btn">
+    </div>
+  </div>
+</form>

@@ -49,40 +49,56 @@ HTTPTalker.prototype.tell = function(page,obj,cb){
   req.end();
 };
 
-
-function BOListener(user){
-  hersdata.Follower.call(this,user,[],hersdata.FollowerPatterns.TypeFollower(function(name,val){
-  },function(name){
-    console.log('new collection',name);
-  },function(name){
-  }));
-  user.data.go();
+function SelfFollower(user){
+  if(!user){return;}
+  hersdata.Follower.call(this,user,['cluster_interface'],hersdata.FollowerPatterns.TypeFollower(null,function(name,val){
+    if(name===user.data.realmname){
+      hersdata.Follower.call(this,user,['cluster_interface',user.data.realmname],hersdata.FollowerPatterns.ScalarFollower('replicationPort',function(val){
+        console.log('opening replication on',val);
+        dataMaster.replicationPort = val;
+        dataMaster.openReplication(val);
+      }));
+    }
+  },null,this));
 }
 
+function BOListener(user){
+  dataMaster.commit('bots_started',[
+    ['set',['bots']]
+  ]);
+  dataMaster.element(['bots']).attach('pokerbots',{instancename:user.data.realmname});
+  hersdata.Follower.call(this,user,[],hersdata.FollowerPatterns.TypeFollower(function(name,val){
+  },function(name){
+    switch(name){
+      case 'cluster_interface':
+        this.selfFollower = new SelfFollower(user);
+        break;
+    }
+  },function(name){
+  },this));
+}
 
-
-var replicationPort = 16021;
-    
 dataMaster.fingerprint = (require('crypto').randomBytes)(12).toString('hex');
 dataMaster.setSessionUserFactory();
-dataMaster.openReplication(replicationPort);
-dataMaster.replicationPort = replicationPort;
-
-var t = new HTTPTalker(backofficeAddress,3000);
-t.tell('/signinServer',{name:realmName,password:realmPassword,replicationport:replicationPort},function(data){
-  if(data.name){//ok
-    var boel = dataMaster.element(['backoffice']);
-    if(!boel){
-      dataMaster.createRemoteReplica('backoffice',realmName,{host:backofficeAddress,port:data.replicationPort});
-      boel = dataMaster.element(['backoffice']);
+dataMaster.httpTalker = new HTTPTalker(backofficeAddress,3000);
+dataMaster.go = function(){
+  var t = this.httpTalker;
+  t.tell('/signinServer',{name:realmName,password:realmPassword},function(data){
+    if(data.name){//ok
+      console.log('going as',data.name);
+      dataMaster.domainName = data.domain;
+      t.replica = new (hersdata.RemoteCollectionReplica)(data.name,{address:backofficeAddress,port:data.replicationPort});
+      t.replica.getReplicatingUser(function(user){
+        t.listener = new BOListener(user);
+      });
+      t.replica.go(function(status){
+        console.log(status);
+      });
+    }else{
+      console.log('login error',data.error);
     }
-    boel.setUser(realmName,realmName,'dcp,realm',function(u){
-      new BOListener(u);
-    });
-  }else{
-    console.log('login error',data.error);
-  }
-});
+  });
+};
 module.exports = dataMaster;
 
 
