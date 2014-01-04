@@ -1,0 +1,11 @@
+<section data-ng-controller='LobbyController'>
+<table>
+<tr>
+<th>Name</th><th>Players</th>
+</tr>
+<tr data-ng-repeat='(name,data) in rooms'>
+<td>{{name}}</td>
+<td>{{data.playing}}/{{data.capacity}}</td>
+</tr>
+</table>
+</section>
