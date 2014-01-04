@@ -10,9 +10,8 @@ var mongoose = require('mongoose'),
  * Auth callback
  */
 exports.authCallback = function(req, res, next) {
-  dataMaster.element(['rooms']).setUser(req.user.username,'player');
-    console.log(req.user.roles);
-    res.redirect('/');
+  dataMaster.setUser(req.user.username,dataMaster.realmName,req.user.roles);
+  res.redirect('/');
 };
 
 /**
@@ -96,28 +95,112 @@ exports.user = function(req, res, next, id) {
 
 exports.dumpData = function(req, res, next) {
     if(req && req.user && req.user.name){
-        dataMaster.setUser(req.user.name,'www','',function(user){
+        dataMaster.setUser(req.user.name,dataMaster.realmName,req.user.roles,function(user){
+          if(!user){
+            res.jsonp({});
+            return;
+          }
           var sessid = req.query[dataMaster.fingerprint];
           if(!sessid){
             sessid=~~(Math.random()*1000000);
+            console.log('created',sessid,'on',user.username);
           }
-            user.makeSession(sessid);
-            var session = {};
-            session[dataMaster.fingerprint]=sessid;
-            user.sessions[sessid].dumpQueue(function(data){
-                res.jsonp({
-                    username:req.user.name,
-                    roles:user.roles,
-                    session:session,
-                    data:data
-                });
-            });
+          //console.log(user.sessions);
+          user.makeSession(sessid);
+          var session = {};
+          session[dataMaster.fingerprint]=sessid;
+          var _res = res;
+          user.sessions[sessid].dumpQueue(function(data){
+              _res.jsonp({
+                  username:req.user.name,
+                  roles:user.roles,
+                  session:session,
+                  data:data
+              });
+          });
         });
     }else{
         next();
     }
 };
 
+function executeOneOnUser(user,command,params,cb){
+    switch(command){
+      case '_':
+        break;
+      case 'follow':
+        user.follow(params.path.slice());
+        cb('OK',params.path);
+        break;
+      default:
+        user.invoke(command,params,cb);
+        break;
+    }
+}
+
+
+function executeOnUser(user,session,commands,res){
+    var sessionobj = {};
+    sessionobj[dataMaster.fingerprint]=session;
+    var ret = {username:user.username,roles:user.roles,session:sessionobj};
+    var cmdlen = commands.length;
+    var cmdstodo = cmdlen/2;
+    var cmdsdone = 0;
+    for (var i=0; i<cmdstodo; i++){
+      var cmd = commands[i*2];
+      var paramobj = commands[i*2+1];
+      if(cmd.charAt(0)==='/'){
+        cmd = cmd.slice(1);
+      }
+      executeOneOnUser(user,cmd,paramobj,(function(index,_res){
+        var _i = index, __res = _res;
+        return function(errcode,errparams,errmessage){
+          if(!ret.results){
+            ret.results=[];
+          }
+          ret.results[_i] = [errcode,errparams,errmessage];
+          cmdsdone++;
+          if(cmdsdone===cmdstodo){
+            var s = user.sessions[session];
+            if(!s){
+              console.log('no',session,'in',user.username);
+              _res.jsonp({errorcode:'NO_SESSION',errorparams:[session]});
+              _res = null;
+              return;
+            }
+            var so = {};
+            so[dataMaster.fingerprint] = session;
+            s.dumpQueue(function(data){
+              ret.data=data;
+              __res.jsonp(ret);
+              __res = null;
+            },true);
+          }
+        };
+      })(i,res));
+    }
+};
+
 exports.execute = function(req, res, next) {
-    res.jsonp({});
+  //console.log(req.user,'executing');
+    if(!(req.query && req.query.commands)){
+      res.jsonp({});
+      return;
+    }
+    try{
+      var commands = JSON.parse(req.query.commands);
+      //console.log(commands);
+      if(commands.length%2){
+        res.jsonp({errorcode:'invalid_command_count',errorparams:commands});
+        return;
+      }
+      dataMaster.setUser(req.user.name,dataMaster.realmName,req.user.roles,function(user){
+        executeOnUser(user,req.query[dataMaster.fingerprint],commands,res);
+      });
+    }
+    catch(e){
+      console.log(e.stack);
+      console.log(e);
+      res.jsonp({errorcode:'JSON',errorparams:[e,commands]});
+    }
 };

@@ -1,14 +1,39 @@
 var mongoose = require('mongoose'),
   Bot = mongoose.model('Bot'),
-  dataMaster = require('./datamaster');
+  dataMaster = require('./datamaster'),
+  hersdata = require('hersdata');
+
+function NodeListener(user){
+  if(!user){return;}
+  hersdata.Follower.call(this,user,['cluster','nodes'],hersdata.FollowerPatterns.TypeFollower(null,function(name){
+    console.log('new server',name);
+    new hersdata.Follower(user,['cluster','nodes',name],hersdata.FollowerPatterns.TypeFollower(function(name,val){
+      console.log(name,'==',val);
+    },null,null,function(){
+      console.log(name,'is dead');
+    }));
+  },null,this));
+}
 
 function listenToNodes(){
+  dataMaster.element(['system']).getReplicatingUser(function(user){
+    dataMaster.invoke('/local/bots/pokerbots/addServer',{address:user.data.url.address,port:user.data.url.port,initialpath:['cluster','nodes']},'admin','local','admin',function(errc,errp,errm){
+      if(errc==='OK'){
+        dataMaster.invoke('/local/bots/pokerbots/setSwarmParams',{botcount:0,botprefix:''},'admin','local','admin',function(errc,errp,errm){
+        });
+      }
+    });
+  });
+  return;
+  dataMaster.element(['system']).getReplicatingUser(function(user){
+    new NodeListener(user);
+  });
 }
 
 function fillBotBase(){
   Bot.find({},function(err,bots){
     if(err){return;}
-    var botbasebranch = dataMaster.element(['bots','botbase']);
+    var botbasebranch = dataMaster.element(['local','bots','botbase']);
     if(!botbasebranch){return;}
     var actions = [];
     for(var i in bots){
@@ -20,7 +45,7 @@ function fillBotBase(){
   });
 };
 
-dataMaster.subscribeToElements(function(name,ent){
+dataMaster.element(['local']).subscribeToElements(function(name,ent){
   if(name==='bots' && ent){
     fillBotBase();
   }

@@ -58,6 +58,13 @@ console.log('Express app started on port ' + port);
 //Initializing logger
 logger.init(app, passport, mongoose);
 dataMaster.go();
+/*
+var cl = console.log;
+console.log = function(){
+  console.trace();
+  cl.apply(console,arguments);
+};
+*/
 
 //expose app
 exports = module.exports = app;

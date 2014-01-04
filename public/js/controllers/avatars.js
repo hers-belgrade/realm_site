@@ -8,7 +8,6 @@ angular.module('mean.avatars').controller('AvatarsController',['$scope','$upload
     });
   };
   $scope.onFileSelect = function(files){
-    console.log(files[0]);
     $scope.upload = $upload.upload({
       url: '/avatars/upload',
       method: 'PUT',
@@ -28,7 +27,6 @@ directive('selectAvatar',function(){
       $scope.load = function(){
         Avatars.query(function(avs){
           $scope.avatars = avs;
-          console.log($scope.avatars);
         });
       }
       $scope.load();

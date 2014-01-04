@@ -5,6 +5,9 @@ var http = require('http'),
     realmPassword = 'ppw',
     backofficeAddress = 'localhost';
 
+dataMaster.commit('realm_born',[
+  ['set',['local']]
+]);
 
 function HTTPTalker(host,port){
   this.host = host;
@@ -52,21 +55,24 @@ HTTPTalker.prototype.tell = function(page,obj,cb){
 function SelfFollower(user){
   if(!user){return;}
   hersdata.Follower.call(this,user,['cluster_interface'],hersdata.FollowerPatterns.TypeFollower(null,function(name,val){
-    if(name===user.data.realmname){
-      hersdata.Follower.call(this,user,['cluster_interface',user.data.realmname],hersdata.FollowerPatterns.ScalarFollower('replicationPort',function(val){
+    if(name===user.data.replicaToken.name){
+      hersdata.Follower.call(this,user,['cluster_interface',user.data.replicaToken.name],hersdata.FollowerPatterns.ScalarFollower('replicationPort',function(val){
         console.log('opening replication on',val);
         dataMaster.replicationPort = val;
-        dataMaster.openReplication(val);
+        dataMaster.element(['local']).openReplication(val);
       }));
     }
   },null,this));
 }
 
 function BOListener(user){
+  this.data = function(){
+    return user.data;
+  };
   dataMaster.commit('bots_started',[
-    ['set',['bots']]
+    ['set',['local','bots']]
   ]);
-  dataMaster.element(['bots']).attach('pokerbots',{instancename:user.data.realmname});
+  dataMaster.element(['local','bots']).attach('pokerbots',{realmname:dataMaster.realmName,instancename:user.data.replicaToken.name});
   hersdata.Follower.call(this,user,[],hersdata.FollowerPatterns.TypeFollower(function(name,val){
   },function(name){
     switch(name){
@@ -81,19 +87,30 @@ function BOListener(user){
 dataMaster.fingerprint = (require('crypto').randomBytes)(12).toString('hex');
 dataMaster.setSessionUserFactory();
 dataMaster.httpTalker = new HTTPTalker(backofficeAddress,3000);
+dataMaster.realmName = realmName;
 dataMaster.go = function(){
   var t = this.httpTalker;
   t.tell('/signinServer',{name:realmName,password:realmPassword},function(data){
     if(data.name){//ok
       console.log('going as',data.name);
       dataMaster.domainName = data.domain;
-      t.replica = new (hersdata.RemoteCollectionReplica)(data.name,{address:backofficeAddress,port:data.replicationPort});
-      t.replica.getReplicatingUser(function(user){
-        t.listener = new BOListener(user);
+      dataMaster.createRemoteReplica('system',data.name,dataMaster.realmName,{address:backofficeAddress,port:data.replicationPort});
+      var system = dataMaster.element(['system']);
+      system.getReplicatingUser(function(user){
+        dataMaster.backoffice_listener = new BOListener(user);
       });
-      t.replica.go(function(status){
+      system.go(function(status){
         console.log(status);
       });
+      /*
+      dataMaster.backoffice_replica = new (hersdata.RemoteCollectionReplica)(data.name,dataMaster.realmName,{address:backofficeAddress,port:data.replicationPort});
+      dataMaster.backoffice_replica.getReplicatingUser(function(user){
+        dataMaster.backoffice_listener = new BOListener(user);
+      });
+      dataMaster.backoffice_replica.go(function(status){
+        console.log(status);
+      });
+      */
     }else{
       console.log('login error',data.error);
     }

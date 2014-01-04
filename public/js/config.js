@@ -32,6 +32,9 @@ angular.module('mean').config(['$routeProvider',
         when('/bots', {
           templateUrl: 'views/bots/list.html'
         }).
+        when('/lobby', {
+          templateUrl: 'views/lobby.html'
+        }).
         when('/', {
             templateUrl: 'views/index.html'
         }).

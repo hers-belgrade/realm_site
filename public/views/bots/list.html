@@ -1,12 +1,24 @@
 <section data-ng-controller="BotsController">
   <div ng-include="'/views/bots/edit.html'" data-ng-init="list()"></div>
+  <form data-ng-submit='setSwarmParams()'>
+    Swarm
+    <input type='hidden' ng-model='botparams.botprefix' value='Bot'/>
+    <label for='count'>Max count</label>
+    <input type='number' ng-model='botparams.botcount'/>
+    <input type='submit' value='Change'/>
+  </form>
   <table>
     <tr>
-      <th>Name</th><th>Avatar</th>
+      <th>Name</th><th>Avatar</th><th>Room</th><th>Status</th><th>Balance</th><th>Last Activity</th><th>Last answer</th>
     </tr>
     <tr data-ng-repeat='_bot in bots' ng-click="set(_bot)">
-      <td>{{_bot.username}}</td>
+      <td>{{_bot.name}}</td>
       <td><img src="/img/avatars/{{_bot.avatar}}" width="60px"/></td>
+      <td>{{_bot.room}}</td>
+      <td>{{_bot.status}}</td>
+      <td>{{_bot.balance}}</td>
+      <td>{{_bot.lastActivity | date:'HH:mm:ss'}}</td>
+      <td>{{_bot.lastAnswer | date:'HH:mm:ss'}}</td>
     </tr>
   </table>
 </section>
