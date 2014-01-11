@@ -85,7 +85,15 @@ function BOListener(user){
 }
 
 dataMaster.fingerprint = (require('crypto').randomBytes)(12).toString('hex');
-dataMaster.setSessionUserFactory();
+dataMaster.setSessionUserFactory(function(newuser){
+  var sysel = dataMaster.element(['system']);
+  sysel && sysel.findUser(newuser.username,newuser.realmname,function(sysuser){
+    if(!sysuser){return;}
+    for(var i in sysuser.keys){
+      !newuser.contains(i) && newuser.addKey(i);
+    }
+  });
+});
 dataMaster.httpTalker = new HTTPTalker(backofficeAddress,3000);
 dataMaster.realmName = realmName;
 dataMaster.go = function(){
@@ -96,6 +104,21 @@ dataMaster.go = function(){
       dataMaster.domainName = data.domain;
       dataMaster.createRemoteReplica('system',data.name,dataMaster.realmName,{address:backofficeAddress,port:data.replicationPort});
       var system = dataMaster.element(['system']);
+      system.userFactory = {create:function(data,username,realmname,roles){
+        console.log('system creates a new user',username,realmname,roles);
+        dataMaster.setUser(username,realmname,roles);
+        var ret = new hersdata.KeyRing(data,username,realmname,roles);
+        ret.newKey.attach(function(key){
+          console.log('dataMaster should setKey',username,realmname,key);
+          dataMaster.setKey(username,realmname,key);
+          //console.log(dataMaster.realms[realmname]);
+        });
+        ret.keyRemoved.attach(function(key){
+          //console.log('dataMaster should removeKey',username,realmname,key);
+          dataMaster.removeKey(username,realmname,key);
+        });
+        return ret;
+      }};
       system.getReplicatingUser(function(user){
         dataMaster.backoffice_listener = new BOListener(user);
       });

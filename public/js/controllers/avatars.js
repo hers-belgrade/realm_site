@@ -1,4 +1,5 @@
 angular.module('mean.avatars').controller('AvatarsController',['$scope','$upload','Avatars',function($scope,$upload,Avatars){
+  $scope.setup = {editable:false};
   $scope.list = function() {
     Avatars.query(function(avs){
       $scope.avatars = [];
@@ -18,6 +19,14 @@ angular.module('mean.avatars').controller('AvatarsController',['$scope','$upload
     }).success(function(data,status){
       $scope.list();
     });
+  };
+  $scope.removeAvatar = function(a){
+    var ar = new Avatars(a);
+    ar.$remove();
+  };
+  $scope.setAvatar = function(a){
+    $scope.avatar = a;
+    $scope.setup.editable=true;
   };
 }]).
 directive('selectAvatar',function(){

@@ -1,9 +1,9 @@
 angular.module('mean.bots').factory('Bots', ['$resource', function($resource) {
-  return $resource('bots/:name', {
-    name: '@username'
+  return $resource('bots/:username', {
+    username: '@username'
   }, {
     update: {
-      method: 'PUT'
+      method: 'POST'
     }
   });
 }]);

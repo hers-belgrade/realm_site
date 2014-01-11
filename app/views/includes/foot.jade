@@ -3,12 +3,12 @@ script(type='text/javascript', src='/lib/ng-file-upload/angular-file-upload-shim
 script(type='text/javascript', src='/lib/angular/angular.js')
 script(type='text/javascript', src='/lib/angular-cookies/angular-cookies.js')
 script(type='text/javascript', src='/lib/angular-resource/angular-resource.js')
+script(type='text/javascript', src='/lib/ng-file-upload/angular-file-upload.min.js')
 
 //Angular UI
 script(type='text/javascript', src='/lib/angular-bootstrap/ui-bootstrap.js')
 script(type='text/javascript', src='/lib/angular-bootstrap/ui-bootstrap-tpls.js')
 script(type='text/javascript', src='/lib/angular-ui-utils/modules/route/route.js')
-script(type='text/javascript', src='/lib/ng-file-upload/angular-file-upload.min.js')
 
 //Application Init
 script(type='text/javascript', src='/js/app.js')
@@ -37,3 +37,50 @@ script(type="text/javascript").
 if (req.host=='localhost')
     //Livereload script rendered 
     script(type='text/javascript', src='http://localhost:35729/livereload.js')	
+
+//Ace Theme
+
+//[if !IE]><!
+script(type="text/javascript").
+script(type='text/javascript', src='/lib/bootstrap/docs/assets/js/jquery.min.noie.js')
+script(type="text/javascript").
+  window.jQuery || document.write("<script src='/lib/bootstrap/docs/assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+//<![endif]
+
+//[if IE]><!
+  script(type='text/javascript', src='/lib/bootstrap/docs/assets/js/jquery.min.ie.js')
+  script(type="text/javascript").
+    window.jQuery || document.write("<script src='/lib/bootstrap/docs/assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>"); 
+//<![endif]
+
+script(type='text/javascript').
+  if("ontouchend" in document) document.write("<script src='/lib/bootstrap/docs/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+script(type='text/javascript', src='/lib/bootstrap/docs/assets/js/bootstrap.min.js')
+
+script(type='text/javascript', src='/lib/bootstrap/docs/assets/js/jquery-ui-1.10.3.custom.min.js')
+script(type='text/javascript', src='/lib/bootstrap/docs/assets/js/jquery.ui.touch-punch.min.js')
+script(type='text/javascript', src='/lib/bootstrap/docs/assets/js/jquery.slimscroll.min.js')
+script(type='text/javascript', src='/lib/bootstrap/docs/assets/js/jquery.easy-pie-chart.min.js')
+script(type='text/javascript', src='/lib/bootstrap/docs/assets/js/jquery.sparkline.min.js')
+script(type='text/javascript', src='/lib/bootstrap/docs/assets/js/flot/jquery.flot.min.js')
+script(type='text/javascript', src='/lib/bootstrap/docs/assets/js/flot/jquery.flot.pie.min.js')
+script(type='text/javascript', src='/lib/bootstrap/docs/assets/js/flot/jquery.flot.resize.min.js')
+
+script(type='text/javascript', src='/lib/bootstrap/docs/assets/js/chosen.jquery.min.js')
+script(type='text/javascript', src='/lib/bootstrap/docs/assets/js/fuelux/fuelux.spinner.min.js')
+script(type='text/javascript', src='/lib/bootstrap/docs/assets/js/date-time/bootstrap-datepicker.min.js')
+script(type='text/javascript', src='/lib/bootstrap/docs/assets/js/date-time/bootstrap-timepicker.min.js')
+script(type='text/javascript', src='/lib/bootstrap/docs/assets/js/date-time/moment.min.js')
+script(type='text/javascript', src='/lib/bootstrap/docs/assets/js/date-time/daterangepicker.min.js')
+script(type='text/javascript', src='/lib/bootstrap/docs/assets/js/bootstrap-colorpicker.min.js')
+script(type='text/javascript', src='/lib/bootstrap/docs/assets/js/jquery.knob.min.js')
+script(type='text/javascript', src='/lib/bootstrap/docs/assets/js/jquery.autosize-min.js')
+script(type='text/javascript', src='/lib/bootstrap/docs/assets/js/jquery.inputlimiter.1.3.1.min.js')
+script(type='text/javascript', src='/lib/bootstrap/docs/assets/js/jquery.maskedinput.min.js')
+script(type='text/javascript', src='/lib/bootstrap/docs/assets/js/bootstrap-tag.min.js')
+
+script(type='text/javascript', src='/lib/bootstrap/docs/assets/js/ace-elements.min.js')
+script(type='text/javascript', src='/lib/bootstrap/docs/assets/js/ace.min.js')
+script(type='text/javascript', src='/lib/bootstrap/docs/assets/js/custom.js')
+script(type='text/javascript').
+  function show_box(id) { $('.widget-box.visible').removeClass('visible'); $('#'+id).addClass('visible');}

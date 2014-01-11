@@ -4,8 +4,8 @@ module.exports = function(app, passport, auth) {
     app.get('/signin', users.signin);
     app.get('/signup', users.signup);
     app.get('/signout', users.signout);
-    app.get('/_', users.dumpData);
-    app.get('/executeDCP', users.execute);
+    app.get('/_', auth.requiresLogin, users.dumpData);
+    app.get('/executeDCP', auth.requiresLogin, users.execute);
 
     //Setting up the users api
     app.post('/users', users.create);
@@ -70,6 +70,7 @@ module.exports = function(app, passport, auth) {
     var avatars = require('../app/controllers/avatars');
     app.get('/avatars', avatars.all);
     app.put('/avatars/upload', avatars.upload);
+    app.del('/avatars/:name', auth.requiresLogin, avatars.remove);
 
     //Server Routes
     var servers = require('../app/controllers/servers');

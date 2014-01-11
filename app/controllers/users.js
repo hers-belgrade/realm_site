@@ -3,14 +3,17 @@
  */
 var mongoose = require('mongoose'),
     User = mongoose.model('User'),
-    dataMaster = require('./datamaster');
+    dataMaster = require('./datamaster'),
+    util = require('util');
 
 
 /**
  * Auth callback
  */
 exports.authCallback = function(req, res, next) {
-  dataMaster.setUser(req.user.username,dataMaster.realmName,req.user.roles);
+  dataMaster.setUser(req.user.username,dataMaster.realmName,req.user.roles,function(user){
+    console.log('authorized',user.username,user.realmname,user.keys);
+  });
   res.redirect('/');
 };
 
@@ -38,6 +41,7 @@ exports.signup = function(req, res) {
  * Logout
  */
 exports.signout = function(req, res) {
+    dataMaster.removeUser(req.user.username,dataMaster.realmName);
     req.logout();
     res.redirect('/');
 };
@@ -46,6 +50,10 @@ exports.signout = function(req, res) {
  * Session
  */
 exports.session = function(req, res) {
+  console.log('session',req.user);
+  dataMaster.setUser(req.user.username,dataMaster.realmName,req.user.roles,function(user){
+    console.log('authorized',user.username,user.realmname,user.keys);
+  });
     res.redirect('/');
 };
 
@@ -94,10 +102,11 @@ exports.user = function(req, res, next, id) {
 };
 
 exports.dumpData = function(req, res, next) {
-    if(req && req.user && req.user.name){
-        dataMaster.setUser(req.user.name,dataMaster.realmName,req.user.roles,function(user){
+    if(req && req.user && req.user.username){
+        dataMaster.setUser(req.user.username,dataMaster.realmName,req.user.roles,function(user){
+          //console.log('recognized',user.username,user.realmname,user.keys);
           if(!user){
-            res.jsonp({});
+            res.jsonp({none:null});
             return;
           }
           var sessid = req.query[dataMaster.fingerprint];
@@ -111,8 +120,9 @@ exports.dumpData = function(req, res, next) {
           session[dataMaster.fingerprint]=sessid;
           var _res = res;
           user.sessions[sessid].dumpQueue(function(data){
+            //console.log(user.username,user.keys,sessid,'dumps',util.inspect(data,false,null,false));
               _res.jsonp({
-                  username:req.user.name,
+                  username:req.user.username,
                   roles:user.roles,
                   session:session,
                   data:data
@@ -184,7 +194,7 @@ function executeOnUser(user,session,commands,res){
 exports.execute = function(req, res, next) {
   //console.log(req.user,'executing');
     if(!(req.query && req.query.commands)){
-      res.jsonp({});
+      res.jsonp({none:null});
       return;
     }
     try{
@@ -194,8 +204,12 @@ exports.execute = function(req, res, next) {
         res.jsonp({errorcode:'invalid_command_count',errorparams:commands});
         return;
       }
-      dataMaster.setUser(req.user.name,dataMaster.realmName,req.user.roles,function(user){
-        executeOnUser(user,req.query[dataMaster.fingerprint],commands,res);
+      dataMaster.setUser(req.user.username,dataMaster.realmName,req.user.roles,function(user){
+        if(user){
+          executeOnUser(user,req.query[dataMaster.fingerprint],commands,res);
+        }else{
+          res.jsonp({none:null});
+        }
       });
     }
     catch(e){

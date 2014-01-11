@@ -87,9 +87,10 @@ function handleBot(bot,follower,roomdistincter){
 
 angular.module('mean.bots').controller('BotsController', ['$scope', 'Bots', 'follower', function($scope,Bots,follower) {
 
+  $scope.setup = {};
   function getBotOrdinal (botname){
     for(var i in $scope.bots){
-      if($scope.bots[i].name===botname){
+      if($scope.bots[i].username===botname){
         return i;
       }
     }
@@ -98,7 +99,7 @@ angular.module('mean.bots').controller('BotsController', ['$scope', 'Bots', 'fol
   function getOrCreateBot (botname){
     var bo = getBotOrdinal(botname);
     if(typeof bo === 'undefined'){
-      var bot = {name:botname};
+      var bot = {username:botname};
       $scope.bots.push(bot);
       return bot;
     }else{
@@ -131,8 +132,11 @@ angular.module('mean.bots').controller('BotsController', ['$scope', 'Bots', 'fol
   };
   $scope.set = function(b){
     $scope.bot = b;
-    $scope.editable = true;
-    console.log($scope.editable);
+    $scope.setup.editable = true;
+  };
+  $scope.needNew = function(){
+    $scope.bot = {};
+    $scope.setup.editable = true;
   };
 
 

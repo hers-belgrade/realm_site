@@ -1,13 +1,88 @@
-<section data-ng-controller='AvatarsController' data-ng-init="list()">
-  <ul class='avatar-list'>
-    <li data-ng-repeat='avatar in avatars'>
-      <img src="/img/avatars/{{avatar.name}}" alt="{{avatar.name}}">
-    </li>
-  </ul>
+<div id="breadcrumbs" class="breadcrumbs">
+<ul class="breadcrumb">
+	<li>
+		<i class="icon-home home-icon"></i>
+		<a href="/">Home</a>
+		<span class="divider">
+			<i class="icon-angle-right arrow-icon"></i>
+		</span>
+	</li>
+		<li class="active">Avatars</li>
+</ul>
+	<div id="nav-search" class="nav-search"></div>
+</div>
+<div class="page-content">
+	<div class="page-header position-relative">
+		<h1>
+			Avatars
+			<small>
+				<i class="icon-double-angle-right"></i>
+				manage or edit your avatars.
+			</small>
+		</h1>
+	</div><!--/.page-header-->	
 
+<div class="row-fluid" data-ng-controller='AvatarsController' data-ng-init="list()">
+
+	<ul class="ace-thumbnails avatar-list">
+		<li data-ng-repeat='avatar in avatars'>
+			<a style="width:100px;height:100px;" href="javascript:void(0)" data-ng-click="setAvatar(avatar)" title="{{avatar.name}}" data-rel="colorbox">
+				<img alt="{{avatar.name}}" src="/img/avatars/{{avatar.filename}}" />
+				<div class="tags">
+					<span class="label label-info arrowed-in">{{avatar.gender}}</span>
+					<span class="label label-important arrowed-in">fun</span>
+				</div>
+			</a>
+
+			<div class="tools">
+				<a href="javascript:void(0)" data-ng-click="setAvatar(avatar)">
+					<i class="icon-pencil"></i>
+				</a>
+
+				<a href="javascript:void(0)" data-ng-click="removeAvatar(avatar)">
+					<i class="icon-remove red"></i>
+				</a>
+			</div>
+		</li>
+	</ul>
+</div>
   <div>
-    <label for="newavatar">Upload a new avatar picture</label>
-    <input type="file" name="newavatar" data-ng-file-select="onFileSelect($files)" >
+
+
+
+
+			<div class="widget-box">
+				<div class="widget-header">
+					<h4>Upload a new avatar picture</h4>
+
+					<span class="widget-toolbar">
+						<a href="#" data-action="collapse">
+							<i class="icon-chevron-up"></i>
+						</a>
+
+						<a href="#" data-action="close">
+							<i class="icon-remove"></i>
+						</a>
+					</span>
+				</div>
+
+				<div class="widget-body">
+					<div class="widget-main">
+						<input type="file" id="id-input-file-2" data-ng-file-select="onFileSelect($files)" />
+						<input multiple="" type="file" id="id-input-file-3" data-ng-file-select="onFileSelect($files)" />
+						<label>
+							<input type="checkbox" name="file-format" id="id-file-format" />
+							<span class="lbl"> Allow only images</span>
+						</label>
+					</div>
+				</div>
+			</div>
+
+
   </div>
-</section>
+
+
+
+</div>
+
 
