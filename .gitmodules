@@ -10,3 +10,6 @@
 [submodule "public/lib/casino"]
 	path = public/lib/casino
 	url = hersrepos:hers_repos/web/casino
+[submodule "node_modules/pokerbots"]
+	path = node_modules/pokerbots
+	url = hersrepos:hers_repos/node_modules/pokerbots
