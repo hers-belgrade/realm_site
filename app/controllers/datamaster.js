@@ -85,7 +85,8 @@ function BOListener(user){
 }
 
 dataMaster.fingerprint = (require('crypto').randomBytes)(12).toString('hex');
-dataMaster.setSessionUserFactory(function(newuser){
+dataMaster.setSessionUserFactory();
+dataMaster.newUser.attach(function(newuser){
   var sysel = dataMaster.element(['system']);
   sysel && sysel.findUser(newuser.username,newuser.realmname,function(sysuser){
     if(!sysuser){return;}

@@ -60,7 +60,9 @@ exports.save = function(req,res){
   Bot.findOneAndUpdate({username:req.body.username},boto,{upsert:true,new:true},function(err,bot){
     console.log(err,bot);
     res.jsonp(bot);
-    dataMaster.element(['local','bots','botbase']).commit('new_bot',['set',[bot.username],[dataMaster.domainName+'/img/avatars/'+bot.avatar,undefined,'dcp']]);
+    dataMaster.element(['local','bots','botbase']).commit('new_bot',[
+      ['set',[bot.username],[dataMaster.domainName+'/img/avatars/'+bot.avatar,undefined,'dcp']]
+    ]);
   });
 };
 
