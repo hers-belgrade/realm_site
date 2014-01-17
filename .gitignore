@@ -6,4 +6,5 @@ node_modules/*
 !node_modules/pokerbots
 public/lib/*
 !public/lib/casino
+!public/lib/ace
 test/coverage/
