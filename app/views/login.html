@@ -107,7 +107,7 @@
 
               <div class="space-6"></div>
               <p>
-                Enter your email and to receive instructions
+                Enter your email to receive instructions
               </p>
 
               <form />
@@ -149,25 +149,32 @@
               <div class="space-6"></div>
               <p> Enter your details to begin: </p>
 
-              <form />
+              <form method="post" action="/users">
                 <fieldset>
                   <label>
                     <span class="block input-icon input-icon-right">
-                      <input type="email" class="span12" placeholder="Email" />
-                      <i class="icon-envelope"></i>
-                    </span>
-                  </label>
-
-                  <label>
-                    <span class="block input-icon input-icon-right">
-                      <input type="text" class="span12" placeholder="Username" />
+                      <input type="text" name="name" class="span12" placeholder="Full name" />
                       <i class="icon-user"></i>
                     </span>
                   </label>
 
                   <label>
                     <span class="block input-icon input-icon-right">
-                      <input type="password" class="span12" placeholder="Password" />
+                      <input type="email" name="email" class="span12" placeholder="Email" />
+                      <i class="icon-envelope"></i>
+                    </span>
+                  </label>
+
+                  <label>
+                    <span class="block input-icon input-icon-right">
+                      <input type="text" name="username" class="span12" placeholder="Username" />
+                      <i class="icon-user"></i>
+                    </span>
+                  </label>
+
+                  <label>
+                    <span class="block input-icon input-icon-right">
+                      <input type="password" name="password" class="span12" placeholder="Password" />
                       <i class="icon-lock"></i>
                     </span>
                   </label>
@@ -180,7 +187,7 @@
                   </label>
 
                   <label>
-                    <input type="checkbox" />
+                    <input type="checkbox" required/>
                     <span class="lbl">
                       I accept the
                       <a href="#">User Agreement</a>
@@ -195,7 +202,7 @@
                       Reset
                     </button>
 
-                    <button onclick="return false;" class="width-65 pull-right btn btn-small btn-success">
+                    <input type="submit" class="width-65 pull-right btn btn-small btn-success">
                       Register
                       <i class="icon-arrow-right icon-on-right"></i>
                     </button>
