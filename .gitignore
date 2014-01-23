@@ -7,4 +7,5 @@ node_modules/*
 public/lib/*
 !public/lib/casino
 !public/lib/ace
+!public/lib/ng-grid
 test/coverage/
