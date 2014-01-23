@@ -13,3 +13,6 @@
 [submodule "node_modules/pokerbots"]
 	path = node_modules/pokerbots
 	url = hersrepos:hers_repos/node_modules/pokerbots
+[submodule "public/lib/ng-grid"]
+	path = public/lib/ng-grid
+	url = https://github.com/angular-ui/ng-grid.git
