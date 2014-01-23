@@ -1,3 +1,18 @@
+<h4 class="pink">
+	<i class="icon-hand-right green"></i>
+	<a href="#modal-form" role="button" class="blue" data-ng-click="needNew()" data-toggle="modal"> Add New </a>
+</h4>
+
+<div id="modal-form" class="modal hide" tabindex="-1">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">&times;</button>
+		<h4 class="blue bigger">Please fill the following form fields</h4>
+	</div>
+
+	<div class="modal-body overflow-visible">
+		<div class="row-fluid">
+
+
 <form ng-show="setup.editable" name="botform">
   <div class="control-group">
     <label class="control-label" for="name">Name</label>
@@ -8,11 +23,120 @@
     <div class="controls">
         <select-avatar av-mdel="bot.avatar" av-size="80px"></select-avatar>
     </div>
-    <div class="controls">
-      <button data-ng-click="setup.editable=false" class="btn">Cancel</button>
-    </div>
-    <div class="controls">
-      <button type="submit" class="btn" data-ng-click="save()">Save</button>
-    </div>
   </div>
 </form>
+
+
+<!--
+			<div class="span5">
+				<div class="space"></div>
+
+				<input type="file" />
+			</div>
+
+			<div class="vspace"></div>
+
+			<div class="span7">
+				<div class="control-group">
+					<label for="form-field-select-3">Location</label>
+
+					<div class="controls">
+						<select class="chzn-select" data-placeholder="Choose a Country...">
+							<option value="" />
+							<option value="AL" />Alabama
+							<option value="AK" />Alaska
+							<option value="AZ" />Arizona
+							<option value="AR" />Arkansas
+							<option value="CA" />California
+							<option value="CO" />Colorado
+							<option value="CT" />Connecticut
+							<option value="DE" />Delaware
+							<option value="FL" />Florida
+							<option value="GA" />Georgia
+							<option value="HI" />Hawaii
+							<option value="ID" />Idaho
+							<option value="IL" />Illinois
+							<option value="IN" />Indiana
+							<option value="IA" />Iowa
+							<option value="KS" />Kansas
+							<option value="KY" />Kentucky
+							<option value="LA" />Louisiana
+							<option value="ME" />Maine
+							<option value="MD" />Maryland
+							<option value="MA" />Massachusetts
+							<option value="MI" />Michigan
+							<option value="MN" />Minnesota
+							<option value="MS" />Mississippi
+							<option value="MO" />Missouri
+							<option value="MT" />Montana
+							<option value="NE" />Nebraska
+							<option value="NV" />Nevada
+							<option value="NH" />New Hampshire
+							<option value="NJ" />New Jersey
+							<option value="NM" />New Mexico
+							<option value="NY" />New York
+							<option value="NC" />North Carolina
+							<option value="ND" />North Dakota
+							<option value="OH" />Ohio
+							<option value="OK" />Oklahoma
+							<option value="OR" />Oregon
+							<option value="PA" />Pennsylvania
+							<option value="RI" />Rhode Island
+							<option value="SC" />South Carolina
+							<option value="SD" />South Dakota
+							<option value="TN" />Tennessee
+							<option value="TX" />Texas
+							<option value="UT" />Utah
+							<option value="VT" />Vermont
+							<option value="VA" />Virginia
+							<option value="WA" />Washington
+							<option value="WV" />West Virginia
+							<option value="WI" />Wisconsin
+							<option value="WY" />Wyoming
+						</select>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="form-field-username">Username</label>
+
+					<div class="controls">
+						<input type="text" id="form-field-username" placeholder="Username" value="alexdoe" />
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="form-field-first">Name</label>
+
+					<div class="controls">
+						<input class="input-small" type="text" id="form-field-first" placeholder="First Name" value="Alex" />
+						<input class="input-small" type="text" id="form-field-last" placeholder="Last Name" value="Doe" />
+					</div>
+				</div>
+			</div>
+-->
+		</div>
+	</div>
+
+	<div class="modal-footer">
+
+
+    <div class="controls">
+      <button data-ng-click="setup.editable=false" class="btn btn-small" data-dismiss="modal"><i class="icon-remove"></i>Cancel</button>
+      <button type="submit" class="btn btn-small btn-primary" data-ng-click="save()" data-dismiss="modal"><i class="icon-ok"></i>Save</button>
+    </div>
+
+
+<!--
+		<button class="btn btn-small" data-dismiss="modal">
+			<i class="icon-remove"></i>
+			Cancel
+		</button>
+
+		<button class="btn btn-small btn-primary">
+			<i class="icon-ok"></i>
+			Save
+		</button>
+-->		
+	</div>
+</div><!--PAGE CONTENT ENDS-->
