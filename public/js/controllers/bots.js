@@ -86,6 +86,63 @@ function handleBot(bot,follower,roomdistincter){
 };
 
 angular.module('mean.bots').controller('BotsController', ['$scope', 'Bots', 'follower', function($scope,Bots,follower) {
+	
+  $scope.bots = [];
+  $scope.display_data = [];
+  $scope.pagingOptions = {
+    pageSizes: [5,10,20, 50, 100], 
+    pageSize: 5,
+    currentPage: 1
+  };
+
+  $scope.$watch('pagingOptions', function (newVal, oldVal) {
+    if (newVal !== oldVal && (newVal.currentPage !== oldVal.currentPage) || (newVal.pageSize !== oldVal.pageSize)) {
+      $scope.getPagedData($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+    }
+  }, true);
+  $scope.$watch('bots.length', function (nv, ov) {
+    if (nv == ov) return;
+    $scope.getPagedData($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+  }, true);
+  $scope.getPagedData = function (size, current) {
+    var start = (current - 1)*size;
+    if (start > this.bots.length) {
+      while ((current - 1)*size > this.bots.length && current > 1) {
+        current--;
+      }
+      $scope.pagingOptions.currentPage = current;
+      return;
+    }
+
+    this.display_data = this.bots.slice((current-1)*size, current*size)
+  }
+
+  $scope.getPagedData($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+
+
+	$scope.gridOptions = {
+		enableRowSelection: false,
+    enablePaging:true,
+    enableCellEdit:true,
+    rowHeight: 50,
+    multiSelect: false,
+    showFooter:true,
+		data:'display_data',
+    totalServerItems: 'bots.length',
+    pagingOptions: $scope.pagingOptions,
+		columnDefs: [
+     {field:'username', displayName:'Name'},
+     {field:'avatar', displayName:'Avatar', cellTemplate:'<div class="ngCellText" ng-class="col.colIndex()"><img src="/img/avatars/{{row.getProperty(col.field)}}" width="60px"/></div>'},//cellTemplate:'<img src="/img/avatars/{{_bot.avatar}}" width="60px"/>'},
+     {field:'room', displayName:'Room'},
+     {field:'status', displayName:'Status'},
+     {field:'balance',displayName:'Balance'},
+     {field:'lastActivity', displayName:'Last activity',cellFilter:'date'},
+     {field:'lastAnswer', displayName:'Last answer',cellFilter:'date'},
+     {field:'_any', displayName:'Actions', cellTemplate:'<div class="ngCellText" ng-class="col.colIndex() "><div class="hidden-phone visible-desktop action-buttons ngCellText" ng-class="col.colIndex() "><a data-ng-click="set(bots[row.rowIndex],$event)" class="green"><i class="icon-pencil bigger-130"></i></a><a href="#" class="red"><i class="icon-trash bigger-130"></i></a></div></div>'}//cellTemplate:'<div class="ngCellText" ng-class="col.colIndex() "><div ng-cell-text ng-click="console.log(row.rowIndex)" data-toggle="modal">Edit</div></div>'}
+    ]
+
+		
+	};
 
   $scope.setup = {};
   function getBotOrdinal (botname){
@@ -109,12 +166,10 @@ angular.module('mean.bots').controller('BotsController', ['$scope', 'Bots', 'fol
 
   $scope.list = function(){
     Bots.query(function(bots){
-      console.log(bots);
       for(var i in bots){
         var bot = getOrCreateBot(bots[i].username);
         bot.avatar = bots[i].avatar;
       }
-      console.log($scope.bots);
       //$scope.bots = bots;
     });
   };
@@ -141,7 +196,6 @@ angular.module('mean.bots').controller('BotsController', ['$scope', 'Bots', 'fol
 
 
   this.listeners = {};
-  $scope.bots = [];
   $scope.rooms = [{name:'All',value:''}];
   var distincter = new SelectOptionDistincter($scope.rooms);
   $scope.botparams = follower.follow('local').follow('bots').scalars;

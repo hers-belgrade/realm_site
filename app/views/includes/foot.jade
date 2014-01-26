@@ -1,9 +1,27 @@
+//[if !IE]><!
+script(type="text/javascript").
+script(type='text/javascript', src='/lib/ace/js/jquery.min.noie.js')
+script(type="text/javascript").
+  window.jQuery || document.write("<script src='/lib/ace/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+//<![endif]
+
+//[if IE]><!
+  script(type='text/javascript', src='/lib/ace/js/jquery.min.ie.js')
+  script(type="text/javascript").
+    window.jQuery || document.write("<script src='/lib/ace/js/jquery-1.10.2.min.js'>"+"<"+"/script>"); 
+//<![endif]
+
+script(type='text/javascript', src='/lib/ace/js/spin.min.js')
+script(type='text/javascript').
+  if("ontouchend" in document) document.write("<script src='/lib/ace/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+
 //AngularJS
 script(type='text/javascript', src='/lib/ng-file-upload/angular-file-upload-shim.min.js')
 script(type='text/javascript', src='/lib/angular/angular.js')
 script(type='text/javascript', src='/lib/angular-cookies/angular-cookies.js')
 script(type='text/javascript', src='/lib/angular-resource/angular-resource.js')
 script(type='text/javascript', src='/lib/ng-file-upload/angular-file-upload.min.js')
+
 
 //Angular UI
 script(type='text/javascript', src='/lib/angular-bootstrap/ui-bootstrap.js')
@@ -40,21 +58,6 @@ if (req.host=='localhost')
 
 //Ace Theme
 
-//[if !IE]><!
-script(type="text/javascript").
-script(type='text/javascript', src='/lib/ace/js/jquery.min.noie.js')
-script(type="text/javascript").
-  window.jQuery || document.write("<script src='/lib/ace/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
-//<![endif]
-
-//[if IE]><!
-  script(type='text/javascript', src='/lib/ace/js/jquery.min.ie.js')
-  script(type="text/javascript").
-    window.jQuery || document.write("<script src='/lib/ace/js/jquery-1.10.2.min.js'>"+"<"+"/script>"); 
-//<![endif]
-
-script(type='text/javascript').
-  if("ontouchend" in document) document.write("<script src='/lib/ace/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 script(type='text/javascript', src='/lib/ace/js/bootstrap.min.js')
 
 script(type='text/javascript', src='/lib/ace/js/jquery-ui-1.10.3.custom.min.js')
@@ -84,3 +87,4 @@ script(type='text/javascript', src='/lib/ace/js/ace.min.js')
 script(type='text/javascript', src='/lib/ace/js/custom.js')
 script(type='text/javascript').
   function show_box(id) { $('.widget-box.visible').removeClass('visible'); $('#'+id).addClass('visible');}
+script(type='text/javascript', src='/lib/ng-grid/build/ng-grid.debug.js')

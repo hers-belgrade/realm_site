@@ -1,3 +1,16 @@
+<div id="breadcrumbs" class="breadcrumbs">
+<ul class="breadcrumb">
+	<li>
+		<i class="icon-home home-icon"></i>
+		<a href="/">Home</a>
+		<span class="divider">
+			<i class="icon-angle-right arrow-icon"></i>
+		</span>
+	</li>
+		<li class="active">Bots</li>
+</ul>
+	<div id="nav-search" class="nav-search"></div>
+</div>
 <div class="page-content">
 	<div class="page-header position-relative">
 						<h1>
@@ -12,14 +25,26 @@
 <!--  <button class='btn' data-ng-click="needNew()">Add New</button> -->
 
   <div ng-include="'/views/bots/edit.html'" data-ng-init="list()"></div>
-  <form data-ng-submit='setSwarmParams()'>
-    Swarm
-    <input type='hidden' ng-model='botparams.botprefix' value='Bot'/>
-    <label for='count'>Max count</label>
+<div class="well">
+	<div class="row-fluid">
+	<div class="span2"><button href="#modal-form" role="button" data-ng-click="needNew()" data-toggle="modal" class="btn btn-primary"><i class="icon-bug bigger-125"></i> Add New </button></div>
+	<div class="span10">
+  <form data-ng-submit='setSwarmParams()' class="form-horizontal">
+<div class="swarm-cg control-group">
+    <input class="input-medium" type='hidden' ng-model='botparams.botprefix' value='Bot'/>
+    <label class="control-label "for='count'><strong>Swarm</strong> Max count</label>
+<div class="controls">
     <input type='number' ng-model='botparams.botcount'/>
-    <input type='submit' value='Change'/>
-  </form>
+		<button class="btn btn-small btn-success" type='submit'>Change<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
+</div>
+</div>
+<!--    <input type='submit' value='Change'/> -->
+  </form>		
+  </div>
+		</div>
+	</div>
 
+<!--
 							<div class="row-fluid">
 								<div class="table-header">
 									Active Boots
@@ -1661,9 +1686,11 @@
 									</tbody>
 								</table>
 							</div>
+-->
 
 
 
+<!--
   <table>
     <tr>
       <th>Name</th><th>Avatar</th><th>Room</th><th>Status</th><th>Balance</th><th>Last Activity</th><th>Last answer</th>
@@ -1678,6 +1705,8 @@
       <td>{{_bot.lastAnswer | date:'HH:mm:ss'}}</td>
     </tr>
   </table>
+  -->
+  <div class="gridStyle" ng-grid="gridOptions"></div>
 </section>
 </div>
 

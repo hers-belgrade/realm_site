@@ -19,7 +19,10 @@ var UserSchema = new Schema({
         unique: true
     },
     roles: String,
+    gender: String,
+    birthday: Date,
     avatar: String,
+    balance: Number,
     provider: String,
     hashed_password: String,
     salt: String,

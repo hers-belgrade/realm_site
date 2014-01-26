@@ -25,3 +25,34 @@ footer p {
 .menu-min .sidebar-shortcuts-large {
 	width:176px;
 	}
+	.ngViewport.ng-scope{
+      height: auto !important;
+          overflow-y: hidden;
+}
+
+.ngTopPanel.ng-scope, .ngHeaderContainer{
+      width: auto !important;
+}
+div.gridStyle {
+	border:1px solid #DDDDDD;
+	}
+div.ngHeaderText {
+	color:#555555;
+	}
+div.ngHeaderCell {
+	color:#707070;
+	font-weight:normal;
+	background:#f2f2f2;
+	background-color:#f3f3f3;
+	background-image:-moz-linear-gradient(top,#f8f8f8,#ececec);
+	background-image:-webkit-gradient(linear,0 0,0 100%,from(#f8f8f8),to(#ececec));
+	background-image:-webkit-linear-gradient(top,#f8f8f8,#ececec);
+	background-image:-o-linear-gradient(top,#f8f8f8,#ececec);
+	background-image:linear-gradient(to bottom,#f8f8f8,#ececec);
+	background-repeat:repeat-x;
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff8f8f8',endColorstr='#ffececec',GradientType=0)}
+div.ngHeaderCell{border-color:#DDD;font-weight:bold}
+
+div.swarm-cg {
+	padding-top:6px;
+	}	

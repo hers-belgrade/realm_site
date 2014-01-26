@@ -8,6 +8,19 @@ var mongoose = require('mongoose'),
     randomBytes = require('crypto').randomBytes,
     util = require('util');
 
+dataMaster.commit('users_starting',[
+  ['set',['local','users']]
+]);
+dataMaster.newUser.attach(function(user){
+  dataMaster.commit('new_user',[
+    ['set',['local','users',user.username]]
+  ]);
+});
+dataMaster.userOut.attach(function(user){
+  dataMaster.commit('user_out',[
+    ['remove',['local','users',user.username]]
+  ]);
+});
 
 /**
  * Auth callback
