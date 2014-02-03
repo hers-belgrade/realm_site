@@ -4,7 +4,7 @@ var fs = require('fs'),
   Avatar = mongoose.model('Avatar');
 
 _.each(fs.readdirSync('./public/img/avatars'),function(a){
-  console.log(a);
+  //console.log(a);
   Avatar.findOne({name:a},function(err,avatar){
     if(!avatar){
       console.log('no avatar for',a);

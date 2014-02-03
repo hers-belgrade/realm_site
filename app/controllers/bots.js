@@ -1,7 +1,8 @@
 var mongoose = require('mongoose'),
   Bot = mongoose.model('Bot'),
   dataMaster = require('./datamaster'),
-  hersdata = require('hersdata');
+  hersdata = require('hersdata'),
+  Waiter = hersdata.Bridge.Data_CollectionElementWaiter;
 
 function NodeListener(user){
   if(!user){return;}
@@ -15,18 +16,52 @@ function NodeListener(user){
   },null,this));
 }
 
-function listenToNodes(){
-  dataMaster.element(['system']).getReplicatingUser(function(user){
-    dataMaster.invoke('/local/bots/pokerbots/addServer',{address:user.data.url.address,port:user.data.url.port,initialpath:['cluster','nodes']},'admin','local','admin',function(errc,errp,errm){
-      if(errc==='OK'){
-        dataMaster.invoke('/local/bots/pokerbots/setSwarmParams',{botcount:0,botprefix:''},'admin','local','admin',function(errc,errp,errm){
-        });
+function nextBot(){
+  var found,pass='';
+  while(!found){
+    dataMaster.element(['local','bots','botbase']).traverseElements(function(name,el){
+      dataMaster.findUser(name+pass,dataMaster.realmName,function(u){
+        if(!u){
+          dataMaster.setUser(name+pass,dataMaster.realmName,'bot,player',function(_u){
+            found = _u;
+          });
+        }
+      });
+      if(found){
+        return true;
       }
     });
-  });
-  return;
-  dataMaster.element(['system']).getReplicatingUser(function(user){
-    new NodeListener(user);
+    if(found){
+      return found;
+    }
+    pass = (pass||0)+1;
+  }
+};
+
+function roomBot(servname,roomname,roomel){
+    console.log('should engage a bot in',roomname,'on',servname);
+    var bot= nextBot();
+    console.log(bot.username);
+    dataMaster.element(['local','bots','bots']).commit('new_bot',[
+      ['set',[bot.username]],
+      ['set',[bot.username,'name'],[bot.username,undefined,'admin']],
+      ['set',[bot.username,'room'],[roomname,undefined,'admin']]
+    ]);
+    bot.destroyed.attach(function(){
+      dataMaster.element(['local','bots','bots']).commit('bot_out',[
+        ['remove',[bot.username]]
+      ]);
+    });
+    var botel = dataMaster.element(['local','bots','bots',bot.username]);
+    new (require('./botplay'))(bot,roomel,servname,roomname);
+};
+
+function listenToNodes(){
+  console.log('listenToNodes');
+  new Waiter(dataMaster,dataMaster,['local','nodes','*','rooms','*',['class=Poker','type=CashTable','bots','playing','capacity']],function(servname,roomname,map){
+    if(map.playing<map.bots){
+      roomBot(servname,roomname,dataMaster.element(['local','nodes',servname,'rooms',roomname]));
+    }
   });
 }
 

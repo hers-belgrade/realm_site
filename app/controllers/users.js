@@ -139,7 +139,7 @@ exports.dumpData = function(req, res, next) {
           username:req.user.username,
           roles:user.roles,
           session:session,
-          data:user.sessions[sessid].retrieveQueue()
+          data:user.sessions[sessid] ? user.sessions[sessid].retrieveQueue() : []
         });
         res = null;
       });
@@ -189,15 +189,23 @@ function executeOnUser(user,session,commands,res){
             var s = user.sessions[session];
             if(!s){
               console.log('no',session,'in',user.username);
-              _res.jsonp({errorcode:'NO_SESSION',errorparams:[session]});
-              _res = null;
+              if(_res.jsonp){
+                _res.jsonp({errorcode:'NO_SESSION',errorparams:[session]});
+                _res = null;
+              }else{
+                _res.emit('=',{errorcode:'NO_SESSION',errorparams:[session]});
+              }
               return;
             }
             var so = {};
             so[dataMaster.fingerprint] = session;
-            ret.data=s.retrieveQueue();
-            _res.jsonp(ret);
-            _res = null;
+            ret.data=s ? s.retrieveQueue() : [];
+            if(_res.jsonp){
+              _res.jsonp(ret);
+              _res = null;
+            }else{
+              _res.emit('=',ret);
+            }
           }
         };
       })(i,res));
@@ -230,4 +238,38 @@ exports.execute = function(req, res, next) {
     console.log(e);
     res.jsonp({errorcode:'JSON',errorparams:[e,commands]});
   }
+};
+
+exports.setup = function(app){
+  var io = require('socket.io').listen(app);
+  console.log('socket.io listening');
+  io.set('authorization', function(handshakeData, callback){
+    var username = handshakeData.query.username;
+    var sess = handshakeData.query[dataMaster.fingerprint];
+    console.log(username,sess);
+    if(username && sess){
+      dataMaster.findUser(username,dataMaster.realmName,function(u){
+        if(!u){
+          callback(null,false);
+        }else{
+          handshakeData.username = username;
+          handshakeData.session = sess;
+          callback(null,true);
+        }
+      });
+    }else{
+      callback(null,false);
+    }
+  });
+  io.sockets.on('connection',function(sock){
+    var username = sock.handshake.username,
+      session = sock.handshake.session;
+    dataMaster.findUser(username,dataMaster.realmName,function(u){
+      u.makeSession(session);
+      u.sessions[session].setSocketIO(sock);
+      sock.on('!',function(data){
+        executeOnUser(u,session,data,sock);
+      });
+    });
+  });
 };
