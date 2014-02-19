@@ -1,5 +1,6 @@
 var hersdata = require('hersdata'),
-    Listener = hersdata.Listener;
+    Listener = hersdata.Listener,
+    Waiter = hersdata.Bridge.Data_CollectionElementWaiter;
 
 var allSessions = [];
 
@@ -60,8 +61,8 @@ function ConsumingScalar(el,path,name){
   ConsumingEntity.call(this,el,path);
   this.observers = [];
   this.subscribers = [];
-  this.checkers = [];
-  this.destroyers = {};
+  this.users = [];
+  this.locations = {};
   this.el = el;
   this.path = path;
   this.name = name;
@@ -73,8 +74,8 @@ function ConsumingScalar(el,path,name){
     //console.log(name,'changed',this.subscribers.length,'subs',this.observers.length,'obs');
     var key = el.access_level();
     if(this.key !== key){
-      for(var i in this.checkers){
-        this.checkers[i](key);
+      for(var i in this.users){
+        this.check(this.users[i],key);
       }
       this.key = key;
     }
@@ -117,57 +118,33 @@ ConsumingScalar.prototype.setValues = function(){
   }
 };
 ConsumingScalar.prototype.add = function(u){
-  var loc;
+  if(this.users[u.fullname]){
+    return;
+  }
+  this.users[u.fullname] = u;
   if(u.contains(this.key)){
     if(addToArray(this.subscribers,u)){
-      loc=1;
+      this.locations[u.fullname]=1;
       if(typeof this.value !== 'undefined'){
         u.push(this.value);
       }
     }
   }else{
     if(addToArray(this.observers,u)){
-      loc=2;
+      this.locations[u.fullname]=2;
       if(typeof this.public_value !== 'undefined'){
         u.push(this.public_value);
       }
     }
   }
-  var t = this;
   //console.log('after adding user',t.subscribers.length,'subs',t.observers.length,'obs');
-  var ch = function(key){
-    if(u.contains(key)){
-      if(loc===2){
-        loc = 1;
-        if(this.name==='cards'){
-          console.log('obs=>subs because my ',this.key,' user',u.keys,' on value ',this.value);
-        }
-        removeFromArray(t.observers,u);
-        addToArray(t.subscribers,u);
-      }
-    }else{
-      if(loc===1){
-        loc = 2;
-        //console.log('switching',u.keys,'from subs to obs');
-        if(this.name==='cards'){
-          console.log('subs=>obs');
-        }
-        u.push(t.deleter);
-        removeFromArray(t.subscribers,u);
-        addToArray(t.observers,u);
-      }
-    }
-  };
-  ch.call(this,this.key);
-  this.checkers.push(ch);
-  var fn = u.username+'@'+u.realmname, 
-    nk = fn+'newKey', 
-    kr = fn+'keyRemoved', 
-    d = fn+'destroyed';
+  var nk = u.fullname+'newKey', 
+    kr = u.fullname+'keyRemoved';
   this.createListener(nk, function(key){
     if(this.el.access_level()===key){
       removeFromArray(this.observers,u);
       addToArray(this.subscribers,u);
+      this.locations[u.fullname] = 1;
       typeof this.value !== 'undefined' && u.push(this.value);
     }
   },u.newKey);
@@ -175,26 +152,38 @@ ConsumingScalar.prototype.add = function(u){
     if(this.el.access_level()===key){
       removeFromArray(this.subscribers,u);
       addToArray(this.observers,u);
+      this.locations[u.fullname] = 2;
       typeof this.public_value !== 'undefined' && u.push(this.public_value);
     }
   },u.keyRemoved);
-  var destroyer = function(){
-    delete this.destroyers[fn];
-    console.log('destruction handled');
-    this.destroyListener(nk);
-    this.destroyListener(kr);
-    this.destroyListener(d);
-    removeFromArray(this.checkers,ch);
-    removeFromArray(this.subscribers,u);
-    removeFromArray(this.observers,u);
-  };
-  this.destroyers[fn] = destroyer;
-  this.createListener(d,destroyer,u.destroyed);
+};
+ConsumingScalar.prototype.check = function(u,key){
+  if(u.contains(key)){
+    if(this.locations[u.fullname]===2){
+      this.locations[u.fullname] = 1;
+      removeFromArray(this.observers,u);
+      addToArray(this.subscribers,u);
+    }
+  }else{
+    if(this.locations[u.fullname]===1){
+      this.locations[u.fullname] = 2;
+      //console.log('switching',u.keys,'from subs to obs');
+      u.push(this.deleter);
+      removeFromArray(this.subscribers,u);
+      addToArray(this.observers,u);
+    }
+  }
 };
 ConsumingScalar.prototype.remove = function(u){
-  var fn = u.username+'@'+u.realmname, 
-    destroyer = this.destroyers[fn];
-  destroyer && destroyer();
+  var fn = u.fullname,
+    nk = fn+'newKey', 
+    kr = fn+'keyRemoved';
+  this.destroyListener(nk);
+  this.destroyListener(kr);
+  delete this.locations[u.fullname];
+  removeFromArray(this.users,u);
+  removeFromArray(this.subscribers,u);
+  removeFromArray(this.observers,u);
 };
 function ConsumingCollection(el,path,name){
   ConsumingEntity.call(this,el,path,name);
@@ -211,73 +200,61 @@ function ConsumingCollection(el,path,name){
   this.name = name;
   //console.log('new ConsumingCollection',path,name,this.describer);
   var t = this;
-  this.listeners['elElements'] = el.subscribeToElements(function(name,el){
+  new Waiter(el,el,['*'],function(name,el){
     if(!t.scalars){return;}
-    if(el){
-      var ent, target;
-      switch(el.type()){
-        case 'Scalar':
-          target = t.scalars;
-          if(target[name]){break;}
-          //console.log(t.name,'creating new Scalar',name);
-          ent = new ConsumingScalar(el,path,name);
-          for(var i in t.subscribers){
-            ent.add(t.subscribers[i]);
-          }
-          break;
-        case 'Collection':
-          target = t.collections;
-          if(target[name]){break;}
-          //console.log(t.name,'creating new Collection',name);
-          ent = new ConsumingCollection(el,path.concat([name]),name);
-          var ek = ent.key;
-          for(var i in t.subscribers){
-            var s = t.subscribers[i];
-            if(s.contains(ek)){
-              s.push(ent.describer);
-            }
-          }
-          var rw = [];
-          for(var i in t.waiters){
-            var w = t.waiters[i];
-            if(w.waitingpath[0]===name){
-              rw.push(w);
-            }
-          }
-          for(var i in rw){
-            var w = rw[i];
-            t.remove(w.destructionindex);
-            w.waitingpath.shift();
-            var ok = !w.waitingpath.length;
-            if(ok){
-              delete w.waitingpath;
-              //w.push(following_transaction_descriptor)?
-            }
-            ent.add(w);
-          }
-          break;
-      }
-      if(target && ent){
-        target[name] = ent;
-      }
-    }else{
-      if(t.scalars[name]){
-        var s = t.scalars[name];
-        //console.log('scalar down',s.path,s.name);
+    var ent, target;
+    switch(el.type()){
+      case 'Scalar':
+        target = t.scalars;
+        if(target[name]){break;}
+        //console.log(t.name,'creating new Scalar',name);
+        ent = new ConsumingScalar(el,path,name);
         for(var i in t.subscribers){
-          t.subscribers[i].push(s.deleter);
+          ent.add(t.subscribers[i]);
         }
-        s.destroy();
-        delete t.scalars[name];
-      }else if(t.collections[name]){
-        var c = t.collections[name];
-        //console.log('collection down',c.path);
+        break;
+      case 'Collection':
+        target = t.collections;
+        if(target[name]){break;}
+        //console.log(t.name,'creating new Collection',name);
+        ent = new ConsumingCollection(el,path.concat([name]),name);
+        var ek = ent.key;
         for(var i in t.subscribers){
-          t.subscribers[i].push(c.deleter);
+          var s = t.subscribers[i];
+          if(s.contains(ek)){
+            s.push(ent.describer);
+          }
         }
-        c.destroy();
-        delete t.collections[name];
-      }
+        var rw = [];
+        for(var i in t.waiters){
+          var w = t.waiters[i];
+          if(w.waitingpath[0]===name){
+            rw.push(w);
+          }
+        }
+        for(var i in rw){
+          var w = rw[i];
+          t.remove(w.destructionindex);
+          w.waitingpath.shift();
+          var ok = !w.waitingpath.length;
+          if(ok){
+            delete w.waitingpath;
+            //w.push(following_transaction_descriptor)?
+          }
+          ent.add(w);
+        }
+        break;
+    }
+    if(target && ent){
+      t.createListener(name+'_destroyed',function(){
+        for(var i in this.subscribers){
+          this.subscribers[i].push(ent.deleter);
+        }
+        this.destroyListener(name+'_destroyed');
+        ent.destroy();
+        delete target[name];
+      },el.destroyed);
+      target[name] = ent;
     }
   });
   this.createListener('elKeyChanged',function(){
@@ -292,9 +269,6 @@ function ConsumingCollection(el,path,name){
     }
     this.key = key;
   },el.accessLevelChanged);
-  this.createListener('elNewUser',function(u){
-    upgradeUserToConsumer(u,this);
-  },el.newUser);
   this.createListener('elDestroyed',function(){
     this.destroy();
   },el.destroyed);
@@ -314,6 +288,12 @@ ConsumingCollection.prototype.notifyDestroy = function(){
 };
 ConsumingCollection.prototype.destroy = function(){
   if(!this.subscribers){return;}
+  for(var i in this.collections){
+    this.collections[i].destroy();
+  }
+  for(var i in this.scalars){
+    this.scalars[i].destroy();
+  }
   ConsumingEntity.prototype.destroy.call(this);
   this.notifyDestroy();
   for(var i in this){
@@ -407,7 +387,10 @@ ConsumingCollection.prototype.remove = function(destructionindex){
   console.log('Collection removed',dp.h.session);
 };
 ConsumingCollection.prototype.add = function(u){
-  var fn = u.username+'@'+u.realmname,
+  if(!this.subscribers){
+    return;
+  }
+  var fn = u.fullname,
     d = fn+'destroyed',
     nk = fn+'newKey', 
     kr = fn+'keyRemoved'; 
@@ -425,6 +408,7 @@ ConsumingCollection.prototype.add = function(u){
       if(pi>=0){
         this.pretendents.splice(pi,1);
         addToArray(this.subscribers,u);
+        console.log(this.path.join('.'),':',u.username,'is a subscriber now');
         this.reportTo(u);
         for(var i in this.scalars){
           this.scalars[i].add(u);
@@ -437,6 +421,7 @@ ConsumingCollection.prototype.add = function(u){
       var si = this.subscribers.indexOf(u);
       if(si>=0){
         this.unreportTo(u);
+        console.log(this.path.join('.'),':',u.username,'is a pretendent now');
         this.subscribers.splice(si,1);
         addToArray(this.pretendents,u);
       }
@@ -526,6 +511,8 @@ ConsumerSession.prototype.setSocketIO = function(sock){
   }
 };
 function upgradeUserToConsumer(u,coll){
+  u.fullname = u.username+'@'+u.realmname;
+  var udest = u.destroy;
   Listener.call(u);
   for(var i in Listener.prototype){
     u[i] = Listener.prototype[i];
@@ -641,8 +628,9 @@ function upgradeUserToConsumer(u,coll){
       }
     }
   };
-  u.destroyed.attach(function(){
+  u.destroy = (function(){
     Listener.prototype.destroy.call(u);
+    udest.call(u);
     for(var i in this.sessions){
       this.sessions[i].destroy();
       delete this.sessions[i];
@@ -657,7 +645,11 @@ function upgradeUserToConsumer(u,coll){
 };
 
 function follow(dataMaster){
-  new ConsumingCollection(dataMaster,[]);
+  var cc = new ConsumingCollection(dataMaster,[]);
+  cc.createListener('elNewUser',function(u){
+    upgradeUserToConsumer(u,this);
+  },hersdata.UserBase.newUser);
+  /*
   dataMaster.txnEnds.attach(function(txnalias){
     for(var i in dataMaster.realms){
       var r = dataMaster.realms[i];
@@ -667,6 +659,7 @@ function follow(dataMaster){
       }
     }
   });
+  */
 }
 
 module.exports = follow;

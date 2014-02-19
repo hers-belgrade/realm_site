@@ -1,13 +1,10 @@
 var util = require('util');
 var http = require('http'),
     hersdata = require('hersdata'),
-    Waiter = hersdata.Bridge.Data_CollectionElementWaiter,
     dataMaster = new (hersdata.DataMaster)(),
     realmName = 'ppw',
     realmPassword = 'ppw',
     backofficeAddress = 'localhost';
-
-require('./datamasterfollower')(dataMaster);
 
 dataMaster.commit('realm_born',[
   ['set',['local']]
@@ -56,22 +53,20 @@ HTTPTalker.prototype.tell = function(page,obj,cb){
   req.end();
 };
 
-function BOListener(user){
-  this.data = function(){
-    return user.data;
-  };
+function BOListener(system){
   dataMaster.commit('bo_started',[
-    ['set',['local','nodes']],
+    ['set',['nodes']],
     ['set',['local','bots']],
-    ['set',['local','bots','bots']],
-    ['set',['local','bots','botbase']]
+    ['set',['local','bots','botcount'],[5000]],
+    ['set',['local','bots','botbase']],
+    ['set',['local','bots','bots']]
   ]);
-  new Waiter(dataMaster,dataMaster,['system','*',['type=node','address','replicationPort']],function(servname,map){
-    dataMaster.element(['local','nodes']).createRemoteReplica(servname,dataMaster.instanceName,dataMaster.domainName,{address:map.address,port:map.replicationPort});
-    dataMaster.element(['local','nodes',servname]).go();
+  dataMaster.waitFor(['system','*',['type=node','address','replicationPort']],function(servname,map){
+    dataMaster.element(['nodes']).createRemoteReplica(servname,dataMaster.instanceName,dataMaster.domainName,{address:map.address,port:map.replicationPort},true); //true<=>skipdcp
+    dataMaster.element(['nodes',servname]).go();
   });
-  //dataMaster.element(['local','bots']).attach('pokerbots',{realmname:dataMaster.realmName,instancename:user.data.replicaToken.name});
-  new Waiter(user.data,user.data,[user.data.replicaToken.name,'replicationPort'],function(val){
+  //dataMaster.element(['local','bots']).attach('pokerbots',{realmname:dataMaster.realmName,userfactory:dataMaster,serverfactory:dataMaster.element(['nodes'])});
+  system.waitFor([system.replicaToken.name,'replicationPort'],function(val){
     console.log('opening replication on',val);
     dataMaster.replicationPort = val;
     dataMaster.element(['local']).openReplication(val);
@@ -80,6 +75,7 @@ function BOListener(user){
 
 dataMaster.fingerprint = (require('crypto').randomBytes)(12).toString('hex');
 //dataMaster.setSessionUserFactory();
+/*
 dataMaster.newUser.attach(function(newuser){
   var sysel = dataMaster.element(['system']);
   sysel && sysel.findUser(newuser.username,newuser.realmname,function(sysuser){
@@ -89,6 +85,7 @@ dataMaster.newUser.attach(function(newuser){
     }
   });
 });
+*/
 dataMaster.httpTalker = new HTTPTalker(backofficeAddress,8080);
 dataMaster.realmName = realmName;
 dataMaster.go = function(){
@@ -100,25 +97,8 @@ dataMaster.go = function(){
       dataMaster.domainName = data.domain;
       dataMaster.createRemoteReplica('system',data.name,dataMaster.realmName,{address:backofficeAddress,port:data.replicationPort});
       var system = dataMaster.element(['system']);
-      /*
-      system.userFactory = {create:function(data,username,realmname,roles){
-        //console.log('system creates a new user',username,realmname,roles);
-        dataMaster.setUser(username,realmname,roles);
-        var ret = new hersdata.KeyRing(data,username,realmname,roles);
-        ret.newKey.attach(function(key){
-          console.log('dataMaster should setKey',username,realmname,key);
-          dataMaster.setKey(username,realmname,key);
-          //console.log(dataMaster.realms[realmname]);
-        });
-        ret.keyRemoved.attach(function(key){
-          //console.log('dataMaster should removeKey',username,realmname,key);
-          dataMaster.removeKey(username,realmname,key);
-        });
-        return ret;
-      }};
-      */
-      system.getReplicatingUser(function(user){
-        dataMaster.backoffice_listener = new BOListener(user);
+      system.replicationInitiated.attach(function(){
+        new BOListener(system);
       });
       system.go(function(status){
         console.log(status);

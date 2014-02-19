@@ -1,3 +1,6 @@
+[submodule "public/lib/herstimeout"]
+	path = node_modules/herstimeout
+	url = git@github.com:hers-belgrade/herstimeout
 [submodule "public/lib/hersangularclient"]
 	path = public/lib/hersangularclient
 	url = git@github.com:hers-belgrade/hersangularclient

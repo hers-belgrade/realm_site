@@ -4,6 +4,7 @@
 var mongoose = require('mongoose'),
     User = mongoose.model('User'),
     dataMaster = require('./datamaster'),
+    UserBase = require('hersdata').UserBase,
     _BC_ = new(require('hersdata').BigCounter)(),
     randomBytes = require('crypto').randomBytes,
     util = require('util');
@@ -11,6 +12,7 @@ var mongoose = require('mongoose'),
 dataMaster.commit('users_starting',[
   ['set',['local','users']]
 ]);
+/*
 dataMaster.newUser.attach(function(user){
   dataMaster.commit('new_user',[
     ['set',['local','users',user.username]]
@@ -21,14 +23,14 @@ dataMaster.userOut.attach(function(user){
     ['remove',['local','users',user.username]]
   ]);
 });
+*/
 
 /**
  * Auth callback
  */
 exports.authCallback = function(req, res, next) {
-  dataMaster.setUser(req.user.username,dataMaster.realmName,req.user.roles,function(user){
-    console.log('authorized',user.username,user.realmname,user.keys);
-  });
+  var user = UserBase.setUser(req.user.username,dataMaster.realmName,req.user.roles);
+  console.log('authorized',user.username,user.realmname,user.keys);
   res.redirect('/');
 };
 
@@ -66,10 +68,9 @@ exports.signout = function(req, res) {
  */
 exports.session = function(req, res) {
   console.log('session',req.user);
-  dataMaster.setUser(req.user.username,dataMaster.realmName,req.user.roles,function(user){
-    console.log('authorized',user.username,user.realmname,user.keys);
-  });
-    res.redirect('/');
+  var user = UserBase.setUser(req.user.username,dataMaster.realmName,req.user.roles);
+  console.log('authorized',user.username,user.realmname,user.keys);
+  res.redirect('/');
 };
 
 /**
@@ -116,36 +117,85 @@ exports.user = function(req, res, next, id) {
         });
 };
 
+function now(){
+  return (new Date()).getTime();
+}
+
+var _now;
+
 exports.dumpData = function(req, res, next) {
   if(req && req.user && req.user.username){
-      dataMaster.setUser(req.user.username,dataMaster.realmName,req.user.roles,function(user){
-        //console.log('recognized',user.username,user.realmname,user.keys);
-        if(!user){
-          res.jsonp({none:null});
-          return;
+    var user = dataMaster.setFollower(req.user.username,dataMaster.realmName,req.user.roles);
+    user.sessionStatus = function(){
+      var ret = {};
+      for(var i in this.sessions){
+        ret[i] = this.sessions[i].queue.length;
+      }
+      return ret;
+    };
+    user.makeSession = function(sess){
+      if(!sess){
+        console.trace();
+        console.log('no session to make');
+        process.exit(0);
+      }
+      if(this.sessions[sess]){return;}
+      //console.log('new cs',this.followingpaths);
+      var _s = new ConsumerSession(this,dataMaster,sess);
+      var t = this;
+      this.sessions[sess] = _s;
+    };
+    user.push = function(item){
+      //console.log(u.username,'got',item,this.sessions);
+      for(var i in this.sessions){
+        this.sessions[i].push(item);
+        /*
+        var s = this.sessions[i];
+        if(s.queue){
+          if(_now-s.lastAccess>15000){
+            s.destroy();
+            delete this.sessions[i];
+          }else{
+            s.lastAccess = _now;
+            if(s.sockio){
+              s.sockio.emit('_',item);
+            }else{
+              s.queue.push(item);
+            }
+          }
+        }else{
+          //should never get here
+          delete this.sessions[i];
         }
-        var sessid = req.query[dataMaster.fingerprint];
-        if(!sessid){
-          _BC_.inc();
-          sessid=_BC_.toString()+randomBytes(8).toString('hex');
-          console.log('created',sessid,'on',user.username);
-        }
-        //console.log(user.sessions);
-        user.makeSession(sessid);
-        var session = {};
-        session[dataMaster.fingerprint]=sessid;
-        var _res = res;
-        res.jsonp({
-          username:req.user.username,
-          roles:user.roles,
-          session:session,
-          data:user.sessions[sessid] ? user.sessions[sessid].retrieveQueue() : []
-        });
-        res = null;
-      });
+        */
+      }
+    };
+    //console.log('recognized',user.username,user.realmname,user.keys);
+    if(!user){
+      res.jsonp({none:null});
+      return;
+    }
+    var sessid = req.query[dataMaster.fingerprint];
+    if(!sessid){
+      _BC_.inc();
+      sessid=_BC_.toString()+randomBytes(8).toString('hex');
+      console.log('created',sessid,'on',user.username);
+    }
+    //console.log(user.sessions);
+    user.makeSession(sessid);
+    var session = {};
+    session[dataMaster.fingerprint]=sessid;
+    var _res = res;
+    res.jsonp({
+      username:req.user.username,
+      roles:user.roles,
+      session:session,
+      data:user.sessions[sessid] ? user.sessions[sessid].retrieveQueue() : []
+    });
+    res = null;
   }else{
     console.log('dumpData with no username?');
-      next();
+    next();
   }
 };
 
@@ -154,11 +204,15 @@ function executeOneOnUser(user,command,params,cb){
       case '_':
         break;
       case 'follow':
-        user.follow(params.path.slice());
+        user.follow(params.path);
+        cb('OK',params.path);
+        break;
+      case 'unfollow':
+        user.unfollow(params.path);
         cb('OK',params.path);
         break;
       default:
-        user.invoke(command,params,cb);
+        user.invoke(dataMaster,command,params,cb);
         break;
     }
 }
@@ -224,14 +278,13 @@ exports.execute = function(req, res, next) {
       res.jsonp({errorcode:'invalid_command_count',errorparams:commands});
       return;
     }
-    dataMaster.setUser(req.user.username,dataMaster.realmName,req.user.roles,function(user){
-      if(user){
-        executeOnUser(user,req.query[dataMaster.fingerprint],commands,res);
-      }else{
-        res.jsonp({none:null});
-        res = null;
-      }
-    });
+    var user = UserBase.setUser(req.user.username,dataMaster.realmName,req.user.roles);
+    if(user){
+      executeOnUser(user,req.query[dataMaster.fingerprint],commands,res);
+    }else{
+      res.jsonp({none:null});
+      res = null;
+    }
   }
   catch(e){
     console.log(e.stack);
@@ -241,35 +294,92 @@ exports.execute = function(req, res, next) {
 };
 
 exports.setup = function(app){
-  var io = require('socket.io').listen(app);
+  var io = require('socket.io').listen(app, { log: false });
   console.log('socket.io listening');
   io.set('authorization', function(handshakeData, callback){
     var username = handshakeData.query.username;
     var sess = handshakeData.query[dataMaster.fingerprint];
-    console.log(username,sess);
+    console.log('sock.io incoming',username,sess);
     if(username && sess){
-      dataMaster.findUser(username,dataMaster.realmName,function(u){
-        if(!u){
-          callback(null,false);
-        }else{
-          handshakeData.username = username;
-          handshakeData.session = sess;
-          callback(null,true);
-        }
-      });
+      var u = UserBase.findUser(username,dataMaster.realmName);
+      if(!u){
+        callback(null,false);
+      }else{
+        handshakeData.username = username;
+        handshakeData.session = sess;
+        callback(null,true);
+      }
     }else{
       callback(null,false);
     }
   });
   io.sockets.on('connection',function(sock){
     var username = sock.handshake.username,
-      session = sock.handshake.session;
-    dataMaster.findUser(username,dataMaster.realmName,function(u){
-      u.makeSession(session);
-      u.sessions[session].setSocketIO(sock);
-      sock.on('!',function(data){
-        executeOnUser(u,session,data,sock);
-      });
+      session = sock.handshake.session,
+      u = UserBase.findUser(username,dataMaster.realmName);
+    u.makeSession(session);
+    u.sessions[session].setSocketIO(sock);
+    sock.on('!',function(data){
+      executeOnUser(u,session,data,sock);
     });
   });
+};
+function inserter(pathstring){
+  var t = this, origsession = this.session;
+  return {
+    session:t.session,
+    destroyed:t.destroyed,
+    user:t.user,
+    push: function(item){
+      if(!t.queue){
+        console.trace();
+        console.log('no more queue on',origsession);
+        process.exit(0);
+      }
+      t.queue.push(JSON.stringify([pathstring,item]));
+      //console.log(this.session,'pushing',pathstring,item,'of',this.user.sessionStatus(),this.queue.length);
+    }
+  };
+};
+function ConsumerSession(u,coll,session){
+  this.queue = [];
+  var t = this;
+  u.describe(function(item){
+    t.push(item);
+  });
+  this.user = u;
+};
+ConsumerSession.initTxn = JSON.stringify([JSON.stringify([]),JSON.stringify([null,'init'])]);
+ConsumerSession.prototype.destroy = function(){
+  for(var i in this){
+    delete this[i];
+  }
+};
+ConsumerSession.prototype.retrieveQueue = function(){
+  this.lastAccess = now();
+  if(this.queue.length){
+    //console.log(this.session,'splicing',this.queue);
+    return this.queue.splice(0);
+  }else{
+    //console.log('empty q');
+    return [];
+  }
+};
+ConsumerSession.prototype.setSocketIO = function(sock){
+  this.sockio = sock;
+  var t = this;
+  sock.on('disconnect',function(){
+    delete t.sockio;
+  });
+  while(this.queue.length){
+    //console.log('dumping q',this.queue);
+    sock.emit('_',this.queue.shift());
+  }
+};
+ConsumerSession.prototype.push = function(item){
+  if(this.sockio){
+    this.sockio.emit('_',item);
+  }else{
+    this.queue.push(item);
+  }
 };
