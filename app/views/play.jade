@@ -5,7 +5,7 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.face
     section.main-container.container-fluid
       section.main-content
         div.row-fluid(data-ng-controller="CasinoController")
-          canvas(id='casino')
+          canvas(id='casino', width=743, height=550)
         script(type="text/javascript").
           window.user = !{user};
       include includes/foot
@@ -13,3 +13,4 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.face
       script(type='text/javascript', src='/lib/casino/casinocontroller.js')
       script(type='text/javascript', src='/lib/casino/casinorender.js')
       script(type='text/javascript', src='/lib/casino/roomrender.js')
+      script(type='text/javascript', src='/lib/casino/slotroomrenderer.js')
