@@ -1,10 +1,19 @@
 doctype html
 html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.facebook.com/2008/fbml', itemscope='itemscope', itemtype='http://schema.org/Product')
   include includes/head
+  style.
+    .spinner{
+      height:80%;
+      background-color:rgba(0,0,0,0);
+      border: 0;
+      -webkit-box-shadow:0 0 0;
+      -moz-box-shadow:0 0 0;
+    }
   body.login-layout
     section.main-container.container-fluid
       section.main-content
         div.row-fluid(data-ng-controller="CasinoController")
+          spinner.modal.spinner.center#spinner(data-ng-show='loading')
           canvas(id='casino', width=743, height=550)
         script(type="text/javascript").
           window.user = !{user};

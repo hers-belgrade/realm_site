@@ -1,4 +1,52 @@
+<div id="breadcrumbs" class="breadcrumbs">
+<ul class="breadcrumb">
+	<li>
+		<i class="icon-home home-icon"></i>
+		<a href="/">Home</a>
+		<span class="divider">
+			<i class="icon-angle-right arrow-icon"></i>
+		</span>
+	</li>
+		<li class="active">Lobby</li>
+</ul>
+	<div id="nav-search" class="nav-search"></div>
+</div>
+<div class="page-content">
+	<div class="page-header position-relative">
+						<h1>
+							Lobby
+							<small>
+								<i class="icon-double-angle-right"></i>
+								Active rooms overview.
+							</small>
+						</h1>
+	</div>
 <section data-ng-controller='LobbyController'>
+
+
+							<div class="row-fluid">
+								<div class="table-header">
+									Room activities
+								</div>
+
+								<table id="lobby" class="table table-striped table-bordered table-hover">
+									<thead>
+										<tr>
+											<th class="center">Name</th>
+											<th class="center">Players</th>
+										</tr>
+									</thead>
+
+									<tbody>
+										<tr data-ng-repeat='(name,data) in rooms'>
+											<td>{{name}}</td>
+											<td class="center">{{data.playing}}/{{data.capacity}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+<!--
 <table>
 <tr>
 <th>Name</th><th>Players</th>
@@ -8,4 +56,6 @@
 <td>{{data.playing}}/{{data.capacity}}</td>
 </tr>
 </table>
+-->
 </section>
+</div>

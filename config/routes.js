@@ -1,6 +1,7 @@
-module.exports = function(app, passport, auth) {
+module.exports = function(server, app, passport, auth) {
     //User Routes
     var users = require('../app/controllers/users');
+    users.setup(server);
     app.get('/signin', users.signin);
     app.get('/signup', users.signup);
     app.get('/signout', users.signout);
@@ -11,7 +12,7 @@ module.exports = function(app, passport, auth) {
     app.post('/users', users.create);
 
     app.post('/users/session', passport.authenticate('local', {
-        failureRedirect: '/signin',
+        failureRedirect: '/', //instead of '/signin'
         failureFlash: 'Invalid email or password.'
     }), users.session);
 
