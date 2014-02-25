@@ -1,6 +1,3 @@
-[submodule "public/lib/herstimeout"]
-	path = node_modules/herstimeout
-	url = git@github.com:hers-belgrade/herstimeout
 [submodule "public/lib/hersangularclient"]
 	path = public/lib/hersangularclient
 	url = git@github.com:hers-belgrade/hersangularclient
@@ -21,4 +18,4 @@
 	url = https://github.com/angular-ui/ng-grid.git
 [submodule "node_modules/herstimeout"]
 	path = node_modules/herstimeout
-	url = git@github.com:hers-belgrade/herstimeout
+	url = git@github.com:hers-belgrade/herstimeout.git
