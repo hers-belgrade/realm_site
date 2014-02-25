@@ -3,6 +3,7 @@
 .sass-cache/
 node_modules/*
 !node_modules/hersdata
+!node_modules/herstimeout
 !node_modules/pokerbots
 public/lib/*
 !public/lib/casino

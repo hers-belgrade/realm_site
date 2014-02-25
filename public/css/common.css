@@ -25,6 +25,8 @@ footer p {
 .menu-min .sidebar-shortcuts-large {
 	width:176px;
 	}
+<<<<<<< HEAD
+=======
 	.ngViewport.ng-scope{
       height: auto !important;
           overflow-y: hidden;
@@ -56,3 +58,4 @@ div.ngHeaderCell{border-color:#DDD;font-weight:bold}
 div.swarm-cg {
 	padding-top:6px;
 	}	
+>>>>>>> 926ccfb5e519d071d340f488680f4101dba79bee
