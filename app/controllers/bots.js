@@ -29,32 +29,37 @@ function nextBot(){
     console.log(__BotsEngaged,'>=',dataMaster.element(['local','bots','botcount']).value());
     return;
   }
+  if(__BotsEngaged%1000 === 0){
+    console.log(__BotsEngaged);
+  }
   var now = _now();
   if((__lastScan && now-__lastScan>15000) || botnames.length<1){
     __lastScan = now;
     var found;
+    var cnt = 0;
     dataMaster.element(['local','bots','botbase']).traverseElements(function(name,el){
+      cnt++;
       botnames.push(name);
       var u = UserBase.findUser(name,dataMaster.realmName);
-      if(!(u&&found)){
-        found = UserBase.setUser(name,dataMaster.realmName,'bot,player');
-        __BotsEngaged++;
+      if(!u){
+        UserBase.setUser(name,dataMaster.realmName,'bot,player');
         //return true;
       }
     });
-    if(found){
-      return found;
-    }
   }
   var targetbotname = botnames[~~(Math.random()*botnames.length)];
-  var pass = 1;
+  var pass = '';
   while(true){
     var u = UserBase.findUser(targetbotname+pass,dataMaster.realmName);
     if(!u){
-      __BotsEngaged++;
+      //__BotsEngaged++;
       return UserBase.setUser(targetbotname+pass,dataMaster.realmName,'bot,player');
     }else{
-      pass++;
+      if(!pass){
+        pass=1;
+      }else{
+        pass++;
+      }
     }
   }
 };
@@ -73,36 +78,51 @@ function tryRecognize(name){
   var found = false;
   dataMaster.element(['local','bots','botbase']).traverseElements(function(bname){
     if(name===bname){
-      __BotsEngaged++;
+      var b = UserBase.findUser(name,dataMaster.realmName,'bot,player');
+      if(b){
+        found = b;
+        return true;
+      }
       found = UserBase.setUser(name,dataMaster.realmName,'bot,player');
-      return true;
+      if(found){
+        return true;
+      }
     }else if(name.indexOf(bname)===0){
       if(parseInt(name.substr(bname.length))){
-        __BotsEngaged++;
+        //__BotsEngaged++;
         found = UserBase.setUser(name,dataMaster.realmName,'bot,player');
-        return true;
+        if(found){
+          return true;
+        }
       }
     }
   });
+  if(found){
+    //__BotsEngaged++;
+    //console.log(name,'found',__BotsEngaged);
+  }
   return found;
 };
 
+var _roomCount = 0;
+
 function botRoom(servel,roomname){
+  _roomCount++;
   //var roomel = servel.element(['rooms',roomname]);
-  var bots = {};
   var seats = {};
   servel.waitFor(['rooms',roomname,'players','*','name'],function(seat,name){
     if(name){
-      if(bots[name]){
-        seats[seat] = bots[name];
-        delete bots[name];
-      }else{
-        var b = tryRecognize(name);
-        if(b){
-          seats[seat] = b;
+      var b = tryRecognize(name);
+      if(b){
+        if(!b.engagedIn){
+          __BotsEngaged++;
         }else{
-          console.log(name,'is not recognized');
+          console.log(b.username,'is already engaged in',b.engagedIn);
         }
+        b.engagedIn = roomname;
+        seats[seat] = b;
+      }else{
+        console.log(name,'is not recognized');
       }
     }else{
       if(seats[seat]){
@@ -123,7 +143,6 @@ function botRoom(servel,roomname){
   servel.waitFor(['rooms',roomname,'players','*','question','data'],function(seat,questionbi){
     if(seats[seat]){
       if(!seats[seat].username){
-        console.trace();
         console.log('How did I get here?',roomname,'User destroyed, slot',seat,'just standing there, receiving a question...');
         delete seats[seat];
         return;
@@ -143,14 +162,21 @@ function botRoom(servel,roomname){
     if(map.bots>map.playing){
       var bot = nextBot();
       if(bot){
-        bots[bot.username] = bot;
         bot.invoke(servel,'rooms/'+roomname+'/pokerroom/letMeWatch',{},function(errcb){
+          if(errcb!=='OK'){
+            bot.destroy();
+            return;
+          }
           bot.invoke(servel,'rooms/'+roomname+'/pokerroom/beseat',{seat:~~(Math.random()*10)},function(errcb){
             //console.log('beseat said',errcb);
+            if(errcb!=='OK'){
+              bot.destroy();
+            }
           })
         });
         bot.destroyed.attach(function(){
           __BotsEngaged--;
+          //console.log(__BotsEngaged);
         });
       }
     }

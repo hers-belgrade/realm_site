@@ -57,7 +57,7 @@ function BOListener(system){
   dataMaster.commit('bo_started',[
     ['set',['nodes']],
     ['set',['local','bots']],
-    ['set',['local','bots','botcount'],[5000]],
+    ['set',['local','bots','botcount'],[10000]],
     ['set',['local','bots','botbase']],
     ['set',['local','bots','bots']]
   ]);
