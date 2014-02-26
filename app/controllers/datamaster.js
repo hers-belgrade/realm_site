@@ -7,7 +7,8 @@ var http = require('http'),
     backofficeAddress = 'localhost';
 
 dataMaster.commit('realm_born',[
-  ['set',['local']]
+  ['set',['local']],
+  ['set',['nodes']]
 ]);
 
 function HTTPTalker(host,port){
@@ -55,9 +56,8 @@ HTTPTalker.prototype.tell = function(page,obj,cb){
 
 function BOListener(system){
   dataMaster.commit('bo_started',[
-    ['set',['nodes']],
     ['set',['local','bots']],
-    ['set',['local','bots','botcount'],[10000]],
+    ['set',['local','bots','botcount'],[0]],
     ['set',['local','bots','botbase']],
     ['set',['local','bots','bots']]
   ]);

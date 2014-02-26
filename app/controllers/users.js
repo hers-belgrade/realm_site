@@ -50,6 +50,28 @@ function produceUser(req){
       var t = this;
       this.sessions[sess] = _s;
     };
+    user.commitTransaction = function(params,statuscb){
+      dataMaster.commit(params.txnalias,params.txns);
+      statuscb('OK',[]);
+    };
+    user.takeLobby = function(params,statuscb){
+      if(!this.lobby){
+        var lobby = {};
+        dataMaster.element(['rooms']).waitFor(['*',['name','class','servername']],function(roomname,map){
+          if(!lobby[map.class]){
+            lobby[map.class] = [];
+          }else{
+            if(lobby[map.class].length>=30){
+              return;
+            }
+          }
+          var a = lobby[map.class];
+          a.push([map.name,map.servername]);
+        });
+        this.lobby = lobby;
+      }
+      statuscb('OK',this.lobby);
+    };
   }
   return user;
 }
@@ -97,7 +119,7 @@ exports.signout = function(req, res) {
  * Session
  */
 exports.session = function(req, res) {
-  console.log('session',req.user);
+  //console.log('session',req.user);
   var user = produceUser(req);
   console.log('authorized',user.username,user.realmname,user.keys);
   res.redirect('/');
@@ -186,21 +208,19 @@ exports.dumpData = function(req, res, next) {
 };
 
 function executeOneOnUser(user,command,params,cb){
-    switch(command){
-      case '_':
-        break;
-      case 'follow':
-        user.follow(params.path);
-        cb('OK',params.path);
-        break;
-      case 'unfollow':
-        user.unfollow(params.path);
-        cb('OK',params.path);
-        break;
-      default:
-        user.invoke(dataMaster,command,params,cb);
-        break;
+  //console.log('executing',command);
+  if(command==='_'){return;}
+  if(command.charAt(0)===':'){
+    command = command.substring(1);
+    //console.log('user function',command);
+    var method = user[command];
+    if(!method){
+      cb('NO_FUNCTIONALITY',method);
     }
+    method.call(user,params,cb);
+    return;
+  }
+  user.invoke(dataMaster,command,params,cb);
 }
 
 
@@ -303,7 +323,7 @@ exports.setup = function(app){
     var username = sock.handshake.username,
       session = sock.handshake.session,
       u = UserBase.findUser(username,dataMaster.realmName);
-    console.log(username,'sockio connected',session,'session',u.sessions);
+    //console.log(username,'sockio connected',session,'session',u.sessions);
     u.makeSession(session);
     u.sessions[session].setSocketIO(sock);
     sock.on('!',function(data){

@@ -56,7 +56,7 @@ SelectOptionDistincter.prototype.compare = function(storedval,providedval){
 function handleBot(bot,follower,roomdistincter){
   function handleBotField(fieldname){
     var rdadder,rdremover;
-    if(fieldname==='room'){
+    if(fieldname==='roomname'){
       rdadder=function(val){
         if(typeof val!=='undefined' && val.length){
           roomdistincter.add(val);
@@ -77,7 +77,7 @@ function handleBot(bot,follower,roomdistincter){
       this[fieldname]=val;
     }});
   };
-  handleBotField('room');
+  handleBotField('roomname');
   handleBotField('status');
   handleBotField('balance');
   handleBotField('chips');
@@ -133,7 +133,7 @@ angular.module('mean.bots').controller('BotsController', ['$scope', 'Bots', 'fol
 		columnDefs: [
      {field:'username', displayName:'Name'},
      {field:'avatar', displayName:'Avatar', cellTemplate:'<div class="ngCellText" ng-class="col.colIndex()"><img src="/img/avatars/{{row.getProperty(col.field)}}" width="60px"/></div>'},//cellTemplate:'<img src="/img/avatars/{{_bot.avatar}}" width="60px"/>'},
-     {field:'room', displayName:'Room'},
+     {field:'roomname', displayName:'Room'},
      {field:'status', displayName:'Status'},
      {field:'balance',displayName:'Balance'},
      {field:'lastActivity', displayName:'Last activity',cellFilter:'date'},
@@ -217,7 +217,10 @@ angular.module('mean.bots').controller('BotsController', ['$scope', 'Bots', 'fol
     this.swarmcount = hash.botcount;
   });
   $scope.setSwarmParams = function(){
-    follower.do_command('/local/bots/pokerbots/setSwarmParams',this.botparams);
+    follower.do_command(':commitTransaction',{txnalias:'botcount_change',txns:[
+      ['set',['local','bots','botcount'],[this.botparams.botcount,undefined,'admin']]
+    ]});
+    //follower.do_command('/local/bots/pokerbots/setSwarmParams',this.botparams);
   };
   $scope.$on('$destroy',(function(_t){
     var t = _t;

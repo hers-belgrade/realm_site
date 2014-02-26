@@ -5,19 +5,6 @@ var mongoose = require('mongoose'),
   UserBase = hersdata.UserBase,
   __BotsEngaged=0;
 
-function NodeListener(user){
-  if(!user){return;}
-  hersdata.Follower.call(this,user,['cluster','nodes'],hersdata.FollowerPatterns.TypeFollower(null,function(name){
-    console.log('new server',name);
-    new hersdata.Follower(user,['cluster','nodes',name],hersdata.FollowerPatterns.TypeFollower(function(name,val){
-      console.log(name,'==',val);
-    },null,null,function(){
-      console.log(name,'is dead');
-    }));
-  },null,this));
-}
-
-
 function _now(){
   return (new Date()).getTime();
 }
@@ -70,7 +57,16 @@ function randValueFromRange(obj){
 function randomPayment(data){
   return Math.random()<.2 ? data.condition : randValueFromRange(data);
 };
-function tryRecognize(name){
+function storeBot(username,servername,roomname,seat){
+  dataMaster.element(['local','bots','bots']).commit('new_bot',[
+    ['set',[username],'admin'],
+    ['set',[username,'name'],[username,undefined,'admin']],
+    ['set',[username,'servername'],[servername,undefined,'admin']],
+    ['set',[username,'roomname'],[roomname,undefined,'admin']],
+    ['set',[username,'seat'],[seat,undefined,'admin']]
+  ]);
+};
+function tryRecognize(name,servername,roomname,seat){
   /*
   var b = UserBase.findUser(name,dataMaster.realmName);
   if(!b){return;}
@@ -85,6 +81,7 @@ function tryRecognize(name){
       }
       found = UserBase.setUser(name,dataMaster.realmName,'bot,player');
       if(found){
+        storeBot(name,servername,roomname,seat);
         return true;
       }
     }else if(name.indexOf(bname)===0){
@@ -92,8 +89,11 @@ function tryRecognize(name){
         //__BotsEngaged++;
         found = UserBase.setUser(name,dataMaster.realmName,'bot,player');
         if(found){
+          storeBot(name,servername,roomname,seat);
           return true;
         }
+      }else{
+        //console.log(name,'cannot be',bname);
       }
     }
   });
@@ -104,22 +104,68 @@ function tryRecognize(name){
   return found;
 };
 
-var _roomCount = 0;
+function tryEngageBot(roomname){
+  var roomobj = _botRooms[roomname];
+  var servel = dataMaster.element(['nodes',roomobj.servname]);
+  var bot = nextBot();
+  if(bot){
+    bot.invoke(servel,'rooms/'+roomname+'/pokerroom/letMeWatch',{},function(errcb){
+      if(errcb!=='OK'){
+        bot.destroy();
+        return;
+      }
+      bot.invoke(servel,'rooms/'+roomname+'/pokerroom/beseat',{seat:~~(Math.random()*10)},function(errcb){
+        //console.log('beseat said',errcb);
+        if(errcb!=='OK'){
+          bot.destroy();
+        }
+      })
+    });
+    bot.destroyed.attach(function(){
+      dataMaster.element(['local','bots','bots']).commit('bot_out',[
+        ['remove',[bot.username]]
+      ]);
+      __BotsEngaged--;
+      console.log(__BotsEngaged);
+    });
+  }else{
+    roomobj.available++;
+  }
+};
 
-function botRoom(servel,roomname){
-  _roomCount++;
+var _botRooms = {};
+
+function setBotStatus(u,stat){
+  dataMaster.element(['local','bots','bots',u.username]).commit('set_status',[
+    ['set',['status'],[stat,undefined,'dcp']]
+  ]);
+}
+
+function botRoom(servel,roomname,servname){
+  var roomobj = _botRooms[roomname];
+  if(roomobj){
+    if(roomobj.available){
+      tryEngageBot(roomname);
+    }
+    return;
+  }
+  roomobj = {servname:servname,available:0};
+  _botRooms[roomname] = roomobj;
+  var seats = [];
   //var roomel = servel.element(['rooms',roomname]);
-  var seats = {};
   servel.waitFor(['rooms',roomname,'players','*','name'],function(seat,name){
     if(name){
-      var b = tryRecognize(name);
+      var b = tryRecognize(name,servname,roomname,seat);
       if(b){
         if(!b.engagedIn){
           __BotsEngaged++;
+          console.log(__BotsEngaged);
+          roomobj.available--;
         }else{
           console.log(b.username,'is already engaged in',b.engagedIn);
         }
         b.engagedIn = roomname;
+        setBotStatus(b,'entered');
         seats[seat] = b;
       }else{
         console.log(name,'is not recognized');
@@ -137,7 +183,7 @@ function botRoom(servel,roomname){
         //console.log('confirmreservation said',errcb);
       });
     }else{
-      console.log('nobody sits on',seat);
+      //console.log('nobody sits on',seat);
     }
   });
   servel.waitFor(['rooms',roomname,'players','*','question','data'],function(seat,questionbi){
@@ -148,8 +194,10 @@ function botRoom(servel,roomname){
         return;
       }
       var u = seats[seat];
+      setBotStatus(u,'answering');
       seats[seat].invoke(servel,'rooms/'+roomname+'/players/'+seat+'/private/answer',{amount:randomPayment(JSON.parse(questionbi))},function(errcb){
         //console.log('answer said',errcb);
+        setBotStatus(u,'answered '+errcb);
         if(errcb!=='OK'){
           console.log(u.username,'got',errcb);
         }
@@ -160,46 +208,65 @@ function botRoom(servel,roomname){
   });
   servel.waitFor(['rooms',roomname,['bots','playing']],function(map){
     if(map.bots>map.playing){
-      var bot = nextBot();
-      if(bot){
-        bot.invoke(servel,'rooms/'+roomname+'/pokerroom/letMeWatch',{},function(errcb){
-          if(errcb!=='OK'){
-            bot.destroy();
-            return;
-          }
-          bot.invoke(servel,'rooms/'+roomname+'/pokerroom/beseat',{seat:~~(Math.random()*10)},function(errcb){
-            //console.log('beseat said',errcb);
-            if(errcb!=='OK'){
-              bot.destroy();
-            }
-          })
-        });
-        bot.destroyed.attach(function(){
-          __BotsEngaged--;
-          //console.log(__BotsEngaged);
-        });
-      }
+      tryEngageBot(roomname);
     }
   });
 };
 
-function botServer(servname,servel){
-  console.log(servname);//,servel);
-  servel.replicationInitiated.attach(function(){
-    var _se = servel;
-    servel.waitFor(['rooms','*',['class=Poker','type=CashTable']],function(roomname){
-      //console.log('botRoom',arguments);
-      botRoom(_se,roomname);
-    });
+function createRoomListener(){
+  return dataMaster.element(['rooms']).waitFor(['*',['class=Poker','type=CashTable','servername']],function(roomname,map){
+      botRoom(dataMaster.element(['nodes',map.servername]),roomname,map.servername);
   });
 }
 
-function listenToNodes(){
-  console.log('listenToNodes');
-  //return;
-  var nodesel = dataMaster.element(['nodes']);
-  nodesel.waitFor(['*'],botServer);
-  //nodesel.waitFor(['*','rooms','*',['class=Poker','type=CashTable']],botRoom);
+function listenToRooms(){
+  console.log('listenToRooms');
+  if(roomListener){
+    roomListener.destroy();
+  }
+  var roomListener = createRoomListener();
+  dataMaster.element(['local','bots','botcount']).changed.attach(function(el,changedmap){
+    if(changedmap.private){
+      var newbotcnt = el.value();
+      var delta = __BotsEngaged-newbotcnt;
+      if(delta>0){
+        var badnames = [];
+        dataMaster.element(['local','bots','bots']).traverseElements(function(name,el){
+          var server = el.element(['servername']).value();
+          var room = el.element(['roomname']).value();
+          var seat = el.element(['seat']).value();
+          //console.log(name,'playing at',room,seat);
+          dataMaster.element(['nodes',server]).invoke(['rooms',room,'players',seat,'private','exit'],{},name,dataMaster.realmName,'bot',function(errc){
+            if(errc!=='OK'){
+              console.log(errc);
+              badnames.push(name);
+            }
+          });
+          delta--;
+          if(!delta){
+            return true;
+          }
+        });
+        for(var i in badnames){
+          UserBase.removeUser(badname,dataMaster.realmName);
+        }
+      }else{
+        delta = delta*-1;
+        while(delta){
+          for(var i in _botRooms){
+            var br = _botRooms[i];
+            if(br.available){
+              tryEngageBot(i);
+              delta--;
+              if(!delta){
+                break;
+              }
+            }
+          }
+        }
+      }
+    }
+  });
 }
 
 function fillBotBase(){
@@ -214,7 +281,8 @@ function fillBotBase(){
       actions.push(['set',[bot.username],[dataMaster.domainName+'/img/avatars/'+bot.avatar,undefined,'dcp']]);
     }
     botbasebranch.commit('init_botbase',actions);
-    listenToNodes();
+    listenToRooms();
+    //listenToNodes();
   });
 };
 
