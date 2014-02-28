@@ -106,6 +106,7 @@ function tryRecognize(name,servername,roomname,seat){
 
 function tryEngageBot(roomname){
   var roomobj = _botRooms[roomname];
+  console.log('trying to engage a bot on',roomobj);
   var servel = dataMaster.element(['nodes',roomobj.servname]);
   var bot = nextBot();
   if(bot){
@@ -128,8 +129,6 @@ function tryEngageBot(roomname){
       __BotsEngaged--;
       console.log(__BotsEngaged);
     });
-  }else{
-    roomobj.available++;
   }
 };
 
@@ -142,6 +141,7 @@ function setBotStatus(u,stat){
 }
 
 function botRoom(servel,roomname,servname){
+  //console.log('botRoom for',servel,roomname,servname);
   var roomobj = _botRooms[roomname];
   if(roomobj){
     if(roomobj.available){
@@ -149,12 +149,13 @@ function botRoom(servel,roomname,servname){
     }
     return;
   }
-  roomobj = {servname:servname,available:0};
+  roomobj = {servname:servname};
   _botRooms[roomname] = roomobj;
   var seats = [];
   //var roomel = servel.element(['rooms',roomname]);
   servel.waitFor(['rooms',roomname,'players','*','name'],function(seat,name){
     if(name){
+      if(roomobj.available<=0){return;}
       var b = tryRecognize(name,servname,roomname,seat);
       if(b){
         if(!b.engagedIn){
@@ -187,6 +188,11 @@ function botRoom(servel,roomname,servname){
     }
   });
   servel.waitFor(['rooms',roomname,'players','*','question','data'],function(seat,questionbi){
+    if(seat==='DISCARD_THIS'){
+      delete _botRooms[roomname];
+      //this.destroy();
+      return;
+    }
     if(seats[seat]){
       if(!seats[seat].username){
         console.log('How did I get here?',roomname,'User destroyed, slot',seat,'just standing there, receiving a question...');
@@ -206,7 +212,13 @@ function botRoom(servel,roomname,servname){
       console.log('nobody sits on',seat);
     }
   });
-  servel.waitFor(['rooms',roomname,['bots','playing']],function(map){
+  servel.waitFor(['rooms',roomname,['bots','playing']],function(map,oldmap){
+    var oldplaying = (oldmap && oldmap.playing) ? oldmap.playing : 0;
+    if(typeof roomobj.available === 'undefined'){
+      roomobj.available = map.bots;
+    }else{
+      roomobj.available -= (map.playing-oldplaying);
+    }
     if(map.bots>map.playing){
       tryEngageBot(roomname);
     }
@@ -215,6 +227,7 @@ function botRoom(servel,roomname,servname){
 
 function createRoomListener(){
   return dataMaster.element(['rooms']).waitFor(['*',['class=Poker','type=CashTable','servername']],function(roomname,map){
+    console.log(roomname,map);
       botRoom(dataMaster.element(['nodes',map.servername]),roomname,map.servername);
   });
 }
@@ -229,6 +242,7 @@ function listenToRooms(){
     if(changedmap.private){
       var newbotcnt = el.value();
       var delta = __BotsEngaged-newbotcnt;
+      console.log('my delta is',delta,'botrooms',_botRooms);
       if(delta>0){
         var badnames = [];
         dataMaster.element(['local','bots','bots']).traverseElements(function(name,el){
@@ -252,15 +266,16 @@ function listenToRooms(){
         }
       }else{
         delta = delta*-1;
-        while(delta){
-          for(var i in _botRooms){
-            var br = _botRooms[i];
-            if(br.available){
-              tryEngageBot(i);
-              delta--;
-              if(!delta){
-                break;
-              }
+      }
+      if(delta){
+        for(var i in _botRooms){
+          var br = _botRooms[i];
+          console.log('can I engage a bot on',br,'?');
+          if(br.available){
+            tryEngageBot(i);
+            delta--;
+            if(!delta){
+              break;
             }
           }
         }

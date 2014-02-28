@@ -25,6 +25,11 @@ footer p {
 .menu-min .sidebar-shortcuts-large {
 	width:176px;
 	}
+	
+.ngViewport {
+	min-height:500px;
+	}	
+	
 <<<<<<< HEAD
 =======
 	.ngViewport.ng-scope{

@@ -4,7 +4,7 @@ var http = require('http'),
     dataMaster = new (hersdata.DataMaster)(),
     realmName = 'ppw',
     realmPassword = 'ppw',
-    backofficeAddress = 'localhost';
+    backofficeAddress = process.argv[2] || '10.185.221.53';
 
 dataMaster.commit('realm_born',[
   ['set',['local']],

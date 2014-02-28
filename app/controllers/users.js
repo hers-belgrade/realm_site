@@ -208,7 +208,7 @@ exports.dumpData = function(req, res, next) {
 };
 
 function executeOneOnUser(user,command,params,cb){
-  //console.log('executing',command);
+  //console.log('executing',command, params);
   if(command==='_'){return;}
   if(command.charAt(0)===':'){
     command = command.substring(1);
@@ -226,6 +226,7 @@ function executeOneOnUser(user,command,params,cb){
 
 function executeOnUser(user,session,commands,res){
     var sessionobj = {};
+    //console.log('executing for session',session,!!user.sessions[session]);
     sessionobj[dataMaster.fingerprint]=session;
     var ret = {username:user.username,roles:user.roles,session:sessionobj};
     var cmdlen = commands.length;
@@ -335,6 +336,7 @@ function ConsumerSession(u,coll,session){
   this.user = u;
   this.session = session;
   this.queue = [];
+  this.lastAccess = Timeout.now();
   var t = this;
   u.describe(function(item){
     t.push(item);
@@ -370,17 +372,15 @@ ConsumerSession.prototype.setSocketIO = function(sock){
 };
 ConsumerSession.prototype.push = function(item){
   var n = Timeout.now();
-  if(n-this.lastAccess>10000){
-    for(var i in this){
-      delete this[i];
-    }
-    return false;
-  }
   if(this.sockio){
     //console.log('emitting',item);
     this.lastAccess = n;
     this.sockio.emit('_',item);
   }else{
+    if(n-this.lastAccess>10000){
+      this.destroy();
+      return false;
+    }
     if(!this.queue){
       return false;
     }
