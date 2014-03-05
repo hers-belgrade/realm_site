@@ -1,8 +1,10 @@
 var mongoose = require('mongoose'),
   Bot = mongoose.model('Bot'),
   dataMaster = require('./datamaster'),
+  Timeout = require('herstimeout'),
   hersdata = require('hersdata'),
   UserBase = hersdata.UserBase,
+  __BotRequests=0,
   __BotsEngaged=0;
 
 function _now(){
@@ -12,12 +14,13 @@ function _now(){
 var __lastScan,botnames=[];
 
 function nextBot(){
-  if(__BotsEngaged>=dataMaster.element(['local','bots','botcount']).value()){
-    console.log(__BotsEngaged,'>=',dataMaster.element(['local','bots','botcount']).value());
+  if(__BotRequests+__BotsEngaged>=dataMaster.element(['local','bots','botcount']).value()){
+    //console.log(__BotRequests,'+',__BotsEngaged,'>=',dataMaster.element(['local','bots','botcount']).value());
     return;
   }
-  if(__BotsEngaged%1000 === 0){
-    console.log(__BotsEngaged);
+  //console.log(dataMaster.element(['local','bots','bots']).dataDebug());
+  if(__BotsEngaged%50 === 0){
+    //console.log(__BotsEngaged);
   }
   var now = _now();
   if((__lastScan && now-__lastScan>15000) || botnames.length<1){
@@ -34,14 +37,29 @@ function nextBot(){
       }
     });
   }
-  var targetbotname = botnames[~~(Math.random()*botnames.length)];
+  var targetbotname;
+  var realm = UserBase.realms[dataMaster.realmName];
+  for(var bn in realm){
+    var b = realm[bn];
+    if(!b.engagedIn){
+      targetbotname = b.username;
+      break;
+    }
+  }
+  if(!targetbotname){
+    targetbotname = botnames[~~(Math.random()*botnames.length)];
+  }
   var pass = '';
   while(true){
     var u = UserBase.findUser(targetbotname+pass,dataMaster.realmName);
     if(!u){
-      //__BotsEngaged++;
+      __BotRequests++;
       return UserBase.setUser(targetbotname+pass,dataMaster.realmName,'bot,player');
     }else{
+      if(!u.engagedIn){
+        __BotRequests++;
+        return u;
+      }
       if(!pass){
         pass=1;
       }else{
@@ -66,6 +84,15 @@ function storeBot(username,servername,roomname,seat){
     ['set',[username,'seat'],[seat,undefined,'admin']]
   ]);
 };
+function dumpReservedBots(){
+  var realm = UserBase.realms[dataMaster.realmName];
+  for(var un in realm){
+    var b = realm[un];
+    if(b.reservedFor){
+      //console.log(b.username,'=>',b.reservedFor);
+    }
+  }
+};
 function tryRecognize(name,servername,roomname,seat){
   /*
   var b = UserBase.findUser(name,dataMaster.realmName);
@@ -81,58 +108,86 @@ function tryRecognize(name,servername,roomname,seat){
       }
       found = UserBase.setUser(name,dataMaster.realmName,'bot,player');
       if(found){
-        storeBot(name,servername,roomname,seat);
+        //storeBot(name,servername,roomname,seat);
         return true;
       }
     }else if(name.indexOf(bname)===0){
       if(parseInt(name.substr(bname.length))){
-        //__BotsEngaged++;
         found = UserBase.setUser(name,dataMaster.realmName,'bot,player');
-        if(found){
-          storeBot(name,servername,roomname,seat);
-          return true;
-        }
+        return true;
       }else{
         //console.log(name,'cannot be',bname);
       }
     }
   });
-  if(found){
-    //__BotsEngaged++;
-    //console.log(name,'found',__BotsEngaged);
-  }
   return found;
 };
 
 function tryEngageBot(roomname){
   var roomobj = _botRooms[roomname];
-  console.log('trying to engage a bot on',roomobj);
-  var servel = dataMaster.element(['nodes',roomobj.servname]);
-  var bot = nextBot();
-  if(bot){
-    bot.invoke(servel,'rooms/'+roomname+'/pokerroom/letMeWatch',{},function(errcb){
-      if(errcb!=='OK'){
-        bot.destroy();
-        return;
+  if(!roomobj){return;}
+  if(roomobj.available>0){
+    //console.log('=>',roomname,roomobj.available);
+    var servel = dataMaster.element(['nodes',roomobj.servname]);
+    var bot = nextBot();
+    if(bot){
+      roomobj.available--;
+      if(bot.engagedIn){
+        console.log('nextBot gave me',bot.username,'who is already in',bot.engagedIn);
       }
-      bot.invoke(servel,'rooms/'+roomname+'/pokerroom/beseat',{seat:~~(Math.random()*10)},function(errcb){
-        //console.log('beseat said',errcb);
+      bot.engagedIn = roomname;
+      bot.reservedFor = roomname;
+      bot.invoke(servel,'rooms/'+roomname+'/pokerroom/letMeWatch',{},function(errcb){
         if(errcb!=='OK'){
           bot.destroy();
+          return;
         }
-      })
-    });
-    bot.destroyed.attach(function(){
-      dataMaster.element(['local','bots','bots']).commit('bot_out',[
-        ['remove',[bot.username]]
-      ]);
-      __BotsEngaged--;
-      console.log(__BotsEngaged);
-    });
+        bot.invoke(servel,'rooms/'+roomname+'/pokerroom/beseat',{seat:~~(Math.random()*5)},function(errcode){
+          //console.log('beseat said',errcb);
+          if(errcode!=='OK'){
+            bot.destroy();
+          }
+        })
+      });
+      bot.destroyed.attach(function(){
+        dataMaster.element(['local','bots','bots']).commit('bot_out',[
+          ['remove',[bot.username]]
+        ]);
+        __BotsEngaged--;
+        if(!bot.beseated){
+          __BotRequests--;
+        }
+        //console.log(__BotsEngaged);
+      });
+      return true;
+    }else{
+      return false;
+    }
   }
 };
 
 var _botRooms = {};
+
+function doBotRooms(){
+  var bc = 0;
+  var tm = Timeout.metrics();
+  var crit = 100-(tm.delay||0);
+  if(crit>0){
+    for(var i in _botRooms){
+      var rbe = tryEngageBot(i);
+      if(rbe===false){break;}
+      if(rbe===true){
+        bc++;
+      }
+      if(bc>crit){
+        break;
+      }
+    }
+  }
+  Timeout.set(doBotRooms,500);
+}
+
+doBotRooms();
 
 function setBotStatus(u,stat){
   dataMaster.element(['local','bots','bots',u.username]).commit('set_status',[
@@ -144,44 +199,70 @@ function botRoom(servel,roomname,servname){
   //console.log('botRoom for',servel,roomname,servname);
   var roomobj = _botRooms[roomname];
   if(roomobj){
-    if(roomobj.available){
-      tryEngageBot(roomname);
-    }
     return;
   }
-  roomobj = {servname:servname};
-  _botRooms[roomname] = roomobj;
   var seats = [];
+  roomobj = {servname:servname,destroy:function(){
+    console.log('destroying room',roomname);
+    delete _botRooms[roomname];
+    for(var i in seats){
+      var s = seats[i];
+      if(s && s.destroy){
+        s.destroy();
+      }
+    }
+  }};
+  _botRooms[roomname] = roomobj;
   //var roomel = servel.element(['rooms',roomname]);
   servel.waitFor(['rooms',roomname,'players','*','name'],function(seat,name){
+    if(seat==='DISCARD_THIS'){
+      roomobj.destroy();
+      return;
+    }
     if(name){
-      if(roomobj.available<=0){return;}
+      //console.log(roomname,seat,name);
       var b = tryRecognize(name,servname,roomname,seat);
       if(b){
-        if(!b.engagedIn){
-          __BotsEngaged++;
-          console.log(__BotsEngaged);
-          roomobj.available--;
-        }else{
-          console.log(b.username,'is already engaged in',b.engagedIn);
+        __BotRequests--;
+        if(roomobj.available<=0){
+          //console.log(roomname,'not available',roomobj);
+          //dataMaster.element(['nodes',servname]).invoke(['rooms',roomname,'players',seat,'private','exit'],{},b.username,dataMaster.realmName,'bot');
+          //return;
         }
-        b.engagedIn = roomname;
-        setBotStatus(b,'entered');
-        seats[seat] = b;
+        //console.log('ok',b.username,'in',roomname,'at',seat);
+        if(!b.engagedIn || (b.engagedIn === roomname)){
+          __BotsEngaged++;
+          //console.log(__BotRequests,__BotsEngaged);
+          b.beseated=true;
+          delete b.reservedFor;
+          //dumpReservedBots();
+          storeBot(b.username,servname,roomname,seat);
+          setBotStatus(b,'entered');
+          seats[seat] = b;
+        }else{
+          console.log(b.username,'is already engaged in',b.engagedIn,'instead of',roomname);
+          process.exit(0);
+        }
       }else{
         console.log(name,'is not recognized');
       }
     }else{
       if(seats[seat]){
+        //console.log('player out on seat',seat,'in',roomname);
         seats[seat].destroy();
         delete seats[seat];
       }
     }
   });
   servel.waitFor(['rooms',roomname,'players','*','buyin'],function(seat,jsonbi){
+    //console.log(roomname,seat,jsonbi);
+    if(seat==='DISCARD_THIS'){
+      roomobj.destroy();
+      return;
+    }
     if(seats[seat]){
       seats[seat].invoke(servel,'rooms/'+roomname+'/players/'+seat+'/private/confirmreservation',{buyin:randValueFromRange(JSON.parse(jsonbi))},function(errcb){
-        //console.log('confirmreservation said',errcb);
+        //console.log('confirmreservation in',roomname,'for',seat,'said',errcb);
       });
     }else{
       //console.log('nobody sits on',seat);
@@ -189,13 +270,13 @@ function botRoom(servel,roomname,servname){
   });
   servel.waitFor(['rooms',roomname,'players','*','question','data'],function(seat,questionbi){
     if(seat==='DISCARD_THIS'){
-      delete _botRooms[roomname];
-      //this.destroy();
+      roomobj.destroy();
       return;
     }
     if(seats[seat]){
       if(!seats[seat].username){
         console.log('How did I get here?',roomname,'User destroyed, slot',seat,'just standing there, receiving a question...');
+        seats[seat].destroy();
         delete seats[seat];
         return;
       }
@@ -213,21 +294,17 @@ function botRoom(servel,roomname,servname){
     }
   });
   servel.waitFor(['rooms',roomname,['bots','playing']],function(map,oldmap){
-    var oldplaying = (oldmap && oldmap.playing) ? oldmap.playing : 0;
-    if(typeof roomobj.available === 'undefined'){
-      roomobj.available = map.bots;
-    }else{
-      roomobj.available -= (map.playing-oldplaying);
+    if(map==='DISCARD_THIS'){
+      delete _botRooms[roomname];
+      return;
     }
-    if(map.bots>map.playing){
-      tryEngageBot(roomname);
-    }
+    roomobj.available = map.bots - map.playing;
   });
 };
 
 function createRoomListener(){
   return dataMaster.element(['rooms']).waitFor(['*',['class=Poker','type=CashTable','servername']],function(roomname,map){
-    console.log(roomname,map);
+    //console.log(roomname,map);
       botRoom(dataMaster.element(['nodes',map.servername]),roomname,map.servername);
   });
 }
@@ -242,7 +319,6 @@ function listenToRooms(){
     if(changedmap.private){
       var newbotcnt = el.value();
       var delta = __BotsEngaged-newbotcnt;
-      console.log('my delta is',delta,'botrooms',_botRooms);
       if(delta>0){
         var badnames = [];
         dataMaster.element(['local','bots','bots']).traverseElements(function(name,el){
@@ -263,21 +339,6 @@ function listenToRooms(){
         });
         for(var i in badnames){
           UserBase.removeUser(badname,dataMaster.realmName);
-        }
-      }else{
-        delta = delta*-1;
-      }
-      if(delta){
-        for(var i in _botRooms){
-          var br = _botRooms[i];
-          console.log('can I engage a bot on',br,'?');
-          if(br.available){
-            tryEngageBot(i);
-            delta--;
-            if(!delta){
-              break;
-            }
-          }
         }
       }
     }
