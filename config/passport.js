@@ -57,12 +57,12 @@ module.exports = function(passport) {
                 }
                 if (!user) {
                     return done(null, false, {
-                        message: 'Unknown user'
+                      message: 'Invalid credentials'
                     });
                 }
                 if (!user.authenticate(password)) {
                     return done(null, false, {
-                        message: 'Invalid password'
+                      message: 'Invalid credentials'
                     });
                 }
                 console.log('USER!',user);
