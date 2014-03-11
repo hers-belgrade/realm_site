@@ -30,18 +30,14 @@ function nextBot(){
     dataMaster.element(['local','bots','botbase']).traverseElements(function(name,el){
       cnt++;
       botnames.push(name);
-      var u = UserBase.findUser(name,dataMaster.realmName);
-      if(!u){
-        UserBase.setUser(name,dataMaster.realmName,'bot,player');
-        //return true;
-      }
+      dataMaster.functionalities.sessionuserfunctionality.f._produceUser({name:name,roles:'bot,player'});
     });
   }
   var targetbotname;
-  var realm = UserBase.realms[dataMaster.realmName];
+  var realm = UserBase.realms[dataMaster.functionalities.sessionuserfunctionality.f.realmName];
   for(var bn in realm){
     var b = realm[bn];
-    if(!b.engagedIn){
+    if((!b.engagedIn) && b.contains('bot')){
       targetbotname = b.username;
       break;
     }
@@ -51,10 +47,10 @@ function nextBot(){
   }
   var pass = '';
   while(true){
-    var u = UserBase.findUser(targetbotname+pass,dataMaster.realmName);
+    var u = UserBase.findUser(targetbotname+pass,dataMaster.functionalities.sessionuserfunctionality.f.realmName);
     if(!u){
       __BotRequests++;
-      return UserBase.setUser(targetbotname+pass,dataMaster.realmName,'bot,player');
+      return dataMaster.functionalities.sessionuserfunctionality.f._produceUser({name:targetbotname+pass,roles:'bot,player'});
     }else{
       if(!u.engagedIn){
         __BotRequests++;
@@ -101,19 +97,19 @@ function tryRecognize(name,servername,roomname,seat){
   var found = false;
   dataMaster.element(['local','bots','botbase']).traverseElements(function(bname){
     if(name===bname){
-      var b = UserBase.findUser(name,dataMaster.realmName,'bot,player');
+      var b = UserBase.findUser(name,dataMaster.functionalities.sessionuserfunctionality.f.realmName,'bot,player');
       if(b){
         found = b;
         return true;
       }
-      found = UserBase.setUser(name,dataMaster.realmName,'bot,player');
+      found = dataMaster.functionalities.sessionuserfunctionality.f._produceUser({name:name,roles:'bot,player'});
       if(found){
         //storeBot(name,servername,roomname,seat);
         return true;
       }
     }else if(name.indexOf(bname)===0){
       if(parseInt(name.substr(bname.length))){
-        found = UserBase.setUser(name,dataMaster.realmName,'bot,player');
+        found = dataMaster.functionalities.sessionuserfunctionality.f._produceUser({name:name,roles:'bot,player'});
         return true;
       }else{
         //console.log(name,'cannot be',bname);
@@ -326,7 +322,7 @@ function listenToRooms(){
           var room = el.element(['roomname']).value();
           var seat = el.element(['seat']).value();
           //console.log(name,'playing at',room,seat);
-          dataMaster.element(['nodes',server]).invoke(['rooms',room,'players',seat,'private','exit'],{},name,dataMaster.realmName,'bot',function(errc){
+          dataMaster.element(['nodes',server]).invoke(['rooms',room,'players',seat,'private','exit'],{},name,dataMaster.functionalities.sessionuserfunctionality.f.realmName,'bot',function(errc){
             if(errc!=='OK'){
               console.log(errc);
               badnames.push(name);
@@ -338,7 +334,7 @@ function listenToRooms(){
           }
         });
         for(var i in badnames){
-          UserBase.removeUser(badname,dataMaster.realmName);
+          UserBase.removeUser(badname,dataMaster.functionalities.sessionuserfunctionality.f.realmName);
         }
       }
     }

@@ -62,7 +62,7 @@ function BOListener(system){
     ['set',['local','bots','bots']]
   ]);
   dataMaster.waitFor(['system','*',['type=node','address','replicationPort']],function(servname,map){
-    dataMaster.element(['nodes']).createRemoteReplica(servname,dataMaster.instanceName,dataMaster.domainName,{address:map.address,port:map.replicationPort},true); //true<=>skipdcp
+    dataMaster.element(['nodes']).createRemoteReplica(servname,dataMaster.instanceName,dataMaster.functionalities.sessionuserfunctionality.f.realmName,{address:map.address,port:map.replicationPort},true); //true<=>skipdcp
     dataMaster.element(['nodes',servname]).go();
   });
   //dataMaster.element(['local','bots']).attach('pokerbots',{realmname:dataMaster.realmName,userfactory:dataMaster,serverfactory:dataMaster.element(['nodes'])});
@@ -73,29 +73,17 @@ function BOListener(system){
   });
 }
 
-dataMaster.fingerprint = (require('crypto').randomBytes)(12).toString('hex');
-//dataMaster.setSessionUserFactory();
-/*
-dataMaster.newUser.attach(function(newuser){
-  var sysel = dataMaster.element(['system']);
-  sysel && sysel.findUser(newuser.username,newuser.realmname,function(sysuser){
-    if(!sysuser){return;}
-    for(var i in sysuser.keys){
-      !newuser.contains(i) && newuser.addKey(i);
-    }
-  });
-});
-*/
+dataMaster.setSessionUserFunctionality({realmName:realmName});
 dataMaster.httpTalker = new HTTPTalker(backofficeAddress,8080);
-dataMaster.realmName = realmName;
 dataMaster.go = function(){
   var t = this.httpTalker;
   t.tell('/signinServer',{name:realmName,password:realmPassword},function(data){
+    console.log(data);
     if(data.name){//ok
       console.log('going as',data.name);
       dataMaster.instanceName = data.name;
       dataMaster.domainName = data.domain;
-      dataMaster.createRemoteReplica('system',data.name,dataMaster.realmName,{address:backofficeAddress,port:data.replicationPort});
+      dataMaster.createRemoteReplica('system',data.name,dataMaster.functionalities.sessionuserfunctionality.f.realmName,{address:backofficeAddress,port:data.replicationPort});
       var system = dataMaster.element(['system']);
       system.replicationInitiated.attach(function(){
         new BOListener(system);
