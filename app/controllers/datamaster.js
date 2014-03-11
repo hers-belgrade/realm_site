@@ -8,7 +8,7 @@ var http = require('http'),
 
 dataMaster.commit('realm_born',[
   ['set',['local']],
-  ['set',['nodes']]
+  ['set',['nodes']],
 ]);
 
 function HTTPTalker(host,port){
@@ -54,6 +54,8 @@ HTTPTalker.prototype.tell = function(page,obj,cb){
   req.end();
 };
 
+
+///back office listener ....
 function BOListener(system){
   dataMaster.commit('bo_started',[
     ['set',['local','bots']],
@@ -65,7 +67,6 @@ function BOListener(system){
     dataMaster.element(['nodes']).createRemoteReplica(servname,dataMaster.instanceName,dataMaster.functionalities.sessionuserfunctionality.f.realmName,{address:map.address,port:map.replicationPort},true); //true<=>skipdcp
     dataMaster.element(['nodes',servname]).go();
   });
-  //dataMaster.element(['local','bots']).attach('pokerbots',{realmname:dataMaster.realmName,userfactory:dataMaster,serverfactory:dataMaster.element(['nodes'])});
   system.waitFor([system.replicaToken.name,'replicationPort'],function(val){
     console.log('opening replication on',val);
     dataMaster.replicationPort = val;
@@ -75,6 +76,7 @@ function BOListener(system){
 
 dataMaster.setSessionUserFunctionality({realmName:realmName});
 dataMaster.httpTalker = new HTTPTalker(backofficeAddress,8080);
+
 dataMaster.go = function(){
   var t = this.httpTalker;
   t.tell('/signinServer',{name:realmName,password:realmPassword},function(data){
@@ -96,6 +98,73 @@ dataMaster.go = function(){
     }
   });
 };
+
+var user_data_remap = ['username','balance','roles'];
+
+function produceFullUsername (username) {
+  return username+'@'+dataMaster.realmName;
+}
+
+dataMaster.userExists = function (username) {
+  return dataMaster.element (['local', 'users', produceFullUsername(username)]);
+}
+
+dataMaster.removeUser = function (username) {
+  dataMaster.commit ('logout_user', [['remove', ['local', 'users', produceFullUsername(username)]]]);
+}
+
+dataMaster.storeUser = function (username,profile){
+  //just push user to data tree ...
+  var fullname = produceFullUsername(username);
+  profile = profile || {};
+  profile.avatar = profile.avatar || '';
+  profile.balance = profile.balance || 0;
+
+  var txns = [
+    ['set', ['local','users']],
+    ['set', ['local','users', fullname]],
+    ['set', ['local','users', fullname, 'payments_pending'], fullname],
+    ['set', ['local','users', fullname, 'engagements']]
+  ];
+  if (profile) {
+    for (var i in profile) {
+      txns.push ( ['set', ['local', 'users', fullname, i], [profile[i]]]);
+    }
+  }
+  dataMaster.commit ('storing_user', txns);
+}
+
+dataMaster.getUsersBalance = function (user) {
+  var fun = user.fullname;
+  var el = dataMaster.element(['local', 'users', fun,'balance']);
+  if (!el) return undefined;
+  return el.value();
+}
+
+dataMaster.createEngagement = function (user, room, opening_amount) {
+  if (!opening_amount) return;
+  console.log('ok, will create an engagement ...', user.fullname, room, opening_amount);
+  var fun = user.fullname;
+  dataMaster.commit('opening_engagement', [
+    ['set', ['local', 'users', fun, 'engagements', room], [opening_amount]]
+  ]);
+}
+
+dataMaster.closeEngagement = function (user, room, closing_amount) {
+  var fun = user.fullname;
+  var el = this.element(['local', 'users', fun, 'engagements']);
+  if (!el) return undefined;
+  try {
+    closing_amount = parseInt(closing_amount) || 0;
+  }catch (e) {
+    closing_amount = 0;
+  }
+
+  var balance = this.getUsersBalance(user);
+  dataMaster.commit('closing_engagement', [
+      ['remove', ['local', 'users', fun, 'engagements',room]],
+      ['set', ['local', 'users', fun, 'balance'], [balance + closing_amount]]
+  ]);
+}
+
 module.exports = dataMaster;
-
-

@@ -57,15 +57,16 @@ dataMaster.functionalities.sessionuserfunctionality.f.registerUserProductionCall
 
 function produceUser1(req){
   var user = dataMaster.setFollower(req.user.username,dataMaster.realmName,req.user.roles,function(item){
-      for(var i in this.sessions){
-        if(!this.sessions[i].push){
-          delete this.sessions[i];
-        }
-        if(this.sessions[i].push(item)===false){
-          delete this.sessions[i];
-        }
+    for(var i in this.sessions){
+      if(!this.sessions[i].push){
+        delete this.sessions[i];
       }
-    });
+      if(this.sessions[i].push(item)===false){
+        delete this.sessions[i];
+      }
+    }
+  });
+
   if(!user.makeSession){
     user.makeSession = function(sess){
       if(!sess){
@@ -79,9 +80,38 @@ function produceUser1(req){
       var t = this;
       this.sessions[sess] = _s;
     };
+  }
+
+
+  if (!user.commitTransaction) {
     user.commitTransaction = function(params,statuscb){
       dataMaster.commit(params.txnalias,params.txns);
       statuscb('OK',[]);
+    };
+
+    user.requestPayment = function (params, ocb) {
+      var room_name = params.target.match(/(\w+|\d*)+$/)[0];
+      var balance = dataMaster.getUsersBalance(user);
+      var command = params.target + '/' +params.command;
+      this.invoke (dataMaster, command, params.params, function () {
+        //TODO: meri tih 30 sekundi odavde i odazovi se na dati cb sa 0 amount - om... imas gomilu koda pride koji treba da odradis ...
+        console.log('payment request pending ...');
+        ocb.apply (this, arguments);
+      });
+    };
+
+    user.confirmPayment = function (params, ocb) {
+      ///TODO: sanity checks ...
+      var room_name = params.target.match(/(\w+|\d*)+$/)[0];
+      var balance = dataMaster.getUsersBalance(user);
+      var amount = params.params.amount;
+      var command = params.target+'/'+params.command;
+      var self = this;
+      this.invoke(dataMaster, command, params.params, function () {
+        console.log('payment confirmed');
+        dataMaster.createEngagement(self, room_name, amount);
+        ocb.apply(this, arguments);
+      });
     };
     user.takeLobby = function(params,statuscb){
       if(!this.lobby){
@@ -137,7 +167,10 @@ exports.signup = function(req, res) {
  * Logout
  */
 exports.signout = function(req, res) {
-    req.user && req.user.username && UserBase.removeUser(req.user.username,dataMaster.realmName);
+    if (req.user && req.user.username){
+      UserBase.removeUser(req.user.username,dataMaster.realmName);
+      dataMaster.removeUser(req.user.username);
+    }
     req.logout();
     res.redirect('/');
 };
@@ -154,19 +187,18 @@ exports.session = function(req, res) {
  */
 exports.create = function(req, res) {
     var user = new User(req.body);
-
     user.provider = 'local';
     user.save(function(err) {
-        if (err) {
-            return res.render('users/signup', {
-                errors: err.errors,
-                user: user
-            });
-        }
-        req.logIn(user, function(err) {
-            if (err) return next(err);
-            return res.redirect('/');
+      if (err) {
+        return res.render('users/signup', {
+          errors: err.errors,
+          user: user
         });
+      }
+      req.logIn(user, function(err) {
+        if (err) return next(err);
+        return res.redirect('/');
+      });
     });
 };
 
@@ -181,22 +213,18 @@ exports.me = function(req, res) {
  * Find user by id
  */
 exports.user = function(req, res, next, id) {
-    User
-        .findOne({
-            _id: id
-        })
-        .exec(function(err, user) {
-            if (err) return next(err);
-            if (!user) return next(new Error('Failed to load User ' + id));
-            req.profile = user;
-            next();
-        });
+  User.findOne({ _id: id })
+  .exec(function(err, user) {
+    if (err) return next(err);
+    if (!user) return next(new Error('Failed to load User ' + id));
+    req.profile = user;
+    next();
+  });
 };
 
 function now(){
   return (new Date()).getTime();
 }
-
 var _now;
 
 exports.dumpData = function(req, res, next) {
@@ -231,6 +259,29 @@ exports.execute = function(req, res, next) {
   });
 };
 
+
+function storeUserToTree (u, cb) {
+  if (dataMaster.userExists(u.username)) {
+    return cb ();
+  }else{
+    User.findOne({username: u.username}).exec (function(err, user) {
+      if (err) return cb(err);
+      if (!user) return cb (new Error('Failed to load User '+username));
+
+      var roles = user.roles.split(',');
+      if (roles.indexOf('player') >= 0){
+        console.log('will put player into data tree:', u.username);
+        if (typeof(user.balance) === 'undefined') {
+          user.balance = 2000;
+          user.save();
+        }
+        dataMaster.storeUser(u.username, {balance: user.balance, avatar: user.avatar});
+      }
+      cb ();
+    });
+  }
+}
+
 exports.setup = function(app){
   var io = require('socket.io').listen(app, { log: false });
   console.log('socket.io listening');
@@ -243,9 +294,15 @@ exports.setup = function(app){
       if(!u){
         callback(null,false);
       }else{
-        handshakeData.username = username;
-        handshakeData.session = sess;
-        callback(null,true);
+        storeUserToTree(u, function (err) {
+          if (err) {
+            callback(null, false);
+          }else{
+            handshakeData.username = username;
+            handshakeData.session = sess;
+            callback(null,true);
+          }
+        });
       }
     }else{
       callback(null,false);
@@ -260,7 +317,6 @@ exports.setup = function(app){
     u.sessions[session].setSocketIO(sock);
     sock.on('!',function(data){
       dataMaster.functionalities.sessionuserfunctionality.f.executeOnUser({user:u,session:session,commands:data},function(errc,errp,errm){
-        console.log('sockio',arguments);
         sock.emit('=',errc==='OK' ? errp[0] : {errorcode:errc,errorparams:errp,errormessage:errm});
       });
     });
