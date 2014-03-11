@@ -52,6 +52,30 @@ dataMaster.functionalities.sessionuserfunctionality.f.registerUserProductionCall
       }
       statuscb('OK',this.lobby);
     };
+    u.requestPayment = function (params, ocb) {
+      var room_name = params.target.match(/(\w+|\d*)+$/)[0];
+      var balance = dataMaster.getUsersBalance(this);
+      var command = params.target + '/' +params.command;
+      this.invoke (dataMaster, command, params.params, function () {
+        //TODO: meri tih 30 sekundi odavde i odazovi se na dati cb sa 0 amount - om... imas gomilu koda pride koji treba da odradis ...
+        console.log('payment request pending ...');
+        ocb.apply (this, arguments);
+      });
+    };
+
+    u.confirmPayment = function (params, ocb) {
+      ///TODO: sanity checks ...
+      var room_name = params.target.match(/(\w+|\d*)+$/)[0];
+      var balance = dataMaster.getUsersBalance(this);
+      var amount = params.params.amount;
+      var command = params.target+'/'+params.command;
+      var self = this;
+      this.invoke(dataMaster, command, params.params, function () {
+        console.log('payment confirmed');
+        dataMaster.createEngagement(self, room_name, amount);
+        ocb.apply(this, arguments);
+      });
+    };
   }
 }});
 
@@ -275,7 +299,7 @@ function storeUserToTree (u, cb) {
           user.balance = 2000;
           user.save();
         }
-        dataMaster.storeUser(u.username, {balance: user.balance, avatar: user.avatar});
+        dataMaster.storeUser(u, {balance: user.balance, avatar: user.avatar});
       }
       cb ();
     });

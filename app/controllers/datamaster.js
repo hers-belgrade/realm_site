@@ -101,21 +101,17 @@ dataMaster.go = function(){
 
 var user_data_remap = ['username','balance','roles'];
 
-function produceFullUsername (username) {
-  return username+'@'+dataMaster.realmName;
+dataMaster.userExists = function (user) {
+  return dataMaster.element (['local', 'users', user.fullname]);
 }
 
-dataMaster.userExists = function (username) {
-  return dataMaster.element (['local', 'users', produceFullUsername(username)]);
+dataMaster.removeUser = function (user) {
+  dataMaster.commit ('logout_user', [['remove', ['local', 'users', user.fullname]]]);
 }
 
-dataMaster.removeUser = function (username) {
-  dataMaster.commit ('logout_user', [['remove', ['local', 'users', produceFullUsername(username)]]]);
-}
-
-dataMaster.storeUser = function (username,profile){
+dataMaster.storeUser = function (user,profile){
   //just push user to data tree ...
-  var fullname = produceFullUsername(username);
+  var fullname = user.fullname;
   profile = profile || {};
   profile.avatar = profile.avatar || '';
   profile.balance = profile.balance || 0;
@@ -132,6 +128,7 @@ dataMaster.storeUser = function (username,profile){
     }
   }
   dataMaster.commit ('storing_user', txns);
+  console.log(dataMaster.element(['local','users']).dataDebug());
 }
 
 dataMaster.getUsersBalance = function (user) {
@@ -145,6 +142,7 @@ dataMaster.createEngagement = function (user, room, opening_amount) {
   if (!opening_amount) return;
   console.log('ok, will create an engagement ...', user.fullname, room, opening_amount);
   var fun = user.fullname;
+  console.log(dataMaster.element(['local','users',fun]).dataDebug());
   dataMaster.commit('opening_engagement', [
     ['set', ['local', 'users', fun, 'engagements', room], [opening_amount]]
   ]);
