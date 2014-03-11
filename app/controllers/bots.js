@@ -138,7 +138,7 @@ function tryEngageBot(roomname){
           bot.destroy();
           return;
         }
-        bot.invoke(servel,'rooms/'+roomname+'/pokerroom/beseat',{seat:~~(Math.random()*5)},function(errcode){
+        bot.invoke(servel,'rooms/'+roomname+'/pokerroom/beseat',{balance:2000,seat:~~(Math.random()*5)},function(errcode){
           //console.log('beseat said',errcb);
           if(errcode!=='OK'){
             bot.destroy();
@@ -257,7 +257,7 @@ function botRoom(servel,roomname,servname){
       return;
     }
     if(seats[seat]){
-      seats[seat].invoke(servel,'rooms/'+roomname+'/players/'+seat+'/private/confirmreservation',{buyin:randValueFromRange(JSON.parse(jsonbi))},function(errcb){
+      seats[seat].invoke(servel,'rooms/'+roomname+'/players/'+seat+'/private/confirmreservation',{amount:randValueFromRange(JSON.parse(jsonbi))},function(errcb){
         //console.log('confirmreservation in',roomname,'for',seat,'said',errcb);
       });
     }else{
