@@ -79,10 +79,10 @@ function handleBot(bot,follower,roomdistincter){
   };
   handleBotField('roomname');
   handleBotField('status');
-  handleBotField('balance');
-  handleBotField('chips');
-  handleBotField('lastActivity');
-  handleBotField('lastAnswer');
+  //handleBotField('balance');
+  //handleBotField('chips');
+  //handleBotField('lastActivity');
+  //handleBotField('lastAnswer');
 };
 
 angular.module('mean.bots').controller('BotsController', ['$scope', 'Bots', 'follower', function($scope,Bots,follower) {
@@ -134,11 +134,12 @@ angular.module('mean.bots').controller('BotsController', ['$scope', 'Bots', 'fol
      {field:'username', displayName:'Name'},
      {field:'avatar', displayName:'Avatar', cellTemplate:'<div class="ngCellText" ng-class="col.colIndex()"><img src="/img/avatars/{{row.getProperty(col.field)}}" width="60px"/></div>'},//cellTemplate:'<img src="/img/avatars/{{_bot.avatar}}" width="60px"/>'},
      {field:'roomname', displayName:'Room'},
-     {field:'status', displayName:'Status'},
+     {field:'status', displayName:'Status'}/*,
      {field:'balance',displayName:'Balance'},
      {field:'lastActivity', displayName:'Last activity',cellFilter:'date'},
      {field:'lastAnswer', displayName:'Last answer',cellFilter:'date'},
      {field:'_any', displayName:'Actions', cellTemplate:'<div class="ngCellText" ng-class="col.colIndex() "><div class="hidden-phone visible-desktop action-buttons ngCellText" ng-class="col.colIndex() "><a data-ng-click="set(bots[row.rowIndex],$event)" class="green"><i class="icon-pencil bigger-130"></i></a><a href="#" class="red"><i class="icon-trash bigger-130"></i></a></div></div>'}//cellTemplate:'<div class="ngCellText" ng-class="col.colIndex() "><div ng-cell-text ng-click="console.log(row.rowIndex)" data-toggle="modal">Edit</div></div>'}
+    */
     ]
 
 		
