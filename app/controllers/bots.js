@@ -141,6 +141,7 @@ function tryEngageBot(roomname){
         bot.invoke(servel,'rooms/'+roomname+'/pokerroom/beseat',{balance:2000,seat:~~(Math.random()*5)},function(errcode){
           //console.log('beseat said',errcb);
           if(errcode!=='OK'){
+            console.log ('REJECTED', arguments);
             bot.destroy();
           }
         })
@@ -149,10 +150,12 @@ function tryEngageBot(roomname){
         dataMaster.element(['local','bots','bots']).commit('bot_out',[
           ['remove',[bot.username]]
         ]);
-        __BotsEngaged--;
-        if(!bot.beseated){
+        if(bot.beseated){
+          __BotsEngaged--;
+        }else{
           __BotRequests--;
         }
+        console.log('stopping bot engagement ', __BotsEngaged, bot.beseated);
         //console.log(__BotsEngaged);
       });
       return true;
@@ -179,6 +182,8 @@ function doBotRooms(){
         break;
       }
     }
+  }else{
+    console.log('will skip, critical ...', crit);
   }
   Timeout.set(doBotRooms,500);
 }
@@ -228,6 +233,7 @@ function botRoom(servel,roomname,servname){
         //console.log('ok',b.username,'in',roomname,'at',seat);
         if(!b.engagedIn || (b.engagedIn === roomname)){
           __BotsEngaged++;
+          console.log('Engagement confirmed', __BotsEngaged);
           //console.log(__BotRequests,__BotsEngaged);
           b.beseated=true;
           delete b.reservedFor;
