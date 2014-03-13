@@ -97,7 +97,7 @@ footer p {
  {
 	text-shadow: none !important;
 	}
-.navlist a:focus {
+.navlist > li > a:focus {
 	outline:none;
 	}	
 .nav-list > li > .submenu > li > a:hover,
@@ -139,11 +139,9 @@ border-bottom-color: #8f8f8f;
 	line-height:45px;
 	}
 
-<<<<<<< HEAD
-=======
-	.ngViewport.ng-scope{
-      height: auto !important;
-          overflow-y: hidden;
+.ngViewport.ng-scope{
+    height: auto !important;
+    overflow-y: hidden;
 }
 
 .ngTopPanel.ng-scope, .ngHeaderContainer{
@@ -172,5 +170,4 @@ div.ngHeaderCell{border-color:#DDD;font-weight:bold}
 div.swarm-cg {
 	padding-top:6px;
 	}	
->>>>>>> 926ccfb5e519d071d340f488680f4101dba79bee
 
