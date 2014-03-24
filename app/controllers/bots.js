@@ -13,296 +13,14 @@ function _now(){
 
 var __lastScan,botnames=[];
 
-function nextBot(){
-  if(__BotRequests+__BotsEngaged>=dataMaster.element(['local','bots','botcount']).value()){
-    //console.log(__BotRequests,'+',__BotsEngaged,'>=',dataMaster.element(['local','bots','botcount']).value());
-    return;
-  }
-  //console.log(dataMaster.element(['local','bots','bots']).dataDebug());
-  if(__BotsEngaged%50 === 0){
-    //console.log(__BotsEngaged);
-  }
-  var now = _now();
-  if((__lastScan && now-__lastScan>15000) || botnames.length<1){
-    __lastScan = now;
-    var found;
-    var cnt = 0;
-    dataMaster.element(['local','bots','botbase']).traverseElements(function(name,el){
-      cnt++;
-      botnames.push(name);
-      dataMaster.functionalities.sessionuserfunctionality.f._produceUser({name:name,roles:'bot,player'});
-    });
-  }
-  var targetbotname;
-  var realm = UserBase.realms[dataMaster.functionalities.sessionuserfunctionality.f.realmName];
-  for(var bn in realm){
-    var b = realm[bn];
-    if((!b.engagedIn) && b.contains('bot')){
-      targetbotname = b.username;
-      break;
-    }
-  }
-  if(!targetbotname){
-    targetbotname = botnames[~~(Math.random()*botnames.length)];
-  }
-  var pass = '';
-  while(true){
-    var u = UserBase.findUser(targetbotname+pass,dataMaster.functionalities.sessionuserfunctionality.f.realmName);
-    if(!u){
-      __BotRequests++;
-      return dataMaster.functionalities.sessionuserfunctionality.f._produceUser({name:targetbotname+pass,roles:'bot,player'});
-    }else{
-      if(!u.engagedIn){
-        __BotRequests++;
-        return u;
-      }
-      if(!pass){
-        pass=1;
-      }else{
-        pass++;
-      }
-    }
-  }
-};
-
 function randValueFromRange(obj){
   return obj.min+(~~(Math.random()*((obj.max-obj.min)/obj.step)))*obj.step;
 };
 function randomPayment(data){
   return Math.random()<.2 ? data.condition : randValueFromRange(data);
 };
-function storeBot(username,servername,roomname,seat){
-  dataMaster.element(['local','bots','bots']).commit('new_bot',[
-    ['set',[username],'admin'],
-    ['set',[username,'name'],[username,undefined,'admin']],
-    ['set',[username,'servername'],[servername,undefined,'admin']],
-    ['set',[username,'roomname'],[roomname,undefined,'admin']],
-    ['set',[username,'seat'],[seat,undefined,'admin']]
-  ]);
-};
-function dumpReservedBots(){
-  var realm = UserBase.realms[dataMaster.realmName];
-  for(var un in realm){
-    var b = realm[un];
-    if(b.reservedFor){
-      //console.log(b.username,'=>',b.reservedFor);
-    }
-  }
-};
-function tryRecognize(name,servername,roomname,seat){
-  /*
-  var b = UserBase.findUser(name,dataMaster.realmName);
-  if(!b){return;}
-  */
-  var found = false;
-  dataMaster.element(['local','bots','botbase']).traverseElements(function(bname){
-    if(name===bname){
-      var b = UserBase.findUser(name,dataMaster.functionalities.sessionuserfunctionality.f.realmName,'bot,player');
-      if(b){
-        found = b;
-        return true;
-      }
-      found = dataMaster.functionalities.sessionuserfunctionality.f._produceUser({name:name,roles:'bot,player'});
-      if(found){
-        //storeBot(name,servername,roomname,seat);
-        return true;
-      }
-    }else if(name.indexOf(bname)===0){
-      if(parseInt(name.substr(bname.length))){
-        found = dataMaster.functionalities.sessionuserfunctionality.f._produceUser({name:name,roles:'bot,player'});
-        return true;
-      }else{
-        //console.log(name,'cannot be',bname);
-      }
-    }
-  });
-  return found;
-};
-
-function tryEngageBot(roomname){
-  var roomobj = _botRooms[roomname];
-  if(!roomobj){return;}
-  if(roomobj.available>0){
-    //console.log('=>',roomname,roomobj.available);
-    var servel = dataMaster.element(['nodes',roomobj.servname]);
-    var bot = nextBot();
-    if(bot){
-      roomobj.available--;
-      if(bot.engagedIn){
-        console.log('nextBot gave me',bot.username,'who is already in',bot.engagedIn);
-      }
-      bot.engagedIn = roomname;
-      bot.reservedFor = roomname;
-      bot.invoke(servel,'rooms/'+roomname+'/pokerroom/letMeWatch',{},function(errcb){
-        if(errcb!=='OK'){
-          bot.destroy();
-          return;
-        }
-        bot.invoke(servel,'rooms/'+roomname+'/pokerroom/beseat',{balance:2000,seat:~~(Math.random()*5)},function(errcode){
-          //console.log('beseat said',errcb);
-          if(errcode!=='OK'){
-            console.log ('REJECTED', arguments);
-            bot.destroy();
-          }
-        })
-      });
-      bot.destroyed.attach(function(){
-        dataMaster.element(['local','bots','bots']).commit('bot_out',[
-          ['remove',[bot.username]]
-        ]);
-        if(bot.beseated){
-          __BotsEngaged--;
-        }else{
-          __BotRequests--;
-        }
-        console.log('stopping bot engagement ', __BotsEngaged, bot.beseated);
-        //console.log(__BotsEngaged);
-      });
-      return true;
-    }else{
-      return false;
-    }
-  }
-};
 
 var _botRooms = {};
-
-function doBotRooms(){
-  var bc = 0;
-  var tm = Timeout.metrics();
-  var crit = 100-(tm.delay||0);
-  if(crit>0){
-    for(var i in _botRooms){
-      var rbe = tryEngageBot(i);
-      if(rbe===false){break;}
-      if(rbe===true){
-        bc++;
-      }
-      if(bc>crit){
-        break;
-      }
-    }
-  }else{
-    console.log('will skip, critical ...', crit);
-  }
-  Timeout.set(doBotRooms,500);
-}
-
-doBotRooms();
-
-function setBotStatus(u,stat){
-  dataMaster.element(['local','bots','bots',u.username]).commit('set_status',[
-    ['set',['status'],[stat,undefined,'dcp']]
-  ]);
-}
-
-function botRoom(servel,roomname,servname){
-  //console.log('botRoom for',servel,roomname,servname);
-  var roomobj = _botRooms[roomname];
-  if(roomobj){
-    return;
-  }
-  var seats = [];
-  roomobj = {servname:servname,destroy:function(){
-    console.log('destroying room',roomname);
-    delete _botRooms[roomname];
-    for(var i in seats){
-      var s = seats[i];
-      if(s && s.destroy){
-        s.destroy();
-      }
-    }
-  }};
-  _botRooms[roomname] = roomobj;
-  //var roomel = servel.element(['rooms',roomname]);
-  servel.waitFor(['rooms',roomname,'players','*','name'],function(seat,name){
-    if(seat==='DISCARD_THIS'){
-      roomobj.destroy();
-      return;
-    }
-    if(name){
-      //console.log(roomname,seat,name);
-      var b = tryRecognize(name,servname,roomname,seat);
-      if(b){
-        __BotRequests--;
-        if(roomobj.available<=0){
-          //console.log(roomname,'not available',roomobj);
-          //dataMaster.element(['nodes',servname]).invoke(['rooms',roomname,'players',seat,'private','exit'],{},b.username,dataMaster.realmName,'bot');
-          //return;
-        }
-        //console.log('ok',b.username,'in',roomname,'at',seat);
-        if(!b.engagedIn || (b.engagedIn === roomname)){
-          __BotsEngaged++;
-          console.log('Engagement confirmed', __BotsEngaged);
-          //console.log(__BotRequests,__BotsEngaged);
-          b.beseated=true;
-          delete b.reservedFor;
-          //dumpReservedBots();
-          storeBot(b.username,servname,roomname,seat);
-          setBotStatus(b,'entered');
-          seats[seat] = b;
-        }else{
-          console.log(b.username,'is already engaged in',b.engagedIn,'instead of',roomname);
-          process.exit(0);
-        }
-      }else{
-        console.log(name,'is not recognized');
-      }
-    }else{
-      if(seats[seat]){
-        //console.log('player out on seat',seat,'in',roomname);
-        seats[seat].destroy();
-        delete seats[seat];
-      }
-    }
-  });
-  servel.waitFor(['rooms',roomname,'players','*','buyin'],function(seat,jsonbi){
-    //console.log(roomname,seat,jsonbi);
-    if(seat==='DISCARD_THIS'){
-      roomobj.destroy();
-      return;
-    }
-    if(seats[seat]){
-      seats[seat].invoke(servel,'rooms/'+roomname+'/players/'+seat+'/private/confirmreservation',{amount:randValueFromRange(JSON.parse(jsonbi))},function(errcb){
-        //console.log('confirmreservation in',roomname,'for',seat,'said',errcb);
-      });
-    }else{
-      //console.log('nobody sits on',seat);
-    }
-  });
-  servel.waitFor(['rooms',roomname,'players','*','question','data'],function(seat,questionbi){
-    if(seat==='DISCARD_THIS'){
-      roomobj.destroy();
-      return;
-    }
-    if(seats[seat]){
-      if(!seats[seat].username){
-        console.log('How did I get here?',roomname,'User destroyed, slot',seat,'just standing there, receiving a question...');
-        seats[seat].destroy();
-        delete seats[seat];
-        return;
-      }
-      var u = seats[seat];
-      setBotStatus(u,'answering');
-      seats[seat].invoke(servel,'rooms/'+roomname+'/players/'+seat+'/private/answer',{amount:randomPayment(JSON.parse(questionbi))},function(errcb){
-        //console.log('answer said',errcb);
-        setBotStatus(u,'answered '+errcb);
-        if(errcb!=='OK'){
-          console.log(u.username,'got',errcb);
-        }
-      });
-    }else{
-      console.log('nobody sits on',seat);
-    }
-  });
-  servel.waitFor(['rooms',roomname,['bots','playing']],function(map,oldmap){
-    if(map==='DISCARD_THIS'){
-      delete _botRooms[roomname];
-      return;
-    }
-    roomobj.available = map.bots - map.playing;
-  });
-};
 
 function createRoomListener(){
   return dataMaster.element(['rooms']).waitFor(['*',['class=Poker','type=CashTable','servername']],function(roomname,map){
@@ -311,39 +29,40 @@ function createRoomListener(){
   });
 }
 
+function BotPlayer(user,servername,roomname){
+  this.user = user;
+  this.user.makeSession('botsession');
+  this.session = this.user.sessions['botsession'];
+  this.session.push = function(item){
+    console.log(item);
+  };
+  this.path = ['nodes',servername,'rooms',roomname];
+}
+BotPlayer.prototype.go = function(){
+  console.log(this.user.username,'bidding for observer');
+  this.user.bid(dataMaster,this.path.concat(['observer']),{},function(){
+    console.log('observer bid said',arguments);
+  });
+  var t = this;
+  this.user.bid(dataMaster,this.path.concat(['player']),{},function(errc,errp){
+    console.log(errc,errp);
+    if(errc==='DO_OFFER'){
+      t.user.follow(t.path.concat(['__requirements','player','offers',errp[0],'data']));
+    }
+  });
+}
+
 function listenToRooms(){
   console.log('listenToRooms');
-  if(roomListener){
-    roomListener.destroy();
-  }
-  var roomListener = createRoomListener();
-  dataMaster.element(['local','bots','botcount']).changed.attach(function(el,changedmap){
-    if(changedmap.private){
-      var newbotcnt = el.value();
-      var delta = __BotsEngaged-newbotcnt;
-      if(delta>0){
-        var badnames = [];
-        dataMaster.element(['local','bots','bots']).traverseElements(function(name,el){
-          var server = el.element(['servername']).value();
-          var room = el.element(['roomname']).value();
-          var seat = el.element(['seat']).value();
-          //console.log(name,'playing at',room,seat);
-          dataMaster.element(['nodes',server]).invoke(['rooms',room,'players',seat,'private','exit'],{},name,dataMaster.functionalities.sessionuserfunctionality.f.realmName,'bot',function(errc){
-            if(errc!=='OK'){
-              console.log(errc);
-              badnames.push(name);
-            }
-          });
-          delta--;
-          if(!delta){
-            return true;
-          }
-        });
-        for(var i in badnames){
-          UserBase.removeUser(badname,dataMaster.functionalities.sessionuserfunctionality.f.realmName);
-        }
+  dataMaster.element(['nodes']).waitFor(['*'],function(servername){
+    dataMaster.element(['nodes',servername]).waitFor(['rooms','*','type=CashTable'],function(name){
+      console.log('listenToRooms',servername,name);
+      var u = dataMaster.functionalities.sessionuserfunctionality.f._produceUser({name:'mika',roles:'player,bot'});
+      if(u){
+        var b = new BotPlayer(u,servername,name);
+        b.go();
       }
-    }
+    });
   });
 }
 

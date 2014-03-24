@@ -64,6 +64,7 @@ function BOListener(system){
     ['set',['local','bots','bots']]
   ]);
   dataMaster.waitFor(['system','*',['type=node','address','replicationPort']],function(servname,map){
+    console.log('new node',servname,map);
     dataMaster.element(['nodes']).createRemoteReplica(servname,dataMaster.instanceName,dataMaster.functionalities.sessionuserfunctionality.f.realmName,{address:map.address,port:map.replicationPort},true); //true<=>skipdcp
     dataMaster.element(['nodes',servname]).go();
   });
@@ -80,7 +81,7 @@ dataMaster.httpTalker = new HTTPTalker(backofficeAddress,8080);
 dataMaster.go = function(){
   var t = this.httpTalker;
   t.tell('/signinServer',{name:realmName,password:realmPassword},function(data){
-    console.log(data);
+    //console.log('signin said',data);
     if(data.name){//ok
       console.log('going as',data.name);
       dataMaster.instanceName = data.name;
