@@ -86,6 +86,7 @@ dataMaster.go = function(){
       console.log('going as',data.name);
       dataMaster.instanceName = data.name;
       dataMaster.domainName = data.domain;
+      dataMaster.createSuperUser(data.name,data.domain);
       dataMaster.createRemoteReplica('system',data.name,dataMaster.functionalities.sessionuserfunctionality.f.realmName,{address:backofficeAddress,port:data.replicationPort});
       var system = dataMaster.element(['system']);
       system.replicationInitiated.attach(function(){

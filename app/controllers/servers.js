@@ -69,7 +69,9 @@ function handleServer(servname,servel){
   });
 }
 
-dataMaster.element(['nodes']).waitFor(['*'],handleServer);
+dataMaster.getSuperUser(function(su){
+  su.waitFor(['nodes','*'],handleServer);
+});
 
 exports.authCallback = function(req, res, next){
   console.log(req.user);
