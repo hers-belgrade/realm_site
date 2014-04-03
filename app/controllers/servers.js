@@ -55,14 +55,14 @@ function handleFilters(name,map){
 
 function handleServer(servname,servel){
   console.log(servname);//,servel);
-  servel.replicationInitiated.attach(function(){
+  servel.getReplicatingUser(function(user){
     var sn = servname;
-    servel.waitFor(['rooms','*',['name','class=Poker','templatename','type','flavor','capacity','playing','bigblind']],function(name,map){
+    user.waitFor(['rooms','*',['name','class=Poker','templatename','type','flavor','capacity','playing','bigblind']],function(name,map){
       //console.log(name,map);
       handleRoom(sn,name,map);
       handleFilters(name,map);
     });
-    servel.waitFor(['rooms','*',['class=Slot','name','slot_config']],function(name,map){
+    user.waitFor(['rooms','*',['class=Slot','name','slot_config']],function(name,map){
       console.log(name,map);
       handleRoom(sn,name,map);
     });
