@@ -56,19 +56,19 @@ HTTPTalker.prototype.tell = function(page,obj,cb){
 
 
 ///back office listener ....
-function BOListener(system){
+function BOListener(systemuser){
   dataMaster.commit('bo_started',[
     ['set',['local','bots']],
     ['set',['local','bots','botcount'],[0]],
     ['set',['local','bots','botbase']],
     ['set',['local','bots','bots']]
   ]);
-  dataMaster.waitFor(['system','*',['type=node','address','replicationPort']],function(servname,map){
+  dataMaster.superUser.waitFor(['system','*',['type=node','address','replicationPort']],function(servname,map){
     console.log('new node',servname,map);
     dataMaster.element(['nodes']).createRemoteReplica(servname,dataMaster.instanceName,dataMaster.functionalities.sessionuserfunctionality.f.realmName,{address:map.address,port:map.replicationPort},true); //true<=>skipdcp
     dataMaster.element(['nodes',servname]).go();
   });
-  system.waitFor([system.replicaToken.name,'replicationPort'],function(val){
+  systemuser.waitFor([systemuser.username,'replicationPort'],function(val){
     console.log('opening replication on',val);
     dataMaster.replicationPort = val;
     dataMaster.element(['local']).openReplication(val);
@@ -86,10 +86,11 @@ dataMaster.go = function(){
       console.log('going as',data.name);
       dataMaster.instanceName = data.name;
       dataMaster.domainName = data.domain;
+      dataMaster.createSuperUser(data.name,data.domain);
       dataMaster.createRemoteReplica('system',data.name,dataMaster.functionalities.sessionuserfunctionality.f.realmName,{address:backofficeAddress,port:data.replicationPort});
       var system = dataMaster.element(['system']);
-      system.replicationInitiated.attach(function(){
-        new BOListener(system);
+      system.getReplicatingUser(function(user){
+        new BOListener(user);
       });
       system.go(function(status){
         console.log(status);

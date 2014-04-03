@@ -22,13 +22,6 @@ function randomPayment(data){
 
 var _botRooms = {};
 
-function createRoomListener(){
-  return dataMaster.element(['rooms']).waitFor(['*',['class=Poker','type=CashTable','servername']],function(roomname,map){
-    //console.log(roomname,map);
-      botRoom(dataMaster.element(['nodes',map.servername]),roomname,map.servername);
-  });
-}
-
 function BotPlayer(user,servername,roomname){
   this.user = user;
   this.user.makeSession('botsession');
@@ -37,25 +30,33 @@ function BotPlayer(user,servername,roomname){
     console.log(item);
   };
   this.path = ['nodes',servername,'rooms',roomname];
+  var u = user.plantAt(['nodes',servername,'rooms',roomname]);
+  this.user = u;
+  u.waitFor(['__requirements','player','offers','*','data'],function(offerid,jsonbi){
+    var bi = JSON.parse(jsonbi);
+    u.offer(['player'],{offerid:offerid,bla:randomPayment(bi)},function(){
+      console.log('offer said',arguments);
+    });
+  });
 }
 BotPlayer.prototype.go = function(){
   console.log(this.user.username,'bidding for observer');
-  this.user.bid(dataMaster,this.path.concat(['observer']),{},function(){
+  this.user.bid(['observer'],{},function(){
     console.log('observer bid said',arguments);
   });
-  var t = this;
-  this.user.bid(dataMaster,this.path.concat(['player']),{},function(errc,errp){
+  var u = this.user;
+  this.user.bid(['player'],{},function(errc,errp){
     console.log(errc,errp);
     if(errc==='DO_OFFER'){
-      t.user.follow(t.path.concat(['__requirements','player','offers',errp[0],'data']));
+      var _u = u;
     }
   });
 }
 
 function listenToRooms(){
   console.log('listenToRooms');
-  dataMaster.element(['nodes']).waitFor(['*'],function(servername){
-    dataMaster.element(['nodes',servername]).waitFor(['rooms','*','type=CashTable'],function(name){
+  dataMaster.superUser.waitFor(['nodes','*'],function(servername){
+    dataMaster.superUser.waitFor(['nodes',servername,'rooms','*','type=CashTable'],function(name){
       console.log('listenToRooms',servername,name);
       var u = dataMaster.functionalities.sessionuserfunctionality.f._produceUser({name:'mika',roles:'player,bot'});
       if(u){
@@ -83,12 +84,13 @@ function fillBotBase(){
   });
 };
 
-dataMaster.waitFor(['local','Collection:*'],function(name,ent){
-  if(name==='bots' && ent){
-    console.log(this);
-    this.destroy();
-    fillBotBase();
-  }
+dataMaster.getSuperUser(function(su){
+  su.waitFor(['local','Collection:*'],function(name,ent){
+    if(name==='bots' && ent){
+      this.destroy();
+      fillBotBase();
+    }
+  });
 });
 
 exports.save = function(req,res){

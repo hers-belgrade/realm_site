@@ -318,15 +318,9 @@ exports.setup = function(app){
       if(!u){
         callback(null,false);
       }else{
-        storeUserToTree(u, function (err) {
-          if (err) {
-            callback(null, false);
-          }else{
-            handshakeData.username = username;
-            handshakeData.session = sess;
-            callback(null,true);
-          }
-        });
+        handshakeData.username = username;
+        handshakeData.session = sess;
+        callback(null,true);
       }
     }else{
       callback(null,false);
