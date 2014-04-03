@@ -16,13 +16,18 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.face
         canvas(id='casino', width='634', height='470')
       div(id='checker-tr')
         div(id='side-content')
-          ul
-            li
-              | One
-            li
-              | Two
-            li
-              | Three
+          div.side-loby
+            div.sl-room.group
+              div.slr-left.left
+                span.indicate
+                |  3
+              div.slr-right.left
+                div.slrr-top
+                  |  Vegas 1
+                  span.steck.right
+                  span.speed.right
+                div.slrr-bottom
+                  |  Alex Murgo just bet 50
       script(type="text/javascript").
        window.user = !{user};
     include includes/foot-b3
