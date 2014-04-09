@@ -63,7 +63,7 @@ module.exports = function(server, app, passport, auth) {
     app.param('userId', users.user);
 
     //Bots Routes
-    var bots = require('../app/controllers/bots');
+    var bots = require('realm_site').Bots;
     app.get('/bots', bots.all);
     app.post('/bots/:username', auth.requiresLogin, bots.save);
 
@@ -74,7 +74,7 @@ module.exports = function(server, app, passport, auth) {
     app.del('/avatars/:name', auth.requiresLogin, avatars.remove);
 
     //Server Routes
-    var servers = require('../app/controllers/servers');
+    var servers = require('realm_site').Servers;
     app.get('/signinServer', passport.authenticate('server', {}), servers.authCallback);
     app.get('/servers', auth.requiresLogin, servers.all);
     app.post('/servers/:serverName', auth.requiresLogin, servers.save);

@@ -5,7 +5,7 @@ var express = require('express')
     fs = require('fs'),
     passport = require('passport'),
     logger = require('mean-logger'),
-    dataMaster = require('./app/controllers/datamaster');
+    dataMaster = require('realm_site').DataMaster;
 
 /**
  * Main application entry file.
