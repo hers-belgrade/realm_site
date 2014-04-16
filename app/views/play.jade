@@ -10,26 +10,14 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.face
       -moz-box-shadow:0 0 0;
     }
   body.login-layout
-    div(id='viewporter')
-      div(id='checker-bl', data-ng-controller='CasinoController')
+    div(id='viewporter', data-ng-controller='CasinoController')
+      div(id='checker-bl')
         spinner.modal.spinner.center#spinner(data-ng-show='loading')
         canvas(id='casino', width='634', height='470')
       div(id='checker-tr')
         button.toogle.btn.btn-primary(id='tooglebut', type='button')
           span.glyphicon.glyphicon-align-justify
-        div(id='side-content')
-          div.side-loby
-            div.sl-room.group
-              div.slr-left.left
-                span.indicate
-                |  3
-              div.slr-right.left
-                div.slrr-top
-                  |  Vegas 1
-                  span.steck.right
-                  span.speed.right
-                div.slrr-bottom
-                  |  Alex Murgo just bet 50
+        div(id='side-content' ng-include='"/views/engagements.html"')
       script(type="text/javascript").
        window.user = !{user};
     include includes/foot-b3

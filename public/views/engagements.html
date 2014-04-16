@@ -1,0 +1,28 @@
+          <!--
+          div.side-loby
+            div.sl-room.group
+              div.slr-left.left
+                span.indicate
+                |  3
+              div.slr-right.left
+                div.slrr-top
+                  |  Vegas 1
+                  span.steck.right
+                  span.speed.right
+                div.slrr-bottom
+                  |  Alex Murgo just bet 50
+                  -->
+
+<div class='side-loby'>
+  <div class='sl-room group {{eng.class}}' ng-repeat = '(engname,eng) in engagements' ng-hide='eng.active' ng-click="switchTo(engname)">
+    <div class='slr-left left'>
+    </div>
+    <div class='slr-right left'>
+      <div class='slrr-top'>
+        {{engname}}
+      </div>
+      <div class='slrr-bottom'>
+      </div>
+    </div>
+  </div>
+</div>
