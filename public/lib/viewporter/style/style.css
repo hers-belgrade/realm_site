@@ -1,0 +1,147 @@
+.group:after {
+	visibility: hidden;
+	display: block;
+	content: "";
+	clear: both;
+	height: 0;
+	}
+* html .group             { zoom: 1; } /* IE6 */
+*:first-child+html .group { zoom: 1; } /* IE7 */
+
+html, body {
+	margin: 0;
+	padding: 0;
+	font-family: Arial;
+	font-size: 12px;
+	color: white;
+	background: green;
+	-webkit-text-size-adjust: none; /* important, or your text resizes randomly on rotation! */
+}
+
+p {
+	margin: 0;
+	padding: 1em;
+	padding-bottom: 0;
+}
+
+#checker-bl, #checker-tr {
+	position: absolute;
+	width: 50%;
+	height: 100%;
+}
+
+#checker-bl {
+	position: absolute;
+	background: blue;
+	top: 0;
+	left: 0;
+	width:80%;
+	display:block;
+}
+
+#checker-tr {
+	position: absolute;
+	background: red;
+	width:20%;
+	top: 0;	
+	right: 0;
+}
+
+#orientationlock {
+	position: absolute;
+	z-index: 1000;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background: #333;
+	color: #fff;
+	text-shadow: 1px 1px 0px #000;
+	font-size: 2em;
+	text-align: center;
+	display: none;
+}
+
+#orientationlock p {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	width: 100%;
+	margin-top: -2em;
+	padding: 0;
+}
+
+/*
+canvas {
+	background: #eee;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+*/
+canvas#casinod {
+	background-color:yellow;
+	}
+button.toogle {
+	font-size:20px;
+	position:absolute;
+	margin-left:-46px;
+	}
+#rightad {
+	float:left;
+	background-color:red;
+	height:100%;
+  min-width: 120px; /* Will be AT LEAST 20em wide */
+  overflow:hidden;	
+	}
+#rightad img {
+	max-width:100%; 
+	max-height:100%;
+	}		
+#side-content {
+	float:left;
+	}
+.left {
+	float:left;
+	}
+.right {
+	float:right;
+	}
+div.side-loby,
+div.sl-room {
+	width:100%;
+	display:block;
+	}					
+div.sl-room {
+	background-color:black;
+	}
+/* line 70, ../compass/sass/style.scss */
+div.Poker {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2RiZGJkYiIvPjxzdG9wIG9mZnNldD0iMyUiIHN0b3AtY29sb3I9IiM3ODc4NzgiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxYTFhMWEiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #dbdbdb), color-stop(3%, #787878), color-stop(100%, #1a1a1a));
+  background-image: -webkit-linear-gradient(#dbdbdb, #787878 3%, #1a1a1a);
+  background-image: -moz-linear-gradient(#dbdbdb, #787878 3%, #1a1a1a);
+  background-image: -o-linear-gradient(#dbdbdb, #787878 3%, #1a1a1a);
+  background-image: linear-gradient(#dbdbdb, #787878 3%, #1a1a1a);
+  color: #d5d5d5;
+  -webkit-box-shadow: 0 1px 0 black;
+  -moz-box-shadow: 0 1px 0 black;
+  box-shadow: 0 1px 0 black;
+  text-shadow: 0 1px 0 black;
+	padding:10px;
+	cursor:pointer;
+	overflow:hidden;
+}
+
+/* line 78, ../compass/sass/style.scss */
+div.blinking {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2VkZWRlZCIvPjxzdG9wIG9mZnNldD0iOTclIiBzdG9wLWNvbG9yPSIjYzFjMWMxIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjNWI1YjViIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ededed), color-stop(97%, #c1c1c1), color-stop(100%, #5b5b5b));
+  background-image: -webkit-linear-gradient(#ededed, #c1c1c1 97%, #5b5b5b);
+  background-image: -moz-linear-gradient(#ededed, #c1c1c1 97%, #5b5b5b);
+  background-image: -o-linear-gradient(#ededed, #c1c1c1 97%, #5b5b5b);
+  background-image: linear-gradient(#ededed, #c1c1c1 97%, #5b5b5b);
+}	
+				

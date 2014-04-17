@@ -6,8 +6,4 @@ node_modules/*
 !node_modules/herstimeout
 !node_modules/pokerbots
 !node_modules/realm_site
-public/lib/*
-!public/lib/casino
-!public/lib/ace
-!public/lib/ng-grid
 test/coverage/

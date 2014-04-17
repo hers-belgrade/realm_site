@@ -1,0 +1,25 @@
+/* Desktops and laptops ----------- */
+@media only screen 
+and (min-width : 1224px) {
+
+#checker-tr {
+	background:none repeat scroll 0 0 #000;
+	}	
+div#viewporter {
+	width:1224px;
+	margin:0 auto;
+	}
+#checker-bl, #checker-tr {
+	left:auto;
+	right:auto;
+	}
+#checker-bl {
+	max-width:979px;
+	}	
+#checker-tr {
+	}	
+/*
+
+*/
+/* Styles */
+}
