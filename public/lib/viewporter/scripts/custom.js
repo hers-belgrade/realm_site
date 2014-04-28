@@ -69,7 +69,7 @@ function AddToogleButton() {
 }
 
 function RemoveToogleButton() {
-		$('#tooglebut').hide('slow');
+		$('#tooglebut').hide('slow',LayoutChange);
 /*
 		if ($('#tooglebut').length != 0) {
 			$('#tooglebut').remove();
