@@ -17,6 +17,11 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.face
       div(id='checker-tr')
         button.toogle.btn.btn-primary(id='tooglebut', type='button')
           span.glyphicon.glyphicon-align-justify
+        div(id='side-head')
+          div.left
+            |  Balance:2000
+          div.right
+            |  Wellcome Petar           
         div(id='side-content' ng-include='"/views/engagements.html"')
       script(type="text/javascript").
        window.user = !{user};
