@@ -8,11 +8,17 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.face
       border: 0;
       -webkit-box-shadow:0 0 0;
       -moz-box-shadow:0 0 0;
-    }
+      }
+      .sam_da_te_vidim {
+      display:block;
+      width:100%;
+      height:100%;
+      position:absolute;
+      }
   body.login-layout
-    section.main-container.container-fluid
-      section.main-content
-        div.row-fluid(data-ng-controller="CasinoController")
+    section.main-container.container-fluid.sam_da_te_vidim
+      section.main-content.sam_da_te_vidim
+        div.row-fluid.sam_da_te_vidim(data-ng-controller="CasinoController")
           spinner.modal.spinner.center#spinner(data-ng-show='loading')
           canvas(id='casino', width=743, height=550)
         script(type="text/javascript").
