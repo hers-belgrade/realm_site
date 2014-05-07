@@ -1,0 +1,323 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+/* line 5, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\compass-core-1.0.0.alpha.19\stylesheets\compass\reset\_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\compass-core-1.0.0.alpha.19\stylesheets\compass\reset\_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\compass-core-1.0.0.alpha.19\stylesheets\compass\reset\_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\compass-core-1.0.0.alpha.19\stylesheets\compass\reset\_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\compass-core-1.0.0.alpha.19\stylesheets\compass\reset\_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\compass-core-1.0.0.alpha.19\stylesheets\compass\reset\_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\compass-core-1.0.0.alpha.19\stylesheets\compass\reset\_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\compass-core-1.0.0.alpha.19\stylesheets\compass\reset\_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\compass-core-1.0.0.alpha.19\stylesheets\compass\reset\_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 24, ../sass/screen.scss */
+.group:after {
+  visibility: hidden;
+  display: block;
+  content: "";
+  clear: both;
+  height: 0;
+}
+
+/* line 31, ../sass/screen.scss */
+* html .group {
+  zoom: 1;
+}
+
+/* IE6 */
+/* line 32, ../sass/screen.scss */
+*:first-child + html .group {
+  zoom: 1;
+}
+
+/* IE7 */
+/* line 34, ../sass/screen.scss */
+.left {
+  float: left;
+}
+
+/* line 37, ../sass/screen.scss */
+.right {
+  float: right;
+}
+
+/* line 41, ../sass/screen.scss */
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial;
+  font-size: 12px;
+  color: white;
+  background: green;
+  overflow: hidden;
+  -webkit-text-size-adjust: none;
+  /* important, or your text resizes randomly on rotation! */
+}
+
+/* line 52, ../sass/screen.scss */
+p {
+  margin: 0;
+  padding: 1em;
+  padding-bottom: 0;
+}
+
+/* line 58, ../sass/screen.scss */
+#checker-bl, #checker-tr {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+}
+
+/* line 64, ../sass/screen.scss */
+#checker-bl {
+  position: absolute;
+  background: blue;
+  top: 0;
+  left: 0;
+  width: 80%;
+  display: block;
+}
+
+/* line 73, ../sass/screen.scss */
+#checker-tr {
+  position: absolute;
+  background: red;
+  width: 20%;
+  top: 0;
+  right: 0;
+}
+
+@media (min-width: 768px) and (max-width: 1224px) {
+  /* line 81, ../sass/screen.scss */
+  #checker-tr {
+    background: none repeat scroll 0 0 #000;
+  }
+}
+
+/* line 87, ../sass/screen.scss */
+#orientationlock {
+  position: absolute;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: #333;
+  color: #fff;
+  text-shadow: 1px 1px 0px #000;
+  font-size: 2em;
+  text-align: center;
+  display: none;
+}
+
+/* line 102, ../sass/screen.scss */
+#orientationlock p {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  margin-top: -2em;
+  padding: 0;
+}
+
+/*
+canvas {
+	background: #eee;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+*/
+/* line 119, ../sass/screen.scss */
+canvas#casinod {
+  background-color: yellow;
+}
+
+/* line 122, ../sass/screen.scss */
+button.toogle {
+  font-size: 20px;
+  position: absolute;
+  margin-left: -46px;
+}
+
+/* line 127, ../sass/screen.scss */
+#rightad {
+  float: left;
+  background-color: red;
+  height: 100%;
+  min-width: 120px;
+  /* Will be AT LEAST 20em wide */
+  overflow: hidden;
+}
+
+/* line 134, ../sass/screen.scss */
+#rightad img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* line 138, ../sass/screen.scss */
+#side-content {
+  float: left;
+}
+
+/* line 141, ../sass/screen.scss */
+div.side-loby,
+div.sl-room {
+  width: 100%;
+  display: block;
+}
+
+/* line 146, ../sass/screen.scss */
+div.sl-room {
+  background-color: black;
+}
+
+/* line 149, ../sass/screen.scss */
+div.Poker {
+  background-image: -moz-linear-gradient(#dbdbdb, #787878 3%, #1a1a1a);
+  background-image: -webkit-linear-gradient(#dbdbdb, #787878 3%, #1a1a1a);
+  background-image: linear-gradient(#dbdbdb, #787878 3%, #1a1a1a);
+  width: 200px;
+  height: 50px;
+  background-repeat: no-repeat;
+  -moz-box-shadow: 0 1px 0 black;
+  -webkit-box-shadow: 0 1px 0 black;
+  box-shadow: 0 1px 0 black;
+  text-shadow: 0 1px 0 black;
+}
+
+/* line 157, ../sass/screen.scss */
+#side-head {
+  height: auto !important;
+  height: 85px;
+  min-height: 85px;
+  background-image: -moz-linear-gradient(#424242, #3d3d3d);
+  background-image: -webkit-linear-gradient(#424242, #3d3d3d);
+  background-image: linear-gradient(#424242, #3d3d3d);
+}
+/* line 160, ../sass/screen.scss */
+#side-head div.avatar-holder {
+  float: left;
+  position: relative;
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+  margin-top: 10px;
+  margin-left: 10px;
+  background-color: #e7e7e7;
+  padding: 2px;
+  text-align: center;
+  margin-right: 7px;
+}
+/* line 32, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\compass-recipes-0.3.0\stylesheets\recipes\shadow\drop\_lifted-corners.scss */
+#side-head div.avatar-holder::before, #side-head div.avatar-holder::after {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  bottom: 10px;
+  width: 70%;
+  height: 55%;
+  max-width: 300px;
+  /* avoid rotation causing ugly appearance at large container widths */
+  max-height: 100px;
+  -moz-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+  -webkit-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+}
+/* line 49, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\compass-recipes-0.3.0\stylesheets\recipes\shadow\drop\_lifted-corners.scss */
+#side-head div.avatar-holder::before {
+  left: 10px;
+  -moz-transform: skew(-15deg) rotate(-6deg);
+  -ms-transform: skew(-15deg) rotate(-6deg);
+  -webkit-transform: skew(-15deg) rotate(-6deg);
+  transform: skew(-15deg) rotate(-6deg);
+}
+/* line 55, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\compass-recipes-0.3.0\stylesheets\recipes\shadow\drop\_lifted-corners.scss */
+#side-head div.avatar-holder::after {
+  right: 10px;
+  -moz-transform: skew(15deg) rotate(6deg);
+  -ms-transform: skew(15deg) rotate(6deg);
+  -webkit-transform: skew(15deg) rotate(6deg);
+  transform: skew(15deg) rotate(6deg);
+}
+/* line 170, ../sass/screen.scss */
+#side-head span.bigger {
+  font-size: 2em;
+}
+/* line 173, ../sass/screen.scss */
+#side-head img {
+  height: auto !important;
+  height: 67px;
+  max-height: 67px;
+  width: auto !important;
+  width: 56px;
+  max-width: 56px;
+}
+/* line 177, ../sass/screen.scss */
+#side-head div.balance-holder {
+  margin-top: 10px;
+}
+/* line 180, ../sass/screen.scss */
+#side-head div.dataright {
+  margin-top: 10px;
+  margin-right: 10px;
+  text-align: right;
+}

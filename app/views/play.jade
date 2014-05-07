@@ -17,11 +17,7 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.face
       div(id='checker-tr')
         button.toogle.btn.btn-primary(id='tooglebut', type='button')
           span.glyphicon.glyphicon-align-justify
-        div(id='side-head')
-          div.left
-            |  Balance:2000
-          div.right
-            |  Wellcome Petar           
+        div.group(id='side-head' ng-include='"/views/player.html"')
         div(id='side-content' ng-include='"/views/engagements.html"')
       script(type="text/javascript").
        window.user = !{user};
@@ -29,5 +25,6 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.face
     script(type='text/javascript', src='/lib/fabric.js/dist/all.js')
     script(type='text/javascript', src='/lib/casino/casinocontroller.js')
     script(type='text/javascript', src='/lib/casino/casinorender.js')
+    script(type='text/javascript', src='/lib/casino/pokerevents.js')
     script(type='text/javascript', src='/lib/casino/roomrender.js')
     script(type='text/javascript', src='/lib/casino/slotroomrenderer.js')
