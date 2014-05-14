@@ -1,4 +1,4 @@
-angular.module('mean.avatars').controller('AvatarsController',['$scope','$upload','Avatars',function($scope,$upload,Avatars){
+angular.module('mean.avatars').controller('AvatarsController',['$scope','$upload','Avatars','follower',function($scope,$upload,Avatars,follower){
   $scope.setup = {editable:false};
   $scope.list = function() {
     Avatars.query(function(avs){
@@ -25,8 +25,15 @@ angular.module('mean.avatars').controller('AvatarsController',['$scope','$upload
     ar.$remove();
   };
   $scope.setAvatar = function(a){
+    console.log('setting',a);
     $scope.avatar = a;
     $scope.setup.editable=true;
+  };
+  $scope.proclaimAvatar = function(){
+    if(!this.avatar){return;}
+    follower.do_command(':setAvatar',this.avatar.filename,function(){
+      console.log('setAvatar said',arguments);
+    });
   };
 }]).
 directive('selectAvatar',function(){

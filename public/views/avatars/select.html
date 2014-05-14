@@ -1,0 +1,11 @@
+<div data-ng-controller='AvatarsController' data-ng-init="list()">
+<ul class='thumbnails image_picker_selector'>
+  <li ng-repeat='av in avatars'>
+    <div class='thumbnail' data-ng-click='setAvatar(av)'>
+      <img class='image_picker_image' src='/img/avatars/{{av.filename}}' />
+    </div>
+  </li> 
+</ul>
+
+<button class='bigbut' data-ng-click='proclaimAvatar()' data-ng-disabled='!avatar'>Choose <img data-ng-show='avatar' src='/img/avatars/{{avatar.filename}}' height='30px'/></button>
+</div>

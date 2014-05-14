@@ -81,3 +81,95 @@ function LayoutChange() {
 		e.initEvent('layoutChanged',true,true);
 		document.dispatchEvent(e);	
 	}
+function SideHeadFullView () {
+
+	var side = $('div#side-content');
+	var w = $('div#side-content').width();
+//	alert('! ' + w);
+	var brakepoint_middle = 224;
+	var brakepoint_small = 50;
+	if ((w < brakepoint_middle)) {
+		side.addClass('middleSideHead');
+		} else {
+			side.removeClass('middleSideHead');
+		}
+	if ((w < brakepoint_small)) {
+		side.addClass('smallSideHead');
+		} else {
+			side.removeClass('smallSideHead');
+		}
+	}
+	
+function SetModalDimensions() {
+	var w = GetPredicted('w');
+	var h = GetPredicted('h');
+	$('div.contentmodal').height(h).width(w);
+	}
+function SetAvatarContainer() {
+	var th = GetPredicted('h');
+	var setmenu = $('.SettingsContentModal div.wrapper').outerHeight(true);
+	var dscr = $('.SettingsContentModal div.modtitle').outerHeight(true);
+	var totalpad = 30;
+	var bigbut = 50;
+	var avatarc = th - setmenu - dscr - totalpad - bigbut;
+	$('.SettingsContentModal .AvatarContentModal div.ng-scope ul').height(avatarc);
+	}
+
+	
+function ShowModal(content) {
+	$('div.contentmodal > div').hide();
+	$('div.contentmodal').fadeIn("fast", function() {
+		if (content == 'BuyInContentModal') {
+				$('div.BuyInContentModal').show();
+				$('body').addClass('ModalActive');
+			}
+		if (content == 'CashOutContentModal') {
+				$('div.CashOutContentModal').show();
+				$('body').addClass('ModalActive');
+			}
+		if (content == 'SettingsContentModal') {
+				$('div.SettingsContentModal').show();
+				$('body').addClass('ModalActive');
+			}							
+	});
+}
+function ShowContentModal(button, content) {
+	if ($(button).hasClass('active')) {
+		return false;
+		}	else {
+		$(button).addClass('active').siblings().removeClass('active');			
+	}
+	$('div.SettingsContentModal > div.cModal').hide();
+	if (content == 'uinfo') {
+		$('div.SetContentModal').show();
+		}
+	if (content == 'uavatars') {
+		$('div.AvatarContentModal').show();
+		SetAvatarContainer();
+		}
+	if (content == 'urefill') {
+		$('div.DoBuyInContentModal').show();
+		}		
+	if (content == 'cashout') {
+		$('div.CashOutContentModal').show();
+		}
+	if (content == 'uclose') {
+		$('div.contentmodal').hide();
+		}				
+/*
+	$('div.contentmodal').fadeIn("fast", function() {
+		if (content == 'BuyInContentModal') {
+				$('div.BuyInContentModal').show();
+				$('body').addClass('ModalActive');
+			}
+		if (content == 'CashOutContentModal') {
+				$('div.CashOutContentModal').show();
+				$('body').addClass('ModalActive');
+			}
+		if (content == 'SettingsContentModal') {
+				$('div.SettingsContentModal').show();
+				$('body').addClass('ModalActive');
+			}							
+	});
+*/
+}
