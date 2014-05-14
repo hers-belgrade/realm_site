@@ -231,7 +231,7 @@ div.sl-room {
 }
 
 /* line 149, ../sass/screen.scss */
-div.Poker {
+div.Poker, div.Slot {
   background-image: -moz-linear-gradient(#dbdbdb, #787878 3%, #1a1a1a);
   background-image: -webkit-linear-gradient(#dbdbdb, #787878 3%, #1a1a1a);
   background-image: linear-gradient(#dbdbdb, #787878 3%, #1a1a1a);

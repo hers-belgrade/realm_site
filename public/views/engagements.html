@@ -14,12 +14,12 @@
                   -->
 
 <div class='side-loby'>
-  <div class='sl-room group {{eng.class}}' ng-repeat = '(engname,eng) in engagements' ng-hide='eng.active || !eng.class' ng-click="switchTo(engname)">
+  <div class='sl-room group {{eng.class}}' ng-repeat = '(engname,eng) in engagements' ng-hide='eng.active || !eng.class' ng-click="activateEngagement(engname)">
     <div class='slr-left left'>
     </div>
     <div class='slr-right left'>
       <div class='slrr-top'>
-        {{engname}}
+        {{eng.caption}}
       </div>
       <div class='slrr-bottom'>
       </div>
