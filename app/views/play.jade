@@ -13,12 +13,60 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.face
     div(id='viewporter', data-ng-controller='CasinoController')
       div(id='checker-bl')
         spinner.modal.spinner.center#spinner(data-ng-show='loading')
+        div.contentmodal(style='display:none;', data-ng-class="{out_of_money:!balance}")
+          div.SettingsContentModal(style='display:none;')            
+            div.wrapper.group
+              div.modtitle
+                |  Settings
+              ul.butlist
+                li.tabbuttons.right
+                  button.active.uinfo.setbut(onclick='ShowContentModal(this, "uinfo");')
+                    i.icon-gear
+                    |   User Settings
+                  button.cashout.setbut(onclick='ShowContentModal(this, "cashout");')
+                    i.icon-signout
+                    |   Cash Out
+                  button.urefill.setbut(onclick='ShowContentModal(this, "urefill")', ng-disabled="!follower.scalars.canrefill")
+                    i.icon-usd
+                    |   Refill                  
+                  button.uavatars.setbut(onclick='ShowContentModal(this, "uavatars");')
+                    i.icon-user
+                    |   Avatars
+                  button.uclose.setbut(onclick='ShowContentModal(this, "uclose");')
+                    i.icon-eye-close
+                    |   Close                   
+            div.cModal.SetContentModal
+              div.moddescription
+                |  Choose Your settings  
+            div.cModal.AvatarContentModal(style='display:none;')
+              div.moddescription
+                |  Choose Your avatar settings 
+                hr.botshad               
+              form(id='Settings')
+                div(ng-include='"/views/avatars/select.html"')              
+            div.cModal.DoBuyInContentModal(style='display:none;')
+              div.moddescription
+                |  Refill account
+              div.moddescription
+                |  Would You like to play more? Click button below to refill your account!  
+              form(id='DoBuyIn')
+                input(type='submit', value='ReFill', class='bigbut', ng-disabled="balance", ng-click="refill()")          
+            div.cModal.CashOutContentModal(style='display:none;')
+              div.moddescription
+                |  Congratulations!<br />Click button below to get paid for Your win!<br />Looking forward to see You soon again! 
+              form(id='CashOut')
+                input(type='submit', value='Cash Out', class='bigbut')
         canvas(id='casino', width='634', height='470')
       div(id='checker-tr')
         button.toogle.btn.btn-primary(id='tooglebut', type='button')
           span.glyphicon.glyphicon-align-justify
-        div.group(id='side-head' ng-include='"/views/player.html"')
-        div(id='side-content' ng-include='"/views/engagements.html"')
+        div(id='side-content')
+          button.settings(onclick='ShowModal("SettingsContentModal");')
+            i.icon-gear         
+          div.group(id='side-head' ng-include='"/views/player.html"')
+          div.move-up.up
+            i.icon-chevron-up
+          div(ng-include='"/views/engagements.html"')
       script(type="text/javascript").
        window.user = !{user};
     include includes/foot-b3
@@ -28,3 +76,4 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.face
     script(type='text/javascript', src='/lib/casino/pokerevents.js')
     script(type='text/javascript', src='/lib/casino/roomrender.js')
     script(type='text/javascript', src='/lib/casino/slotroomrenderer.js')
+    script(type='text/javascript', src='/js/controllers/avatars.js')
