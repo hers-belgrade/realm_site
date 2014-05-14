@@ -3,7 +3,7 @@ $(document).ready( function(){
 $("select.image-picker").imagepicker();
 
 $('.ModalActive div.sl-room').click(function(){
-	alert('!');
+
 	});
 
 $('div.move-up').click(function(){
@@ -12,7 +12,7 @@ $(this).hide();
 $('#side-head > div.fullview').slideUp( "fast", function() {
 
 		$('#side-head > div.shortview').slideDown( "slow", function() {
-			alert('!');
+//			alert('!');
 		});	
 
 });

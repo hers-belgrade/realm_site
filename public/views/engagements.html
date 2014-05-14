@@ -1,8 +1,8 @@
 <div class='side-loby'>
-  <div class='sl-room group {{eng.class}}' ng-repeat = '(engname,eng) in engagements' ng-hide='eng.active || !eng.class' ng-class="{achtung:eng.question}" ng-click="switchTo(engname)">
+  <div class='sl-room group {{eng.class}}' ng-repeat = '(engname,eng) in engagements' ng-hide='eng.active || !eng.class' ng-class="{achtung:eng.question}" ng-click="activateEngagement(engname)">
     <div class="notification" style="display:none;"><div class="kind"></div></div>
     <div class='slrr-top'>
-      {{engname}}
+      {{eng.caption}}
     </div>
   </div>
 </div>
