@@ -1,3 +1,25 @@
+function Case(context) {
+// return 'standard';
+
+	if ((window.matchMedia("(max-resolution: 1.5dppx)").matches) && (context >= 1224)) {
+		return 'standard';
+ 	} else if ((window.matchMedia("(min-resolution: 1.5dppx)").matches) && (window.matchMedia("(max-resolution: 3dppx)").matches) && (context >= 1224)) {
+		return 'tablet';	
+	} else if ((window.matchMedia("(min-resolution: 3dppx)").matches) && (context >= 1224)) {
+		return 'mobile';
+	} else if ((context < 1224) && (context >= 768) && (window.matchMedia("(max-resolution: 3dppx)").matches)) {
+		return 'tablet';	
+	} else if ((context < 1224) && (context >= 768) && (window.matchMedia("(min-resolution: 3dppx)").matches)) {
+		return 'mobile';	
+	} else if (context < 768) {
+		return 'mobile';
+	}	else {
+		return 'standard';	
+	}	
+
+
+}
+
 function ResetStyle () {
 
 	$('#checker-tr').css({

@@ -40,11 +40,11 @@ function rule() {
 		} else {
 		var PredCanvasWidth = CanvasHolderHeight / Aspect;
 		var PredCanvasHeight = CanvasHolderHeight;
-
-		}
+		}	
+				
 $('#side-content').css('height',$(this).outerHeight());
 $('#rightad').css('height',$(this).outerHeight());
-	if (ViewPorterWidth >= 1224) {
+	if (Case(GetCurent('w')) == 'standard') {
 		RemoveToogleButton();
 		var SideMargin = PredCanvasWidth;
 		var SideWidth = ViewPorterWidth - PredCanvasWidth;
@@ -66,7 +66,7 @@ $('#rightad').css('height',$(this).outerHeight());
 				RemoveRightAd();					
 			}
 	
-	} else if ( (ViewPorterWidth < 1224) && (ViewPorterWidth >= 768) ) {				
+	} else if (Case(GetCurent('w')) == 'tablet') {				
 		var MaxSideWidth = 250;
 		var MinSideWidth = 100;
 		var MinClosedSideWidth = 35;
@@ -136,7 +136,9 @@ if (GetCurent('a') <= 1) { // Portrait
 				}
 
 								
-	} else {
+	} else if (Case(GetCurent('w')) == 'mobile') {
+		alert('!');
+		} else {
 		
 		}
 

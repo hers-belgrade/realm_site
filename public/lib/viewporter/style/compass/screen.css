@@ -127,14 +127,22 @@ p {
   padding-bottom: 0;
 }
 
-/* line 63, ../sass/screen.scss */
+/* line 62, ../sass/screen.scss */
 #checker-bl, #checker-tr {
   position: absolute;
   width: 50%;
   height: 100%;
 }
 
-/* line 69, ../sass/screen.scss */
+@media (min-width: 1224px) and (max-resolution: 1.5dppx), (min-width: 1224px) and (-webkit-max-device-pixel-ratio: 1.5), (min-width: 1224px) and (max--moz-device-pixel-ratio: 1.5), (min-width: 1224px) and (max-resolution: 144dpi) {
+  /* line 68, ../sass/screen.scss */
+  div#viewporter {
+    width: 1224px;
+    margin: 0 auto;
+  }
+}
+
+/* line 75, ../sass/screen.scss */
 #checker-bl {
   position: absolute;
   top: 0;
@@ -143,7 +151,7 @@ p {
   display: block;
 }
 
-/* line 77, ../sass/screen.scss */
+/* line 83, ../sass/screen.scss */
 #checker-tr {
   position: absolute;
   width: 20%;
@@ -151,7 +159,7 @@ p {
   right: 0;
 }
 
-/* line 89, ../sass/screen.scss */
+/* line 95, ../sass/screen.scss */
 #orientationlock {
   position: absolute;
   z-index: 1000;
@@ -167,7 +175,7 @@ p {
   display: none;
 }
 
-/* line 104, ../sass/screen.scss */
+/* line 110, ../sass/screen.scss */
 #orientationlock p {
   position: absolute;
   top: 50%;
@@ -185,14 +193,14 @@ canvas {
 	left: 0;
 }
 */
-/* line 123, ../sass/screen.scss */
+/* line 129, ../sass/screen.scss */
 button.toogle {
   font-size: 20px;
   position: absolute;
   margin-left: -46px;
 }
 
-/* line 128, ../sass/screen.scss */
+/* line 134, ../sass/screen.scss */
 #rightad {
   float: left;
   height: 100%;
@@ -201,17 +209,17 @@ button.toogle {
   overflow: hidden;
 }
 
-/* line 134, ../sass/screen.scss */
+/* line 140, ../sass/screen.scss */
 #rightad img {
   max-width: 100%;
   max-height: 100%;
 }
 
-/* line 138, ../sass/screen.scss */
+/* line 144, ../sass/screen.scss */
 #side-content {
   float: left;
 }
-/* line 140, ../sass/screen.scss */
+/* line 146, ../sass/screen.scss */
 #side-content div.move-up, #side-content button.settings {
   font-size: 10px;
   padding: 0.5em 1.5em;
@@ -276,14 +284,14 @@ button.toogle {
   padding: 0 !important;
   margin: -1px !important;
 }
-/* line 149, ../sass/screen.scss */
+/* line 155, ../sass/screen.scss */
 #side-content button.settings {
   margin-top: 10px;
   z-index: 1;
   position: relative;
 }
 
-/* line 156, ../sass/screen.scss */
+/* line 162, ../sass/screen.scss */
 hr.botshad {
   border: 0;
   height: 1px;
@@ -296,7 +304,7 @@ hr.botshad {
   margin-bottom: 2px;
 }
 
-/* line 163, ../sass/screen.scss */
+/* line 169, ../sass/screen.scss */
 #side-content.middleSideHead div.up {
   font-size: 10px;
   padding: 0px;
@@ -310,24 +318,24 @@ hr.botshad {
   width: inherit;
   text-align: center;
 }
-/* line 170, ../sass/screen.scss */
+/* line 176, ../sass/screen.scss */
 #side-content.middleSideHead button.settings {
   margin-top: 0px;
 }
 
-/* line 174, ../sass/screen.scss */
+/* line 180, ../sass/screen.scss */
 div.side-loby,
 div.sl-room {
   width: 100%;
   display: block;
 }
 
-/* line 179, ../sass/screen.scss */
+/* line 185, ../sass/screen.scss */
 div.sl-room {
   background-color: black;
 }
 
-/* line 182, ../sass/screen.scss */
+/* line 188, ../sass/screen.scss */
 div.Poker, div.Slot {
   background-image: -moz-linear-gradient(#dbdbdb, #787878 3%, #1a1a1a);
   background-image: -webkit-linear-gradient(#dbdbdb, #787878 3%, #1a1a1a);
@@ -343,32 +351,32 @@ div.Poker, div.Slot {
   text-shadow: 0 1px 0 black;
 }
 
-/* line 192, ../sass/screen.scss */
+/* line 198, ../sass/screen.scss */
 .blink, div.notification {
   animation: blink 500ms steps(5, start) infinite;
   -webkit-animation: blink 500ms steps(5, start) infinite;
 }
 
 @keyframes blink {
-  /* line 197, ../sass/screen.scss */
+  /* line 203, ../sass/screen.scss */
   to {
     visibility: hidden;
   }
 }
 @-webkit-keyframes blink {
-  /* line 202, ../sass/screen.scss */
+  /* line 208, ../sass/screen.scss */
   to {
     visibility: hidden;
   }
 }
-/* line 206, ../sass/screen.scss */
+/* line 212, ../sass/screen.scss */
 div.Poker:last-child {
   /*
   	@extend .blink;
   */
 }
 
-/* line 211, ../sass/screen.scss */
+/* line 217, ../sass/screen.scss */
 div.Poker div.slrr-top {
   position: absolute;
   top: 50%;
@@ -380,7 +388,7 @@ div.Poker div.slrr-top {
   transform: translate(-50%, -50%);
 }
 
-/* line 215, ../sass/screen.scss */
+/* line 221, ../sass/screen.scss */
 div.notification {
   position: absolute;
   top: 50%;
@@ -398,7 +406,7 @@ div.notification {
   text-shadow: 0 1px black;
 }
 
-/* line 227, ../sass/screen.scss */
+/* line 233, ../sass/screen.scss */
 div.kind {
   position: absolute;
   top: 50%;
@@ -410,24 +418,24 @@ div.kind {
   transform: translate(-50%, -50%);
 }
 
-/* line 231, ../sass/screen.scss */
+/* line 237, ../sass/screen.scss */
 div.kind:before {
   font-family: FontAwesome;
   content: "\f017";
 }
 
-/* line 235, ../sass/screen.scss */
+/* line 241, ../sass/screen.scss */
 .active_blink div.notification, div.Poker.achtung div.notification {
   display: block !important;
 }
 
-/* line 243, ../sass/screen.scss */
+/* line 249, ../sass/screen.scss */
 #side-head {
   background-image: -moz-linear-gradient(#424242, #3d3d3d);
   background-image: -webkit-linear-gradient(#424242, #3d3d3d);
   background-image: linear-gradient(#424242, #3d3d3d);
 }
-/* line 245, ../sass/screen.scss */
+/* line 251, ../sass/screen.scss */
 #side-head div.avatar-holder {
   float: left;
   position: relative;
@@ -470,24 +478,24 @@ div.kind:before {
   -webkit-transform: skew(15deg) rotate(6deg);
   transform: skew(15deg) rotate(6deg);
 }
-/* line 253, ../sass/screen.scss */
+/* line 259, ../sass/screen.scss */
 #side-head div.fullview {
   padding: 10px;
 }
-/* line 256, ../sass/screen.scss */
+/* line 262, ../sass/screen.scss */
 #side-head div.shortview {
   padding: 5px;
   font-size: 12px;
 }
-/* line 259, ../sass/screen.scss */
+/* line 265, ../sass/screen.scss */
 #side-head div.shortview .right a i {
   font-size: 14px;
 }
-/* line 262, ../sass/screen.scss */
+/* line 268, ../sass/screen.scss */
 #side-head div.shortview .left {
   padding-top: 5px;
 }
-/* line 266, ../sass/screen.scss */
+/* line 272, ../sass/screen.scss */
 #side-head span.featured {
   text-transform: uppercase;
   font-weight: bold;
@@ -495,7 +503,7 @@ div.kind:before {
   white-space: normal;
   padding-top: 2em;
 }
-/* line 273, ../sass/screen.scss */
+/* line 279, ../sass/screen.scss */
 #side-head img {
   height: auto !important;
   height: 67px;
@@ -504,13 +512,13 @@ div.kind:before {
   width: 56px;
   max-width: 56px;
 }
-/* line 277, ../sass/screen.scss */
+/* line 283, ../sass/screen.scss */
 #side-head div.buttons_holder {
   width: 100%;
   margin-left: 60px;
   position: absolute;
 }
-/* line 282, ../sass/screen.scss */
+/* line 288, ../sass/screen.scss */
 #side-head .cashout {
   font-size: 10px;
   padding: 0.5em 1.5em;
@@ -571,7 +579,7 @@ div.kind:before {
   padding: 0 !important;
   margin: -1px !important;
 }
-/* line 287, ../sass/screen.scss */
+/* line 293, ../sass/screen.scss */
 #side-head .dobuyin {
   font-size: 10px;
   padding: 0.5em 1.5em;
@@ -631,7 +639,7 @@ div.kind:before {
   padding: 0 !important;
   margin: -1px !important;
 }
-/* line 291, ../sass/screen.scss */
+/* line 297, ../sass/screen.scss */
 #side-head .icobut {
   font-size: 10px;
   padding: 0.5em 1.5em;
@@ -694,11 +702,11 @@ div.kind:before {
   margin: -1px !important;
 }
 
-/* line 299, ../sass/screen.scss */
+/* line 305, ../sass/screen.scss */
 .middleSideHead #side-head .midnone {
   display: none;
 }
-/* line 302, ../sass/screen.scss */
+/* line 308, ../sass/screen.scss */
 .middleSideHead #side-head img {
   height: auto !important;
   height: 45px;
@@ -707,22 +715,22 @@ div.kind:before {
   width: 32px;
   max-width: 32px;
 }
-/* line 306, ../sass/screen.scss */
+/* line 312, ../sass/screen.scss */
 .middleSideHead #side-head div.fullview {
   padding: 0px;
 }
-/* line 309, ../sass/screen.scss */
+/* line 315, ../sass/screen.scss */
 .middleSideHead #side-head div.buttons_holder {
   width: 100%;
   margin-left: 45px;
   position: absolute;
 }
-/* line 314, ../sass/screen.scss */
+/* line 320, ../sass/screen.scss */
 .middleSideHead #side-head span.featured {
   padding-top: 2em;
 }
 
-/* line 318, ../sass/screen.scss */
+/* line 324, ../sass/screen.scss */
 div.contentmodal {
   background-image: -moz-linear-gradient(#505050, #141414);
   background-image: -webkit-linear-gradient(#505050, #141414);
@@ -730,7 +738,7 @@ div.contentmodal {
   position: absolute;
   z-index: 1000;
 }
-/* line 322, ../sass/screen.scss */
+/* line 328, ../sass/screen.scss */
 div.contentmodal div.BuyInContentModal {
   position: absolute;
   top: 50%;
@@ -743,7 +751,7 @@ div.contentmodal div.BuyInContentModal {
   width: 80%;
   height: 80%;
 }
-/* line 327, ../sass/screen.scss */
+/* line 333, ../sass/screen.scss */
 div.contentmodal div.modtitle {
   font-family: Mohave Bold;
   font-size: 5em;
@@ -752,7 +760,7 @@ div.contentmodal div.modtitle {
   color: #999;
   text-shadow: 0 3px 8px #2A2A2A;
 }
-/* line 335, ../sass/screen.scss */
+/* line 341, ../sass/screen.scss */
 div.contentmodal div.moddescription {
   font-family: Adam;
   font-size: 2em;
@@ -761,17 +769,17 @@ div.contentmodal div.moddescription {
   color: #222;
   text-shadow: 0px 2px 3px #555;
 }
-@media (min-width: 768px) and (max-width: 1224px) {
-  /* line 335, ../sass/screen.scss */
+@media (min-width: 768px) and (max-width: 1224px), (min-width: 1224px) and (min-resolution: 1.5dppx), (min-width: 1224px) and (-webkit-min-device-pixel-ratio: 1.5), (min-width: 1224px) and (min--moz-device-pixel-ratio: 1.5), (min-width: 1224px) and (min-resolution: 144dpi) {
+  /* line 341, ../sass/screen.scss */
   div.contentmodal div.moddescription {
     font-size: 1.2em;
   }
 }
-/* line 346, ../sass/screen.scss */
+/* line 352, ../sass/screen.scss */
 div.contentmodal form#DoBuyIn, div.contentmodal form#Settings, div.contentmodal form#CashOut {
   text-align: center;
 }
-/* line 349, ../sass/screen.scss */
+/* line 355, ../sass/screen.scss */
 div.contentmodal input.bigbut, div.contentmodal button.bigbut {
   font-size: 19px;
   padding: 0.5em 1.5em;
@@ -839,7 +847,7 @@ div.contentmodal input.bigbut:active, div.contentmodal button.bigbut:active {
   -webkit-box-shadow: #282828 0 0.2em 0px;
   box-shadow: #282828 0 0.2em 0px;
 }
-/* line 356, ../sass/screen.scss */
+/* line 362, ../sass/screen.scss */
 div.contentmodal button.bigbut {
   font-size: 15px;
   padding: 0.5em 1.5em;
@@ -894,11 +902,11 @@ div.contentmodal button.bigbut::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
 }
-/* line 362, ../sass/screen.scss */
+/* line 368, ../sass/screen.scss */
 div.contentmodal div.SettingsContentModal {
   padding: 10px;
 }
-/* line 364, ../sass/screen.scss */
+/* line 370, ../sass/screen.scss */
 div.contentmodal div.SettingsContentModal div.modtitle {
   font-size: 2.5em;
   text-align: left;
@@ -906,16 +914,16 @@ div.contentmodal div.SettingsContentModal div.modtitle {
   color: #999;
   text-shadow: 0 2px 4px #2A2A2A;
 }
-/* line 371, ../sass/screen.scss */
+/* line 377, ../sass/screen.scss */
 div.contentmodal div.SettingsContentModal ul.butlist {
   @inline-block-list-container;
   margin-top: -31px;
 }
-/* line 374, ../sass/screen.scss */
+/* line 380, ../sass/screen.scss */
 div.contentmodal div.SettingsContentModal ul.butlist li {
   @inline-block-list-item;
 }
-/* line 378, ../sass/screen.scss */
+/* line 384, ../sass/screen.scss */
 div.contentmodal div.SettingsContentModal button.setbut {
   font-size: 10px;
   padding: 0.5em 1.5em;
@@ -977,7 +985,7 @@ div.contentmodal div.SettingsContentModal button.setbut::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
 }
-/* line 384, ../sass/screen.scss */
+/* line 390, ../sass/screen.scss */
 div.contentmodal div.SettingsContentModal button.uclose {
   font-size: 10px;
   padding: 0.5em 1.5em;
@@ -1037,7 +1045,7 @@ div.contentmodal div.SettingsContentModal button.uclose::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
 }
-/* line 388, ../sass/screen.scss */
+/* line 394, ../sass/screen.scss */
 div.contentmodal div.SettingsContentModal button.active {
   -moz-box-shadow: #097b9b 0 0.2em 0.4em inset;
   -webkit-box-shadow: #097b9b 0 0.2em 0.4em inset;
@@ -1050,19 +1058,19 @@ div.contentmodal div.SettingsContentModal button.active:active {
   -webkit-box-shadow: #086b88 0 0.2em 0.4em inset;
   box-shadow: #086b88 0 0.2em 0.4em inset;
 }
-/* line 391, ../sass/screen.scss */
+/* line 397, ../sass/screen.scss */
 div.contentmodal div.SettingsContentModal ul.image_picker_selector {
   overflow: auto;
 }
-/* line 394, ../sass/screen.scss */
+/* line 400, ../sass/screen.scss */
 div.contentmodal div.SettingsContentModal ul.image_picker_selector li {
   width: 9%;
   float: left;
   margin-right: 5.26316%;
   margin-right: 1em;
 }
-@media (min-width: 768px) and (max-width: 1224px) {
-  /* line 394, ../sass/screen.scss */
+@media (min-width: 768px) and (max-width: 1224px), (min-width: 1224px) and (min-resolution: 1.5dppx), (min-width: 1224px) and (-webkit-min-device-pixel-ratio: 1.5), (min-width: 1224px) and (min--moz-device-pixel-ratio: 1.5), (min-width: 1224px) and (min-resolution: 144dpi) {
+  /* line 400, ../sass/screen.scss */
   div.contentmodal div.SettingsContentModal ul.image_picker_selector li {
     width: 13%;
     float: left;
@@ -1071,7 +1079,7 @@ div.contentmodal div.SettingsContentModal ul.image_picker_selector li {
   }
 }
 @media (max-width: 768px) {
-  /* line 394, ../sass/screen.scss */
+  /* line 400, ../sass/screen.scss */
   div.contentmodal div.SettingsContentModal ul.image_picker_selector li {
     width: 28%;
     float: left;
