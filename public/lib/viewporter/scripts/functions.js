@@ -130,9 +130,13 @@ function SetModalDimensions() {
 function SetAvatarContainer() {
 	var th = GetPredicted('h');
 	var setmenu = $('.SettingsContentModal div.wrapper').outerHeight(true);
-	var dscr = $('.SettingsContentModal div.modtitle').outerHeight(true);
-	var totalpad = 30;
-	var bigbut = 50;
+	var dscr = $('.SettingsContentModal .AvatarContentModal div.moddescription').outerHeight(true);
+	var totalpad = 25;
+	var bigbut = $('.SettingsContentModal .AvatarContentModal button.bigbut').outerHeight(true);
+	if (bigbut == null) {
+		var bigbut = 5;
+	}
+	// var bigbut = 50;
 	var avatarc = th - setmenu - dscr - totalpad - bigbut;
 	$('.SettingsContentModal .AvatarContentModal div.ng-scope ul').height(avatarc);
 	}

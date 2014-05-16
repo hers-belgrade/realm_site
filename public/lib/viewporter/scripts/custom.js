@@ -8,13 +8,12 @@ $('.ModalActive div.sl-room').click(function(){
 
 $('div.move-up').click(function(){
 
-$(this).hide();
-$('#side-head > div.fullview').slideUp( "fast", function() {
+$(this).siblings('button.settings').hide();
 
+$('#side-head > div.fullview').slideUp( "fast", function() {
 		$('#side-head > div.shortview').slideDown( "slow", function() {
 //			alert('!');
 		});	
-
 });
 
 });
@@ -44,7 +43,7 @@ function rule() {
 				
 $('#side-content').css('height',$(this).outerHeight());
 $('#rightad').css('height',$(this).outerHeight());
-	if (Case(GetCurent('w')) == 'standard') {
+	if ((Case(GetCurent('w')) == 'standard') || (Case(GetCurent('w')) == 'mobile')) {
 		RemoveToogleButton();
 		var SideMargin = PredCanvasWidth;
 		var SideWidth = ViewPorterWidth - PredCanvasWidth;
@@ -136,9 +135,7 @@ if (GetCurent('a') <= 1) { // Portrait
 				}
 
 								
-	} else if (Case(GetCurent('w')) == 'mobile') {
-		alert('!');
-		} else {
+	} else {
 		
 		}
 

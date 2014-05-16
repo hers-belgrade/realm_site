@@ -7,5 +7,5 @@
   </li> 
 </ul>
 
-<button class='bigbut' data-ng-click='proclaimAvatar()' data-ng-disabled='!avatar'>Choose <img data-ng-show='avatar' src='/img/avatars/{{avatar.filename}}' height='30px'/></button>
+<button class='bigbut' data-ng-click='proclaimAvatar()' data-ng-class="{has_avatar:avatar}" data-ng-disabled='!avatar'>Choose <img data-ng-show='avatar' src='/img/avatars/{{avatar.filename}}'/></button>
 </div>

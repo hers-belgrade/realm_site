@@ -16,25 +16,31 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.face
         div.contentmodal(style='display:none;', data-ng-class="{out_of_money:!balance}")
           div.SettingsContentModal(style='display:none;')            
             div.wrapper.group
-              div.modtitle
+              div.modtitle.mtmain
                 |  Settings
               ul.butlist
-                li.tabbuttons.right
+                li.tabbuttons
                   button.active.uinfo.setbut(onclick='ShowContentModal(this, "uinfo");')
                     i.icon-gear
-                    |   User Settings
+                    span.nomob
+                      |   User Settings
                   button.cashout.setbut(onclick='ShowContentModal(this, "cashout");')
                     i.icon-signout
-                    |   Cash Out
+                    span.nomob
+                      |   Cash Out
                   button.urefill.setbut(onclick='ShowContentModal(this, "urefill")', ng-disabled="!follower.scalars.canrefill")
                     i.icon-usd
-                    |   Refill                  
+                    span.nomob
+                      |   Refill                  
                   button.uavatars.setbut(onclick='ShowContentModal(this, "uavatars");')
                     i.icon-user
-                    |   Avatars
+                    span.nomob
+                      |   Avatars
                   button.uclose.setbut(onclick='ShowContentModal(this, "uclose");')
-                    i.icon-eye-close
-                    |   Close                   
+                    i.icon-remove
+                    span.nomob
+                      |   Close
+            hr.botshad                   
             div.cModal.SetContentModal
               div.moddescription
                 |  Choose Your settings  
@@ -61,11 +67,11 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.face
         button.toogle.btn.btn-primary(id='tooglebut', type='button')
           span.glyphicon.glyphicon-align-justify
         div(id='side-content')
-          button.settings(onclick='ShowModal("SettingsContentModal");')
-            i.icon-gear         
-          div.group(id='side-head' ng-include='"/views/player.html"')
-          div.move-up.up
-            i.icon-chevron-up
+          //button.settings(onclick='ShowModal("SettingsContentModal");')
+            //i.icon-gear         
+          div(id='side-head' ng-include='"/views/player.html"' onclick='ShowModal("SettingsContentModal");')
+          //div.move-up.up
+            //i.icon-chevron-up
           div(ng-include='"/views/engagements.html"')
       script(type="text/javascript").
        window.user = !{user};
