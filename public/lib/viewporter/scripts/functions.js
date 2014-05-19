@@ -180,6 +180,7 @@ function ShowContentModal(button, content) {
 		$('div.CashOutContentModal').show();
 		}
 	if (content == 'uclose') {
+		$(button).removeClass('active');			
 		$('div.contentmodal').hide();
 		}				
 /*
