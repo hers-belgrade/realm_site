@@ -160,43 +160,29 @@ function ShowModal(content) {
 	});
 }
 function ShowContentModal(button, content) {
-	if ($(button).hasClass('active')) {
-		return false;
-		}	else {
-		$(button).addClass('active').siblings().removeClass('active');			
-	}
+  if (button) {
+    if ($(button).hasClass('active')) {
+      return false;
+    }	else {
+      $(button).addClass('active').siblings().removeClass('active');			
+    }
+  }
 	$('div.SettingsContentModal > div.cModal').hide();
 	if (content == 'uinfo') {
 		$('div.SetContentModal').show();
-		}
+  }
 	if (content == 'uavatars') {
 		$('div.AvatarContentModal').show();
 		SetAvatarContainer();
-		}
+	}
 	if (content == 'urefill') {
 		$('div.DoBuyInContentModal').show();
-		}		
+  }		
 	if (content == 'cashout') {
 		$('div.CashOutContentModal').show();
-		}
+	}
 	if (content == 'uclose') {
-		$(button).removeClass('active');			
+		button && $(button).removeClass('active');			
 		$('div.contentmodal').hide();
-		}				
-/*
-	$('div.contentmodal').fadeIn("fast", function() {
-		if (content == 'BuyInContentModal') {
-				$('div.BuyInContentModal').show();
-				$('body').addClass('ModalActive');
-			}
-		if (content == 'CashOutContentModal') {
-				$('div.CashOutContentModal').show();
-				$('body').addClass('ModalActive');
-			}
-		if (content == 'SettingsContentModal') {
-				$('div.SettingsContentModal').show();
-				$('body').addClass('ModalActive');
-			}							
-	});
-*/
+	}				
 }
