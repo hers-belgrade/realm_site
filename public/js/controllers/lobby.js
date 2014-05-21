@@ -1,4 +1,5 @@
 angular.module('HERS').controller('LobbyController',['$scope','follower',function($scope, follower){
+  console.log('WIL START FOLLOWERS ...');
   $scope.rooms = {};
   var nf = follower.follow('system').follow('cluster').follow('nodes');
   nf.listenToCollections($scope,{activator:function(name){

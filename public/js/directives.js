@@ -1,3 +1,4 @@
+/*
 angular.module('mean.ui').directive('spinner',function(){
   return {
     restrict: 'E',
@@ -26,3 +27,4 @@ angular.module('mean.ui').directive('spinner',function(){
     }
   }
 });
+*/
