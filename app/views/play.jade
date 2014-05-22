@@ -10,9 +10,10 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.face
       -moz-box-shadow:0 0 0;
     }
   body.login-layout
-    div(id='viewporter', data-ng-controller='CasinoController')
-      div(id='checker-bl')
+    div#viewporter(data-ng-controller='CasinoController')
+      div#checker-bl
         spinner.modal.spinner.center#spinner(data-ng-show='loading')
+        div#loginwidget.contentmodal(data-ng-hide='identity.name', data-ng-include='"/views/login.html"')
         div.contentmodal(style='display:none;', data-ng-class="{out_of_money:!balance}")
           div.SettingsContentModal(style='display:none;')            
             div.wrapper.group

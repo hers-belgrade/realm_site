@@ -19,7 +19,11 @@ exports.authCallback = function(req, res, next) {
 /**
  * Show login form
  */
+var index = require('./index');
 exports.signin = function(req, res) {
+  console.log('signin');
+    index.render(req,res);
+    return;
     res.render('users/signin', {
         title: 'Signin',
         message: req.flash('error')
@@ -104,6 +108,7 @@ exports.dumpData = function(req, res, next) {
   }
   req.query.name = req.user.username;
   req.query.roles = req.user.roles;
+  req.query.address = req.connection.remoteAddress;
   dataMaster.functionalities.sessionuserfunctionality.f.dumpData(req.query,function(errc,errp,errm){
     if(errc==='OK'){
       res.jsonp(errp[0]);
