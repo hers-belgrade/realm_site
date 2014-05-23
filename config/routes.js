@@ -8,9 +8,9 @@ module.exports = function(server, app, passport, auth) {
     app.get('/_', auth.requiresLogin, users.dumpData);
     app.get('/!', auth.requiresLogin, users.execute);
 
-    app.get('/webapp.manifest',function(req,res){
+    app.get('/webapp1.manifest',function(req,res){
       res.header("Content-Type", "text/cache-manifest");
-      res.end("CACHE MANIFEST\nlib/casino/skins/mobile/casinolobby.svg \nlib/casino/skins/mobile/pokerroom.svg \nlib/casino/skins/mobile/queen_of_the_nile.svg \nNETWORK: \n/ \nhttp://fonts.googleapi.com/\n");//#"+(new Date()).getTime()+"\n");
+      res.end("CACHE MANIFEST\nlib/casino/skins/mobile/casinolobby.svg \nlib/casino/skins/mobile/pokerroom.svg \nlib/casino/skins/mobile/queen_of_the_nile.svg \nNETWORK: \n/ \nhttp://fonts.googleapi.com/\n#"+(new Date()).getTime()+"\n");
     });
 
     //Setting up the users api
@@ -98,5 +98,4 @@ module.exports = function(server, app, passport, auth) {
     //Home route
     var index = require('../app/controllers/index');
     app.get('/', index.render);
-
 };

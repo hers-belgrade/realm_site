@@ -13,7 +13,8 @@ RealmUsers.setDBInterface(function(findobj,cb){
  * Auth callback
  */
 exports.authCallback = function(req, res, next) {
-  res.redirect('/');
+  console.log('authCallback',req.user);
+  res.redirect('/admin');
 };
 
 /**
