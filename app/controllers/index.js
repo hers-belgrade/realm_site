@@ -13,7 +13,9 @@ function viewForUser(req){
 }
 
 exports.render = function(req, res) {
-  res.render(viewForUser(req), {
+  var vu = viewForUser(req);
+  console.log(req.user ? req.user.username : 'nobody','render view',vu);
+  res.render(vu, {
       user: req.user ? JSON.stringify(req.user) : "null"
   });
 };

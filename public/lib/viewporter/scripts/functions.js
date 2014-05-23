@@ -121,6 +121,12 @@ function SideHeadFullView () {
 			side.removeClass('smallSideHead');
 		}
 	}
+
+function SetLoginWidget () {
+	var TotalHeight = GetCurent('h');
+	var WidgetHeight = $('#login-box').height() + $('div.login-container > div.row-fluid').height();
+	// alert(WidgetHeight);
+	}
 	
 function SetModalDimensions() {
 	var w = GetPredicted('w');
@@ -144,7 +150,7 @@ function SetAvatarContainer() {
 	
 function ShowModal(content) {
 	$('div.contentmodal > div').hide();
-	$('div.contentmodal').fadeIn("fast", function() {
+	$('div.contentmodal:not(#loginwidget)').fadeIn("fast", function() {
 		if (content == 'BuyInContentModal') {
 				$('div.BuyInContentModal').show();
 				$('body').addClass('ModalActive');
@@ -174,6 +180,9 @@ function ShowContentModal(button, content) {
 	if (content == 'uavatars') {
 		$('div.AvatarContentModal').show();
 		SetAvatarContainer();
+	}
+	if (content == 'ulogout') {
+		$('div.LogoutContentModal').show();
 	}
 	if (content == 'urefill') {
 		$('div.DoBuyInContentModal').show();

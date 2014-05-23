@@ -142,6 +142,7 @@ if (GetCurent('a') <= 1) { // Portrait
 SideHeadFullView();
 SetModalDimensions();
 SetAvatarContainer();
+SetLoginWidget ();
 
 LayoutChange();
 

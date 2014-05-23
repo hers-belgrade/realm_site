@@ -1,5 +1,5 @@
 doctype html
-html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.facebook.com/2008/fbml', itemscope='itemscope', itemtype='http://schema.org/Product')
+html(lang='en', manifest='webapp.manifest', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.facebook.com/2008/fbml', itemscope='itemscope', itemtype='http://schema.org/Product')
   include includes/head-b3
   style.
     .spinner{
@@ -9,12 +9,12 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.face
       -webkit-box-shadow:0 0 0;
       -moz-box-shadow:0 0 0;
     }
-  body.login-layout
-    div#viewporter(data-ng-controller='CasinoController')
+  body.login-layout(data-ng-controller='CasinoController', data-ng-class="{logged_out:!identity.name}")
+    div#loginwidget(data-ng-hide='identity.name', data-ng-class="{logged_out:!identity.name}", data-ng-include='"/views/login.html"')
+    div#viewporter
       div#checker-bl
         spinner.modal.spinner.center#spinner(data-ng-show='loading')
-        div#loginwidget.contentmodal(data-ng-hide='identity.name', data-ng-include='"/views/login.html"')
-        div.contentmodal(style='display:none;', data-ng-class="{out_of_money:!balance}")
+        div.contentmodal(style='display:none;', data-ng-class="{logged_out:!identity.name,out_of_money:!balance}")
           div.SettingsContentModal(style='display:none;')            
             div.wrapper.group
               div.modtitle.mtmain
@@ -37,6 +37,10 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.face
                     i.icon-user
                     span.nomob
                       |   Avatars
+                  button.ulogout.setbut(onclick='ShowContentModal(this, "ulogout");')
+                    i.icon-signout
+                    span.nomob
+                      |   Logout
                   button.uclose.setbut(onclick='ShowContentModal(this, "uclose");')
                     i.icon-remove
                     span.nomob
@@ -51,6 +55,12 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.face
                 hr.botshad               
               form(id='Settings')
                 div(ng-include='"/views/avatars/select.html"')              
+            div.cModal.LogoutContentModal(style='display:none;')
+              div.moddescription
+                |  Logout
+                hr.botshad               
+              form(id='Logout')
+                div(ng-include='"/views/logout.html"')              
             div.cModal.DoBuyInContentModal(style='display:none;')
               div.moddescription
                 |  Refill account
@@ -70,7 +80,7 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.face
         div(id='side-content')
           //button.settings(onclick='ShowModal("SettingsContentModal");')
             //i.icon-gear         
-          div(id='side-head' ng-include='"/views/player.html"' onclick='ShowModal("SettingsContentModal");')
+          div#side-head(data-ng-class="{logged_out:!identity.name}", ng-include='"/views/player.html"', onclick='ShowModal("SettingsContentModal");')
           //div.move-up.up
             //i.icon-chevron-up
           div(ng-include='"/views/engagements.html"')
