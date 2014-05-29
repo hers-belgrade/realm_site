@@ -21,17 +21,19 @@ $('#side-head > div.fullview').slideUp( "fast", function() {
 function rule() {
 
 	ResetStyle();
-	var CanvasHolderWidth = $('#checker-bl').width();
-//	alert('!');
+//	var CanvasHolderWidth = $('#checker-bl').width();
+	var CanvasHolderWidthPx = window.innerWidth / 10 * 8;
+	var CanvasHolderWidth = CanvasHolderWidthPx;
+
 	if ($( "body" ).hasClass( "closed-side" )) {
 		var CanvasHolderWidth = window.innerWidth;
 		$("#checker-bl").css('width', CanvasHolderWidth);	
 	}	
 	
-	var CanvasHolderHeight = $('#checker-bl').height();		
+	var CanvasHolderHeight = GetCurent('h');		
 	var HoledrAspect = CanvasHolderHeight / CanvasHolderWidth;
-	var ViewPorterWidth = $('div#viewporter').width();
-	
+	var ViewPorterWidth = GetCurent('w');
+
 	
 	if (HoledrAspect > Aspect) {
 		var PredCanvasWidth = CanvasHolderWidth;
@@ -39,8 +41,13 @@ function rule() {
 		} else {
 		var PredCanvasWidth = CanvasHolderHeight / Aspect;
 		var PredCanvasHeight = CanvasHolderHeight;
-		}	
+	}	
 				
+	alert(PredCanvasWidth);	
+	alert(PredCanvasHeight);	
+
+
+
 $('#side-content').css('height',$(this).outerHeight());
 $('#rightad').css('height',$(this).outerHeight());
 	if ((Case(GetCurent('w')) == 'standard') || (Case(GetCurent('w')) == 'mobile')) {
@@ -76,7 +83,6 @@ $('#rightad').css('height',$(this).outerHeight());
 		var CurentAspect = ViewPorterHeight / ViewPorterWidth;
 
 if (GetCurent('a') <= 1) { // Portrait
-
   	var SideWidth = GetCurent('w') - GetPredicted('w');
 
 //		var SideWidth = ViewPorterWidth - PredCanvasWidth;
@@ -151,6 +157,7 @@ LayoutChange();
 //Run function when browser resizes
 $(window).resize( rule );
 //Initial call 
+
 rule();
 
 $("#tooglebut").click(function(){

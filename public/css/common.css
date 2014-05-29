@@ -1,7 +1,7 @@
 html {
 	background-color:#282828;
 	}
-body:before {
+body.adminbody:before {
 	background-color:#282828;
 	}	
 .navbar .nav>li>a.brand {
@@ -138,6 +138,9 @@ border-bottom-color: #8f8f8f;
 	font-size:37px;
 	line-height:45px;
 	}
+.sidebar:before {
+	display:block;
+	}	
 
 <<<<<<< HEAD
 =======
