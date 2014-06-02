@@ -24,27 +24,44 @@
 <section data-ng-controller='LobbyController'>
 
 
-							<div class="row-fluid">
-								<div class="table-header">
-									Room activities
-								</div>
+    <div class="tabbable">
+      <ul class="nav nav-tabs" id="myTab">
+        <li data-ng-repeat="(klass,data) in lobby" data-ng-class={active:klass=='Poker'}>
+          <a data-toggle="tab" href="#{{klass}}">
+            <i class="green icon-{{klass}} bigger-110"></i>
+            {{klass}}
+          </a>
+        </li>
 
-								<table id="lobby" class="table table-striped table-bordered table-hover">
-									<thead>
-										<tr>
-											<th class="center">Name</th>
-											<th class="center">Players</th>
-										</tr>
-									</thead>
+      </ul>
 
-									<tbody>
-										<tr data-ng-repeat='(name,data) in rooms'>
-											<td>{{name}}</td>
-											<td class="center">{{data.playing}}/{{data.capacity}}</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
+      <div class="tab-content">
+        <div id="{{klass}}" class="tab-pane in" data-ng-repeat="(klass,data) in lobby" data-ng-class={active:klass=='Poker'}>
+          <table id="lobby" class="table table-striped table-bordered table-hover">
+            <thead>
+              <tr>
+                <th class="center">Name</th>
+                <th class="center">Flavor</th>
+                <th class="center">Stakes</th>
+                <th class="center">Players</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr data-ng-repeat='room in data'>
+                <td>{{room.name}}</td>
+                <td>{{room.flavor}}</td>
+                <td>{{room.ante}} {{room.bigblind/2}}/{{room.bigblind}}</td>
+                <td class="center">{{room.playing}}/{{room.capacity}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+
+
 
 <!--
 <table>

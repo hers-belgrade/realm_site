@@ -18,12 +18,14 @@ $('#side-head > div.fullview').slideUp( "fast", function() {
 
 });
 
-function rule() {
+function rule() {	
 
 	ResetStyle();
-//	var CanvasHolderWidth = $('#checker-bl').width();
-	var CanvasHolderWidthPx = window.innerWidth / 10 * 8;
-	var CanvasHolderWidth = CanvasHolderWidthPx;
+	var CanvasHolderWidth = $('#checker-bl').width();
+// 	var CanvasHolderWidthPx = window.innerWidth / 10 * 8;
+//	var CanvasHolderWidth = CanvasHolderWidthPx;
+
+
 
 	if ($( "body" ).hasClass( "closed-side" )) {
 		var CanvasHolderWidth = window.innerWidth;
@@ -43,17 +45,21 @@ function rule() {
 		var PredCanvasHeight = CanvasHolderHeight;
 	}	
 				
-	alert(PredCanvasWidth);	
-	alert(PredCanvasHeight);	
-
-
-
 $('#side-content').css('height',$(this).outerHeight());
 $('#rightad').css('height',$(this).outerHeight());
 	if ((Case(GetCurent('w')) == 'standard') || (Case(GetCurent('w')) == 'mobile')) {
 		RemoveToogleButton();
-		var SideMargin = PredCanvasWidth;
-		var SideWidth = ViewPorterWidth - PredCanvasWidth;
+		var SideMargin = GetPredicted('w');
+		var SideWidth = ViewPorterWidth - GetPredicted('w');
+		if (GetCurent('h') >= 724) {
+//			var SideMargin = ((GetCurent('w') - 1224) / 2) + GetPredicted('w');
+			var SideMargin = 979;
+			var SideWidth = 1224 - 979;			
+		console.log('Curent width = ' + GetCurent('w'));			
+		console.log('Predicted width = ' + GetPredicted('w'));
+
+			
+			}
 		$('#checker-tr').css({
 		width : SideWidth,
 		'margin-left' : SideMargin	

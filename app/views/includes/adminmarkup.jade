@@ -6,7 +6,7 @@
           i.icon-leaf
           |  PPW Games
       include ../includes/top-menu
-section.content.main-container.container-fluid(data-ng-show="identity.roles.indexOf('admin')>=0")
+section.content.main-container.container-fluid(style="display:none", data-ng-show="identity.roles.indexOf('admin')>=0")
   a(href="#").menu-toggler#menu-toggler
     span.menu-text
   div#sidebar.sidebar

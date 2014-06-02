@@ -60,6 +60,7 @@ div#viewporter(data-ng-show="identity.roles.indexOf('player')>=0")
             |  Congratulations!<br />Click button below to get paid for Your win!<br />Looking forward to see You soon again! 
           form(id='CashOut')
             input(type='submit', value='Cash Out', class='bigbut')
+    div#lobbydiv(data-ng-show='rendererIsLobby()' data-ng-include='"/views/playerlobby.html"')
     canvas(id='casino')
   div(id='checker-tr')
     button.toogle.btn.btn-primary(id='tooglebut', type='button')

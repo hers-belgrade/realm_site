@@ -1,6 +1,7 @@
 function Case(context) {
 // return 'standard';
 
+
 	if ((window.matchMedia("(max-resolution: 1.5dppx)").matches) && (context >= 1224)) {
 		return 'standard';
  	} else if ((window.matchMedia("(min-resolution: 1.5dppx)").matches) && (window.matchMedia("(max-resolution: 3dppx)").matches) && (context >= 1224)) {
@@ -16,7 +17,6 @@ function Case(context) {
 	}	else {
 		return 'standard';	
 	}	
-
 
 }
 
@@ -55,16 +55,17 @@ function AddRightAd() {
 
 function GetPredicted (dim) {
 
-	var CanvasHolderWidth = $('#checker-bl').width();
-
+	var ViewPorterWidth = window.innerWidth;
+//	var CanvasHolderWidth = $('#checker-bl').width();
+	var CanvasHolderWidth = ViewPorterWidth / 10 * 8;
+	
 	if ($( "body" ).hasClass( "closed-side" )) {
 		var CanvasHolderWidth = window.innerWidth;
 		$("#checker-bl").css('width', CanvasHolderWidth);	
 	}	
 	
-	var CanvasHolderHeight = $('#checker-bl').height();		
+	var CanvasHolderHeight = window.innerHeight;		
 	var HoledrAspect = CanvasHolderHeight / CanvasHolderWidth;
-	var ViewPorterWidth = window.innerWidth;
 
 
 	if (HoledrAspect > Aspect) {
@@ -73,8 +74,8 @@ function GetPredicted (dim) {
 		} else {
 		var PredCanvasWidth = CanvasHolderHeight / Aspect;
 		var PredCanvasHeight = CanvasHolderHeight;
-
 	}
+
 
 	if (dim === 'w') {	
 	return PredCanvasWidth;			
@@ -131,6 +132,10 @@ function SetLoginWidget () {
 function SetModalDimensions() {
 	var w = GetPredicted('w');
 	var h = GetPredicted('h');
+	if ((GetCurent('w') >= 1224) && (GetCurent('h') >= 724)) {
+		var w = 979;
+		var h = 724;
+		}
 	$('div.contentmodal').height(h).width(w);
 	}
 function SetAvatarContainer() {

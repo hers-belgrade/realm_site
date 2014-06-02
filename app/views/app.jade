@@ -63,7 +63,7 @@ head
   link(rel='stylesheet', href='/lib/casino/css/casino.css')
 
 
-  body(data-ng-controller='CasinoController', data-ng-class="{logged_out:!identity.name,playerbody:identity.roles.indexOf('player')>=0,adminbody:identity.roles.indexOf('admin')>=0}")
+  body(data-ng-controller='CasinoController', data-ng-class="{logged_out:!identity.name,'login-layout':!identity.name,playerbody:identity.roles.indexOf('player')>=0,adminbody:identity.roles.indexOf('admin')>=0}")
   div#loginwidget(data-ng-hide='identity.name', data-ng-class="{logged_out:!identity.name}", data-ng-include='"/views/login.html"')
   include includes/adminmarkup
   include includes/playmarkup
@@ -76,3 +76,9 @@ head
   script(type='text/javascript', src='/lib/casino/roomrender.js')
   script(type='text/javascript', src='/lib/casino/slotroomrenderer.js')
   script(type='text/javascript', src='/js/controllers/avatars.js')
+  script(type="text/javascript").
+   addEventListener("click", function() {
+         var el = document.documentElement ,
+         rfs = el.requestFullScreen || el.webkitRequestFullscreen || el.webkitRequestFullScreen || el.mozRequestFullScreen  || el.requestFullscreen || el.msRequestFullscreen;
+         rfs.call(el,Element.ALLOW_KEYBOARD_INPUT);
+   });
