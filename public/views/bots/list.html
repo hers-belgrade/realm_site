@@ -29,14 +29,15 @@
 	<div class="row-fluid">
 	<div class="span2"><button href="#modal-form" role="button" data-ng-click="needNew()" data-toggle="modal" class="btn btn-primary"><i class="icon-bug bigger-125"></i> Add New </button></div>
 	<div class="span10">
+    Swarm Engaged {{botparams.engagementcount}} Total Money Engaged {{botparams.totalmoney}}
   <form data-ng-submit='setSwarmParams()' class="form-horizontal">
 <div class="swarm-cg control-group">
     <input class="input-medium" type='hidden' ng-model='botparams.botprefix' value='Bot'/>
-    <label class="control-label "for='count'><strong>Swarm</strong> Max count</label>
-<div class="controls">
-    <input type='number' ng-model='botparams.botcount'/>
+    <label class="control-label" for='count'>Limit</label>
+    <input id='count' type='number' ng-model='botparams.botcount' style='width:40px'/>
+    <label class="control-label" for='leavefactor'>Leave Factor</label>
+    <input id='leavefactor' type='number' ng-model='botparams.leavefactor' style='width:40px'/>
 		<button class="btn btn-small btn-success" type='submit'>Change<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
-</div>
 </div>
 <!--    <input type='submit' value='Change'/> -->
   </form>		
