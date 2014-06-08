@@ -103,11 +103,24 @@ angular.module('mean.bots').controller('BotsController', ['$scope', 'Bots', 'fol
 
   $scope.getPagedData($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
 
+  $scope.policies = ['Careful', 'Standard', 'Aggresive'];
+
+  $scope.$on('ngGridEventEndCellEdit', function(evnt) {
+    var r = evnt.targetScope.row.entity;
+    follower.do_command(':commitTransaction',{txnalias:'policy_change',txns:[
+      ['set',['local','bots','bots', r.username, 'policy'],[r.policy]]
+    ]});
+  });
+  var policySelectBox = "<select ng-class=\"'colt' + col.index\" ng-input=\"COL_FIELD\" ng-model='row.entity.policy'>";
+  for (var i in $scope.policies) {
+    policySelectBox+= "<option value="+i+">"+$scope.policies[i]+"</option>";
+  }
+  policySelectBox+= "</select>";
 
 	$scope.gridOptions = {
 		enableRowSelection: false,
     enablePaging:true,
-    enableCellEdit:true,
+    enableCellEdit:false,
     rowHeight: 50,
     multiSelect: false,
     showFooter:true,
@@ -119,7 +132,9 @@ angular.module('mean.bots').controller('BotsController', ['$scope', 'Bots', 'fol
      {field:'avatar', displayName:'Avatar', cellTemplate:'<div class="ngCellText" ng-class="col.colIndex()"><img src="/img/avatars/{{row.getProperty(col.field)}}" width="60px"/></div>'},//cellTemplate:'<img src="/img/avatars/{{_bot.avatar}}" width="60px"/>'},
      {field:'rooms', displayName:'Sitting in Rooms'},
      {field:'balance', displayName:'Money Engaged'},
-     {field:'policy', displayName:'Policy'}/*,
+     {field:'policy', displayName:'Policy', editableCellTemplate: policySelectBox, enableCellEdit:true, 
+      cellTemplate: '<div class="ngCellText" ng-class="col.colIndex()"><span ng-cell-text>{{policies[row.getProperty(col.field)]}}</span></div>'
+     }/*,
      {field:'balance',displayName:'Balance'},
      {field:'lastActivity', displayName:'Last activity',cellFilter:'date'},
      {field:'lastAnswer', displayName:'Last answer',cellFilter:'date'},

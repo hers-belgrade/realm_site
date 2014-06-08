@@ -115,56 +115,70 @@ html, body.playerbody {
   font-family: Arial;
   font-size: 12px;
   color: white;
+  background-color: #282828;
   -webkit-text-size-adjust: none;
   /* important, or your text resizes randomly on rotation! */
 }
 
-/* line 55, ../sass/screen.scss */
+/* line 56, ../sass/screen.scss */
 body.playerbody {
-  overflow: hidden;
+  /*
+  canvas {
+  	background: #eee;
+  	position: absolute;
+  	top: 0;
+  	left: 0;
+  }
+  */
 }
-
-/* line 58, ../sass/screen.scss */
-p {
+/* line 1, ../sass/play.scss */
+body.playerbody p {
   margin: 0;
   padding: 1em;
   padding-bottom: 0;
 }
-
-/* line 63, ../sass/screen.scss */
-#checker-bl, #checker-tr {
+/* line 6, ../sass/play.scss */
+body.playerbody #checker-bl, body.playerbody #checker-tr {
   position: absolute;
   width: 50%;
   height: 100%;
 }
-
 @media (min-width: 1224px) and (max-resolution: 1.5dppx), (min-width: 1224px) and (-webkit-max-device-pixel-ratio: 1.5), (min-width: 1224px) and (max--moz-device-pixel-ratio: 1.5), (min-width: 1224px) and (max-resolution: 144dpi) {
-  /* line 69, ../sass/screen.scss */
-  div#viewporter {
+  /* line 12, ../sass/play.scss */
+  body.playerbody div#viewporter {
     width: 1224px;
     margin: 0 auto;
   }
 }
-
-/* line 76, ../sass/screen.scss */
-#checker-bl {
+/* line 19, ../sass/play.scss */
+body.playerbody #checker-bl {
   position: absolute;
   top: 0;
   left: 0;
   width: 80%;
   display: block;
 }
-
-/* line 84, ../sass/screen.scss */
-#checker-tr {
+@media (min-width: 1224px) and (max-resolution: 1.5dppx), (min-width: 1224px) and (-webkit-max-device-pixel-ratio: 1.5), (min-width: 1224px) and (max--moz-device-pixel-ratio: 1.5), (min-width: 1224px) and (max-resolution: 144dpi) {
+  /* line 19, ../sass/play.scss */
+  body.playerbody #checker-bl {
+    left: auto;
+  }
+}
+/* line 30, ../sass/play.scss */
+body.playerbody #checker-tr {
   position: absolute;
   width: 20%;
   top: 0;
   right: 0;
 }
-
-/* line 96, ../sass/screen.scss */
-#orientationlock {
+@media (min-width: 1224px) and (max-resolution: 1.5dppx), (min-width: 1224px) and (-webkit-max-device-pixel-ratio: 1.5), (min-width: 1224px) and (max--moz-device-pixel-ratio: 1.5), (min-width: 1224px) and (max-resolution: 144dpi) {
+  /* line 30, ../sass/play.scss */
+  body.playerbody #checker-tr {
+    right: auto;
+  }
+}
+/* line 45, ../sass/play.scss */
+body.playerbody #orientationlock {
   position: absolute;
   z-index: 1000;
   top: 0;
@@ -178,9 +192,8 @@ p {
   text-align: center;
   display: none;
 }
-
-/* line 111, ../sass/screen.scss */
-#orientationlock p {
+/* line 60, ../sass/play.scss */
+body.playerbody #orientationlock p {
   position: absolute;
   top: 50%;
   left: 0;
@@ -188,43 +201,31 @@ p {
   margin-top: -2em;
   padding: 0;
 }
-
-/*
-canvas {
-	background: #eee;
-	position: absolute;
-	top: 0;
-	left: 0;
-}
-*/
-/* line 130, ../sass/screen.scss */
-button.toogle {
+/* line 79, ../sass/play.scss */
+body.playerbody button.toogle {
   font-size: 20px;
   position: absolute;
   margin-left: -46px;
 }
-
-/* line 135, ../sass/screen.scss */
-#rightad {
+/* line 84, ../sass/play.scss */
+body.playerbody #rightad {
   float: left;
   height: 100%;
   min-width: 120px;
   /* Will be AT LEAST 20em wide */
   overflow: hidden;
 }
-
-/* line 141, ../sass/screen.scss */
-#rightad img {
+/* line 90, ../sass/play.scss */
+body.playerbody #rightad img {
   max-width: 100%;
   max-height: 100%;
 }
-
-/* line 145, ../sass/screen.scss */
-#side-content {
+/* line 94, ../sass/play.scss */
+body.playerbody #side-content {
   float: left;
 }
-/* line 147, ../sass/screen.scss */
-#side-content div.move-up, #side-content button.settings {
+/* line 96, ../sass/play.scss */
+body.playerbody #side-content div.move-up, body.playerbody #side-content button.settings {
   font-size: 10px;
   padding: 0.5em 1.5em;
   display: inline-block;
@@ -258,24 +259,24 @@ button.toogle {
   z-index: 1;
 }
 /* line 15, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-#side-content div.move-up:hover, #side-content button.settings:hover {
+body.playerbody #side-content div.move-up:hover, body.playerbody #side-content button.settings:hover {
   text-decoration: none;
 }
 /* line 36, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-#side-content div.move-up:hover, #side-content button.settings:hover {
+body.playerbody #side-content div.move-up:hover, body.playerbody #side-content button.settings:hover {
   background-color: black;
   background: -moz-linear-gradient(#000000, #000000);
   background: -webkit-linear-gradient(#000000, #000000);
   background: linear-gradient(#000000, #000000);
 }
 /* line 39, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-#side-content div.move-up:active, #side-content button.settings:active {
+body.playerbody #side-content div.move-up:active, body.playerbody #side-content button.settings:active {
   -moz-box-shadow: black 0 1px 2px inset;
   -webkit-box-shadow: black 0 1px 2px inset;
   box-shadow: black 0 1px 2px inset;
 }
 /* line 6, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-#side-content div.move-up.disabled, #side-content button.disabled.settings, #side-content div.move-up[disabled], #side-content button[disabled].settings {
+body.playerbody #side-content div.move-up.disabled, body.playerbody #side-content button.disabled.settings, body.playerbody #side-content div.move-up[disabled], body.playerbody #side-content button[disabled].settings {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
   opacity: 0.6;
   background: black;
@@ -285,17 +286,16 @@ button.toogle {
   box-shadow: none;
 }
 /* line 74, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\_sassy-buttons.sass */
-#side-content div.move-up::-moz-focus-inner, #side-content button.settings::-moz-focus-inner {
+body.playerbody #side-content div.move-up::-moz-focus-inner, body.playerbody #side-content button.settings::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
 }
-/* line 157, ../sass/screen.scss */
-#side-content button.settings {
+/* line 106, ../sass/play.scss */
+body.playerbody #side-content button.settings {
   margin-top: 10px;
 }
-
-/* line 162, ../sass/screen.scss */
-hr.botshad {
+/* line 111, ../sass/play.scss */
+body.playerbody hr.botshad {
   border: 0;
   height: 1px;
   background: black;
@@ -306,9 +306,8 @@ hr.botshad {
   margin-top: 10px;
   margin-bottom: 2px;
 }
-
-/* line 169, ../sass/screen.scss */
-#side-content.middleSideHead div.up {
+/* line 118, ../sass/play.scss */
+body.playerbody #side-content.middleSideHead div.up {
   font-size: 10px;
   padding: 0px;
   display: inline-block;
@@ -321,25 +320,22 @@ hr.botshad {
   width: inherit;
   text-align: center;
 }
-/* line 176, ../sass/screen.scss */
-#side-content.middleSideHead button.settings {
+/* line 125, ../sass/play.scss */
+body.playerbody #side-content.middleSideHead button.settings {
   margin-top: 5px;
 }
-
-/* line 180, ../sass/screen.scss */
-div.side-loby,
-div.sl-room {
+/* line 129, ../sass/play.scss */
+body.playerbody div.side-loby,
+body.playerbody div.sl-room {
   width: 100%;
   display: block;
 }
-
-/* line 185, ../sass/screen.scss */
-div.sl-room {
+/* line 134, ../sass/play.scss */
+body.playerbody div.sl-room {
   background-color: black;
 }
-
-/* line 188, ../sass/screen.scss */
-div.Poker, div.Slot {
+/* line 137, ../sass/play.scss */
+body.playerbody div.Poker, body.playerbody div.Slot {
   background-image: -moz-linear-gradient(#dbdbdb, #787878 3%, #1a1a1a);
   background-image: -webkit-linear-gradient(#dbdbdb, #787878 3%, #1a1a1a);
   background-image: linear-gradient(#dbdbdb, #787878 3%, #1a1a1a);
@@ -359,35 +355,32 @@ div.Poker, div.Slot {
   box-shadow: 0 1px 0 black;
   text-shadow: 0 1px 0 black;
 }
-
-/* line 204, ../sass/screen.scss */
-.blink, div.notification {
+/* line 153, ../sass/play.scss */
+body.playerbody .blink, body.playerbody div.notification {
   animation: blink 500ms steps(5, start) infinite;
   -webkit-animation: blink 500ms steps(5, start) infinite;
 }
-
 @keyframes blink {
-  /* line 209, ../sass/screen.scss */
-  to {
+  /* line 158, ../sass/play.scss */
+  body.playerbody to {
     visibility: hidden;
   }
 }
 @-webkit-keyframes blink {
-  /* line 214, ../sass/screen.scss */
-  to {
+  /* line 163, ../sass/play.scss */
+  body.playerbody to {
     visibility: hidden;
   }
 }
-/* line 218, ../sass/screen.scss */
-div.Poker:last-child {
+/* line 167, ../sass/play.scss */
+body.playerbody div.Poker:last-child {
   /*
   	@extend .blink;
   */
 }
-
-/* line 223, ../sass/screen.scss */
-div.Poker div.slrr-top,
-div.Slot div.slrr-top {
+/* line 172, ../sass/play.scss */
+body.playerbody div.Poker div.slrr-top,
+body.playerbody div.Slot div.slrr-top {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -404,23 +397,22 @@ div.Slot div.slrr-top {
   text-shadow: 0px 2px 3px #555;
 }
 @media (min-width: 1224px) and (min-resolution: 1.5dppx) and (max-resolution: 3dppx), (min-width: 768px) and (max-width: 1224px) and (max-resolution: 3dppx), (min-width: 768px) and (max-width: 1224px) and (-webkit-max-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (max--moz-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (max-resolution: 288dpi) {
-  /* line 223, ../sass/screen.scss */
-  div.Poker div.slrr-top,
-  div.Slot div.slrr-top {
+  /* line 172, ../sass/play.scss */
+  body.playerbody div.Poker div.slrr-top,
+  body.playerbody div.Slot div.slrr-top {
     font-size: 1em;
   }
 }
 @media (min-width: 1224px) and (min-resolution: 3dppx), (min-width: 1224px) and (-webkit-min-device-pixel-ratio: 3), (min-width: 1224px) and (min--moz-device-pixel-ratio: 3), (min-width: 1224px) and (min-resolution: 288dpi), (min-width: 768px) and (max-width: 1224px) and (min-resolution: 3dppx), (min-width: 768px) and (max-width: 1224px) and (-webkit-min-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (min--moz-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (min-resolution: 288dpi), (max-width: 768px) {
-  /* line 223, ../sass/screen.scss */
-  div.Poker div.slrr-top,
-  div.Slot div.slrr-top {
+  /* line 172, ../sass/play.scss */
+  body.playerbody div.Poker div.slrr-top,
+  body.playerbody div.Slot div.slrr-top {
     font-size: 0.8em;
     text-shadow: 0px 1px 2px #555;
   }
 }
-
-/* line 240, ../sass/screen.scss */
-div.notification {
+/* line 189, ../sass/play.scss */
+body.playerbody div.notification {
   position: absolute;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -436,9 +428,8 @@ div.notification {
   color: #eafc52;
   text-shadow: 0 1px black;
 }
-
-/* line 252, ../sass/screen.scss */
-div.kind {
+/* line 201, ../sass/play.scss */
+body.playerbody div.kind {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -448,27 +439,24 @@ div.kind {
   -o-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
-
-/* line 256, ../sass/screen.scss */
-div.kind:before {
+/* line 205, ../sass/play.scss */
+body.playerbody div.kind:before {
   font-family: FontAwesome;
   content: "\f017";
 }
-
-/* line 260, ../sass/screen.scss */
-.active_blink div.notification, div.Poker.achtung div.notification {
+/* line 209, ../sass/play.scss */
+body.playerbody .active_blink div.notification, body.playerbody div.Poker.achtung div.notification {
   display: block !important;
 }
-
-/* line 268, ../sass/screen.scss */
-#side-head {
+/* line 217, ../sass/play.scss */
+body.playerbody #side-head {
   background-image: -moz-linear-gradient(#424242, #3d3d3d);
   background-image: -webkit-linear-gradient(#424242, #3d3d3d);
   background-image: linear-gradient(#424242, #3d3d3d);
   cursor: pointer;
 }
-/* line 271, ../sass/screen.scss */
-#side-head div.avatar-holder {
+/* line 220, ../sass/play.scss */
+body.playerbody #side-head div.avatar-holder {
   float: left;
   position: relative;
   -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
@@ -480,7 +468,7 @@ div.kind:before {
   margin-right: 7px;
 }
 /* line 32, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\compass-recipes-0.3.0\stylesheets\recipes\shadow\drop\_lifted-corners.scss */
-#side-head div.avatar-holder::before, #side-head div.avatar-holder::after {
+body.playerbody #side-head div.avatar-holder::before, body.playerbody #side-head div.avatar-holder::after {
   content: "";
   position: absolute;
   z-index: -2;
@@ -495,7 +483,7 @@ div.kind:before {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
 }
 /* line 49, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\compass-recipes-0.3.0\stylesheets\recipes\shadow\drop\_lifted-corners.scss */
-#side-head div.avatar-holder::before {
+body.playerbody #side-head div.avatar-holder::before {
   left: 10px;
   -moz-transform: skew(-15deg) rotate(-6deg);
   -ms-transform: skew(-15deg) rotate(-6deg);
@@ -503,31 +491,31 @@ div.kind:before {
   transform: skew(-15deg) rotate(-6deg);
 }
 /* line 55, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\compass-recipes-0.3.0\stylesheets\recipes\shadow\drop\_lifted-corners.scss */
-#side-head div.avatar-holder::after {
+body.playerbody #side-head div.avatar-holder::after {
   right: 10px;
   -moz-transform: skew(15deg) rotate(6deg);
   -ms-transform: skew(15deg) rotate(6deg);
   -webkit-transform: skew(15deg) rotate(6deg);
   transform: skew(15deg) rotate(6deg);
 }
-/* line 279, ../sass/screen.scss */
-#side-head div.fullview {
+/* line 228, ../sass/play.scss */
+body.playerbody #side-head div.fullview {
   padding: 10px;
   position: relative;
 }
-/* line 283, ../sass/screen.scss */
-#side-head div.shortview {
+/* line 232, ../sass/play.scss */
+body.playerbody #side-head div.shortview {
   padding: 3px;
   font-size: 12px;
   height: 35px;
   position: relative;
 }
-/* line 288, ../sass/screen.scss */
-#side-head div.shortview .right a i {
+/* line 237, ../sass/play.scss */
+body.playerbody #side-head div.shortview .right a i {
   font-size: 14px;
 }
-/* line 291, ../sass/screen.scss */
-#side-head div.shortview .left {
+/* line 240, ../sass/play.scss */
+body.playerbody #side-head div.shortview .left {
   padding-top: 5px;
   position: absolute;
   top: 50%;
@@ -537,8 +525,8 @@ div.kind:before {
   -o-transform: translateY(-50%);
   transform: translateY(-50%);
 }
-/* line 296, ../sass/screen.scss */
-#side-head span.featured {
+/* line 245, ../sass/play.scss */
+body.playerbody #side-head span.featured {
   font-family: Adam;
   font-size: 1.3em;
   text-transform: uppercase;
@@ -554,19 +542,19 @@ div.kind:before {
   transform: translateY(-50%);
 }
 @media (min-width: 1224px) and (min-resolution: 1.5dppx) and (max-resolution: 3dppx), (min-width: 768px) and (max-width: 1224px) and (max-resolution: 3dppx), (min-width: 768px) and (max-width: 1224px) and (-webkit-max-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (max--moz-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (max-resolution: 288dpi) {
-  /* line 296, ../sass/screen.scss */
-  #side-head span.featured {
+  /* line 245, ../sass/play.scss */
+  body.playerbody #side-head span.featured {
     font-size: 1.2em;
   }
 }
 @media (min-width: 1224px) and (min-resolution: 3dppx), (min-width: 1224px) and (-webkit-min-device-pixel-ratio: 3), (min-width: 1224px) and (min--moz-device-pixel-ratio: 3), (min-width: 1224px) and (min-resolution: 288dpi), (min-width: 768px) and (max-width: 1224px) and (min-resolution: 3dppx), (min-width: 768px) and (max-width: 1224px) and (-webkit-min-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (min--moz-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (min-resolution: 288dpi), (max-width: 768px) {
-  /* line 296, ../sass/screen.scss */
-  #side-head span.featured {
+  /* line 245, ../sass/play.scss */
+  body.playerbody #side-head span.featured {
     font-size: 1em;
   }
 }
-/* line 311, ../sass/screen.scss */
-#side-head img {
+/* line 260, ../sass/play.scss */
+body.playerbody #side-head img {
   height: auto !important;
   height: 67px;
   max-height: 67px;
@@ -574,14 +562,14 @@ div.kind:before {
   width: 56px;
   max-width: 56px;
 }
-/* line 315, ../sass/screen.scss */
-#side-head div.buttons_holder {
+/* line 264, ../sass/play.scss */
+body.playerbody #side-head div.buttons_holder {
   width: 100%;
   margin-left: 60px;
   position: absolute;
 }
-/* line 320, ../sass/screen.scss */
-#side-head .cashout {
+/* line 269, ../sass/play.scss */
+body.playerbody #side-head .cashout {
   font-size: 10px;
   padding: 0.5em 1.5em;
   display: inline-block;
@@ -610,24 +598,24 @@ div.kind:before {
   margin-bottom: 2px;
 }
 /* line 15, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-#side-head .cashout:hover {
+body.playerbody #side-head .cashout:hover {
   text-decoration: none;
 }
 /* line 18, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-#side-head .cashout:hover {
+body.playerbody #side-head .cashout:hover {
   background-color: #0a86aa;
   background: -moz-linear-gradient(#0fbff1 3%, #0a86aa 75%);
   background: -webkit-linear-gradient(#0fbff1 3%, #0a86aa 75%);
   background: linear-gradient(#0fbff1 3%, #0a86aa 75%);
 }
 /* line 21, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-#side-head .cashout:active {
+body.playerbody #side-head .cashout:active {
   -moz-box-shadow: #097b9b 0 1px 2px inset;
   -webkit-box-shadow: #097b9b 0 1px 2px inset;
   box-shadow: #097b9b 0 1px 2px inset;
 }
 /* line 6, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-#side-head .cashout.disabled, #side-head .cashout[disabled] {
+body.playerbody #side-head .cashout.disabled, body.playerbody #side-head .cashout[disabled] {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
   opacity: 0.6;
   background: #0b99c2;
@@ -637,12 +625,12 @@ div.kind:before {
   box-shadow: none;
 }
 /* line 74, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\_sassy-buttons.sass */
-#side-head .cashout::-moz-focus-inner {
+body.playerbody #side-head .cashout::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
 }
-/* line 325, ../sass/screen.scss */
-#side-head .dobuyin {
+/* line 274, ../sass/play.scss */
+body.playerbody #side-head .dobuyin {
   font-size: 10px;
   padding: 0.5em 1.5em;
   display: inline-block;
@@ -670,24 +658,24 @@ div.kind:before {
   border-radius: 2px;
 }
 /* line 15, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-#side-head .dobuyin:hover {
+body.playerbody #side-head .dobuyin:hover {
   text-decoration: none;
 }
 /* line 18, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-#side-head .dobuyin:hover {
+body.playerbody #side-head .dobuyin:hover {
   background-color: #e63100;
   background: -moz-linear-gradient(#ff5e33 3%, #e63100 75%);
   background: -webkit-linear-gradient(#ff5e33 3%, #e63100 75%);
   background: linear-gradient(#ff5e33 3%, #e63100 75%);
 }
 /* line 21, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-#side-head .dobuyin:active {
+body.playerbody #side-head .dobuyin:active {
   -moz-box-shadow: #d62d00 0 1px 2px inset;
   -webkit-box-shadow: #d62d00 0 1px 2px inset;
   box-shadow: #d62d00 0 1px 2px inset;
 }
 /* line 6, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-#side-head .dobuyin.disabled, #side-head .dobuyin[disabled] {
+body.playerbody #side-head .dobuyin.disabled, body.playerbody #side-head .dobuyin[disabled] {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
   opacity: 0.6;
   background: #ff3600;
@@ -697,12 +685,12 @@ div.kind:before {
   box-shadow: none;
 }
 /* line 74, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\_sassy-buttons.sass */
-#side-head .dobuyin::-moz-focus-inner {
+body.playerbody #side-head .dobuyin::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
 }
-/* line 329, ../sass/screen.scss */
-#side-head .icobut {
+/* line 278, ../sass/play.scss */
+body.playerbody #side-head .icobut {
   font-size: 10px;
   padding: 0.5em 1.5em;
   display: inline-block;
@@ -732,24 +720,24 @@ div.kind:before {
   text-align: center;
 }
 /* line 15, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-#side-head .icobut:hover {
+body.playerbody #side-head .icobut:hover {
   text-decoration: none;
 }
 /* line 36, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-#side-head .icobut:hover {
+body.playerbody #side-head .icobut:hover {
   background-color: black;
   background: -moz-linear-gradient(#000000, #000000);
   background: -webkit-linear-gradient(#000000, #000000);
   background: linear-gradient(#000000, #000000);
 }
 /* line 39, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-#side-head .icobut:active {
+body.playerbody #side-head .icobut:active {
   -moz-box-shadow: black 0 1px 2px inset;
   -webkit-box-shadow: black 0 1px 2px inset;
   box-shadow: black 0 1px 2px inset;
 }
 /* line 6, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-#side-head .icobut.disabled, #side-head .icobut[disabled] {
+body.playerbody #side-head .icobut.disabled, body.playerbody #side-head .icobut[disabled] {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
   opacity: 0.6;
   background: black;
@@ -759,17 +747,16 @@ div.kind:before {
   box-shadow: none;
 }
 /* line 74, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\_sassy-buttons.sass */
-#side-head .icobut::-moz-focus-inner {
+body.playerbody #side-head .icobut::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
 }
-
-/* line 337, ../sass/screen.scss */
-.middleSideHead #side-head .midnone {
+/* line 286, ../sass/play.scss */
+body.playerbody .middleSideHead #side-head .midnone {
   display: none;
 }
-/* line 340, ../sass/screen.scss */
-.middleSideHead #side-head img {
+/* line 289, ../sass/play.scss */
+body.playerbody .middleSideHead #side-head img {
   height: auto !important;
   height: 45px;
   max-height: 45px;
@@ -777,24 +764,23 @@ div.kind:before {
   width: 32px;
   max-width: 32px;
 }
-/* line 344, ../sass/screen.scss */
-.middleSideHead #side-head div.fullview {
+/* line 293, ../sass/play.scss */
+body.playerbody .middleSideHead #side-head div.fullview {
   padding: 0px;
 }
-/* line 347, ../sass/screen.scss */
-.middleSideHead #side-head div.buttons_holder {
+/* line 296, ../sass/play.scss */
+body.playerbody .middleSideHead #side-head div.buttons_holder {
   width: 100%;
   margin-left: 45px;
   position: absolute;
 }
-
 @media (min-width: 1224px) and (min-resolution: 3dppx), (min-width: 1224px) and (-webkit-min-device-pixel-ratio: 3), (min-width: 1224px) and (min--moz-device-pixel-ratio: 3), (min-width: 1224px) and (min-resolution: 288dpi), (min-width: 768px) and (max-width: 1224px) and (min-resolution: 3dppx), (min-width: 768px) and (max-width: 1224px) and (-webkit-min-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (min--moz-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (min-resolution: 288dpi), (max-width: 768px) {
-  /* line 355, ../sass/screen.scss */
-  #side-head .midnone {
+  /* line 304, ../sass/play.scss */
+  body.playerbody #side-head .midnone {
     display: none;
   }
-  /* line 358, ../sass/screen.scss */
-  #side-head img {
+  /* line 307, ../sass/play.scss */
+  body.playerbody #side-head img {
     height: auto !important;
     height: 45px;
     max-height: 45px;
@@ -802,28 +788,27 @@ div.kind:before {
     width: 32px;
     max-width: 32px;
   }
-  /* line 362, ../sass/screen.scss */
-  #side-head div.fullview {
+  /* line 311, ../sass/play.scss */
+  body.playerbody #side-head div.fullview {
     padding: 0px;
   }
-  /* line 365, ../sass/screen.scss */
-  #side-head div.buttons_holder {
+  /* line 314, ../sass/play.scss */
+  body.playerbody #side-head div.buttons_holder {
     width: 100%;
     margin-left: 45px;
     position: absolute;
   }
 }
-
-/* line 372, ../sass/screen.scss */
-div.contentmodal {
+/* line 321, ../sass/play.scss */
+body.playerbody div.contentmodal {
   background-image: -moz-linear-gradient(#505050, #141414);
   background-image: -webkit-linear-gradient(#505050, #141414);
   background-image: linear-gradient(#505050, #141414);
   position: absolute;
   z-index: 1000;
 }
-/* line 376, ../sass/screen.scss */
-div.contentmodal div.BuyInContentModal {
+/* line 325, ../sass/play.scss */
+body.playerbody div.contentmodal div.BuyInContentModal {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -835,8 +820,8 @@ div.contentmodal div.BuyInContentModal {
   width: 80%;
   height: 80%;
 }
-/* line 381, ../sass/screen.scss */
-div.contentmodal div.modtitle {
+/* line 330, ../sass/play.scss */
+body.playerbody div.contentmodal div.modtitle {
   font-family: Mohave Bold;
   font-size: 5em;
   text-align: center;
@@ -844,8 +829,8 @@ div.contentmodal div.modtitle {
   color: #999;
   text-shadow: 0 3px 8px #2A2A2A;
 }
-/* line 389, ../sass/screen.scss */
-div.contentmodal div.moddescription {
+/* line 338, ../sass/play.scss */
+body.playerbody div.contentmodal div.moddescription {
   font-family: Adam;
   font-size: 2em;
   text-align: center;
@@ -854,27 +839,27 @@ div.contentmodal div.moddescription {
   text-shadow: 0px 2px 3px #555;
 }
 @media (min-width: 1224px) and (min-resolution: 1.5dppx) and (max-resolution: 3dppx), (min-width: 768px) and (max-width: 1224px) and (max-resolution: 3dppx), (min-width: 768px) and (max-width: 1224px) and (-webkit-max-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (max--moz-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (max-resolution: 288dpi) {
-  /* line 389, ../sass/screen.scss */
-  div.contentmodal div.moddescription {
+  /* line 338, ../sass/play.scss */
+  body.playerbody div.contentmodal div.moddescription {
     font-size: 1.2em;
     padding-top: 5px;
     padding-bottom: 5px;
   }
 }
 @media (min-width: 1224px) and (min-resolution: 3dppx), (min-width: 1224px) and (-webkit-min-device-pixel-ratio: 3), (min-width: 1224px) and (min--moz-device-pixel-ratio: 3), (min-width: 1224px) and (min-resolution: 288dpi), (min-width: 768px) and (max-width: 1224px) and (min-resolution: 3dppx), (min-width: 768px) and (max-width: 1224px) and (-webkit-min-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (min--moz-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (min-resolution: 288dpi), (max-width: 768px) {
-  /* line 389, ../sass/screen.scss */
-  div.contentmodal div.moddescription {
+  /* line 338, ../sass/play.scss */
+  body.playerbody div.contentmodal div.moddescription {
     font-size: 1.2em;
     padding-top: 5px;
     padding-bottom: 5px;
   }
 }
-/* line 407, ../sass/screen.scss */
-div.contentmodal form#DoBuyIn, div.contentmodal form#Settings, div.contentmodal form#CashOut {
+/* line 356, ../sass/play.scss */
+body.playerbody div.contentmodal form#DoBuyIn, body.playerbody div.contentmodal form#Settings, body.playerbody div.contentmodal form#CashOut {
   text-align: center;
 }
-/* line 410, ../sass/screen.scss */
-div.contentmodal input.bigbut, div.contentmodal button.bigbut {
+/* line 359, ../sass/play.scss */
+body.playerbody div.contentmodal input.bigbut, body.playerbody div.contentmodal button.bigbut {
   font-size: 19px;
   padding: 0.5em 1.5em;
   display: inline-block;
@@ -903,24 +888,24 @@ div.contentmodal input.bigbut, div.contentmodal button.bigbut {
   font-size: 4em;
 }
 /* line 15, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-div.contentmodal input.bigbut:hover, div.contentmodal button.bigbut:hover {
+body.playerbody div.contentmodal input.bigbut:hover, body.playerbody div.contentmodal button.bigbut:hover {
   text-decoration: none;
 }
 /* line 24, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-div.contentmodal input.bigbut:hover, div.contentmodal button.bigbut:hover {
+body.playerbody div.contentmodal input.bigbut:hover, body.playerbody div.contentmodal button.bigbut:hover {
   background-color: #cc0000;
   background: -moz-linear-gradient(#ff7575, #cc0000 50%, #a30000);
   background: -webkit-linear-gradient(#ff7575, #cc0000 50%, #a30000);
   background: linear-gradient(#ff7575, #cc0000 50%, #a30000);
 }
 /* line 27, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-div.contentmodal input.bigbut:active, div.contentmodal button.bigbut:active {
+body.playerbody div.contentmodal input.bigbut:active, body.playerbody div.contentmodal button.bigbut:active {
   -moz-box-shadow: #a30000 0 1px 2px inset;
   -webkit-box-shadow: #a30000 0 1px 2px inset;
   box-shadow: #a30000 0 1px 2px inset;
 }
 /* line 6, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-div.contentmodal input.bigbut.disabled, div.contentmodal button.disabled.bigbut, div.contentmodal input.bigbut[disabled], div.contentmodal button[disabled].bigbut {
+body.playerbody div.contentmodal input.bigbut.disabled, body.playerbody div.contentmodal button.disabled.bigbut, body.playerbody div.contentmodal input.bigbut[disabled], body.playerbody div.contentmodal button[disabled].bigbut {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
   opacity: 0.6;
   background: #cc0000;
@@ -930,31 +915,31 @@ div.contentmodal input.bigbut.disabled, div.contentmodal button.disabled.bigbut,
   box-shadow: none;
 }
 /* line 74, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\_sassy-buttons.sass */
-div.contentmodal input.bigbut::-moz-focus-inner, div.contentmodal button.bigbut::-moz-focus-inner {
+body.playerbody div.contentmodal input.bigbut::-moz-focus-inner, body.playerbody div.contentmodal button.bigbut::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
 }
 /* line 8, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-styles.sass */
-div.contentmodal input.bigbut:active, div.contentmodal button.bigbut:active {
+body.playerbody div.contentmodal input.bigbut:active, body.playerbody div.contentmodal button.bigbut:active {
   top: 0.3em;
   -moz-box-shadow: #282828 0 0.2em 0px;
   -webkit-box-shadow: #282828 0 0.2em 0px;
   box-shadow: #282828 0 0.2em 0px;
 }
 @media (min-width: 1224px) and (min-resolution: 1.5dppx) and (max-resolution: 3dppx), (min-width: 768px) and (max-width: 1224px) and (max-resolution: 3dppx), (min-width: 768px) and (max-width: 1224px) and (-webkit-max-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (max--moz-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (max-resolution: 288dpi) {
-  /* line 410, ../sass/screen.scss */
-  div.contentmodal input.bigbut, div.contentmodal button.bigbut {
+  /* line 359, ../sass/play.scss */
+  body.playerbody div.contentmodal input.bigbut, body.playerbody div.contentmodal button.bigbut {
     font-size: 3em;
   }
 }
 @media (min-width: 1224px) and (min-resolution: 3dppx), (min-width: 1224px) and (-webkit-min-device-pixel-ratio: 3), (min-width: 1224px) and (min--moz-device-pixel-ratio: 3), (min-width: 1224px) and (min-resolution: 288dpi), (min-width: 768px) and (max-width: 1224px) and (min-resolution: 3dppx), (min-width: 768px) and (max-width: 1224px) and (-webkit-min-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (min--moz-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (min-resolution: 288dpi), (max-width: 768px) {
-  /* line 410, ../sass/screen.scss */
-  div.contentmodal input.bigbut, div.contentmodal button.bigbut {
+  /* line 359, ../sass/play.scss */
+  body.playerbody div.contentmodal input.bigbut, body.playerbody div.contentmodal button.bigbut {
     font-size: 2em;
   }
 }
-/* line 423, ../sass/screen.scss */
-div.contentmodal button.bigbut {
+/* line 372, ../sass/play.scss */
+body.playerbody div.contentmodal button.bigbut {
   font-size: 15px;
   padding: 0.5em 1.5em;
   display: inline-block;
@@ -977,24 +962,24 @@ div.contentmodal button.bigbut {
   margin-top: 5px;
 }
 /* line 15, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-div.contentmodal button.bigbut:hover {
+body.playerbody div.contentmodal button.bigbut:hover {
   text-decoration: none;
 }
 /* line 24, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-div.contentmodal button.bigbut:hover {
+body.playerbody div.contentmodal button.bigbut:hover {
   background-color: #cc0000;
   background: -moz-linear-gradient(#ff7575, #cc0000 50%, #a30000);
   background: -webkit-linear-gradient(#ff7575, #cc0000 50%, #a30000);
   background: linear-gradient(#ff7575, #cc0000 50%, #a30000);
 }
 /* line 27, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-div.contentmodal button.bigbut:active {
+body.playerbody div.contentmodal button.bigbut:active {
   -moz-box-shadow: #a30000 0 1px 2px inset;
   -webkit-box-shadow: #a30000 0 1px 2px inset;
   box-shadow: #a30000 0 1px 2px inset;
 }
 /* line 6, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-div.contentmodal button.bigbut.disabled, div.contentmodal button.bigbut[disabled] {
+body.playerbody div.contentmodal button.bigbut.disabled, body.playerbody div.contentmodal button.bigbut[disabled] {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
   opacity: 0.6;
   background: #cc0000;
@@ -1004,41 +989,41 @@ div.contentmodal button.bigbut.disabled, div.contentmodal button.bigbut[disabled
   box-shadow: none;
 }
 /* line 74, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\_sassy-buttons.sass */
-div.contentmodal button.bigbut::-moz-focus-inner {
+body.playerbody div.contentmodal button.bigbut::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
 }
-/* line 429, ../sass/screen.scss */
-div.contentmodal .AvatarContentModal button.bigbut.has_avatar {
+/* line 378, ../sass/play.scss */
+body.playerbody div.contentmodal .AvatarContentModal button.bigbut.has_avatar {
   padding: 0.5em 2.9em 0.5em 1.5em;
 }
 @media (min-width: 1224px) and (min-resolution: 3dppx), (min-width: 1224px) and (-webkit-min-device-pixel-ratio: 3), (min-width: 1224px) and (min--moz-device-pixel-ratio: 3), (min-width: 1224px) and (min-resolution: 288dpi), (min-width: 768px) and (max-width: 1224px) and (min-resolution: 3dppx), (min-width: 768px) and (max-width: 1224px) and (-webkit-min-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (min--moz-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (min-resolution: 288dpi), (max-width: 768px) {
-  /* line 429, ../sass/screen.scss */
-  div.contentmodal .AvatarContentModal button.bigbut.has_avatar {
+  /* line 378, ../sass/play.scss */
+  body.playerbody div.contentmodal .AvatarContentModal button.bigbut.has_avatar {
     padding: 0.5em 3.9em 0.5em 1.5em;
   }
 }
-/* line 436, ../sass/screen.scss */
-div.contentmodal .AvatarContentModal button.bigbut img {
+/* line 385, ../sass/play.scss */
+body.playerbody div.contentmodal .AvatarContentModal button.bigbut img {
   position: absolute;
   height: 55px !important;
   margin-left: 26%;
   margin-top: -51px;
 }
 @media (min-width: 1224px) and (min-resolution: 3dppx), (min-width: 1224px) and (-webkit-min-device-pixel-ratio: 3), (min-width: 1224px) and (min--moz-device-pixel-ratio: 3), (min-width: 1224px) and (min-resolution: 288dpi), (min-width: 768px) and (max-width: 1224px) and (min-resolution: 3dppx), (min-width: 768px) and (max-width: 1224px) and (-webkit-min-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (min--moz-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (min-resolution: 288dpi), (max-width: 768px) {
-  /* line 435, ../sass/screen.scss */
-  div.contentmodal .AvatarContentModal button.bigbut {
+  /* line 384, ../sass/play.scss */
+  body.playerbody div.contentmodal .AvatarContentModal button.bigbut {
     font-size: 1.3em;
   }
 }
-/* line 446, ../sass/screen.scss */
-div.contentmodal div.SettingsContentModal {
+/* line 395, ../sass/play.scss */
+body.playerbody div.contentmodal div.SettingsContentModal {
   padding: 10px;
   height: inherit;
   position: relative;
 }
-/* line 450, ../sass/screen.scss */
-div.contentmodal div.SettingsContentModal div.modtitle {
+/* line 399, ../sass/play.scss */
+body.playerbody div.contentmodal div.SettingsContentModal div.modtitle {
   font-size: 2.5em;
   text-align: left;
   line-height: 1em;
@@ -1046,43 +1031,43 @@ div.contentmodal div.SettingsContentModal div.modtitle {
   text-shadow: 0 2px 4px #2A2A2A;
 }
 @media (min-width: 1224px) and (min-resolution: 3dppx), (min-width: 1224px) and (-webkit-min-device-pixel-ratio: 3), (min-width: 1224px) and (min--moz-device-pixel-ratio: 3), (min-width: 1224px) and (min-resolution: 288dpi), (min-width: 768px) and (max-width: 1224px) and (min-resolution: 3dppx), (min-width: 768px) and (max-width: 1224px) and (-webkit-min-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (min--moz-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (min-resolution: 288dpi), (max-width: 768px) {
-  /* line 458, ../sass/screen.scss */
-  div.contentmodal div.SettingsContentModal div.AvatarContentModal div.moddescription {
+  /* line 407, ../sass/play.scss */
+  body.playerbody div.contentmodal div.SettingsContentModal div.AvatarContentModal div.moddescription {
     height: 0;
     display: none;
   }
 }
 @media (min-width: 1224px) and (min-resolution: 3dppx), (min-width: 1224px) and (-webkit-min-device-pixel-ratio: 3), (min-width: 1224px) and (min--moz-device-pixel-ratio: 3), (min-width: 1224px) and (min-resolution: 288dpi), (min-width: 768px) and (max-width: 1224px) and (min-resolution: 3dppx), (min-width: 768px) and (max-width: 1224px) and (-webkit-min-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (min--moz-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (min-resolution: 288dpi), (max-width: 768px) {
-  /* line 465, ../sass/screen.scss */
-  div.contentmodal div.SettingsContentModal div.mtmain {
+  /* line 414, ../sass/play.scss */
+  body.playerbody div.contentmodal div.SettingsContentModal div.mtmain {
     display: none;
   }
 }
-/* line 470, ../sass/screen.scss */
-div.contentmodal div.SettingsContentModal ul.butlist {
+/* line 419, ../sass/play.scss */
+body.playerbody div.contentmodal div.SettingsContentModal ul.butlist {
   @inline-block-list-container;
   margin-top: -31px;
   text-align: center;
 }
 @media (min-width: 1224px) and (min-resolution: 3dppx), (min-width: 1224px) and (-webkit-min-device-pixel-ratio: 3), (min-width: 1224px) and (min--moz-device-pixel-ratio: 3), (min-width: 1224px) and (min-resolution: 288dpi), (min-width: 768px) and (max-width: 1224px) and (min-resolution: 3dppx), (min-width: 768px) and (max-width: 1224px) and (-webkit-min-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (min--moz-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (min-resolution: 288dpi), (max-width: 768px) {
-  /* line 470, ../sass/screen.scss */
-  div.contentmodal div.SettingsContentModal ul.butlist {
+  /* line 419, ../sass/play.scss */
+  body.playerbody div.contentmodal div.SettingsContentModal ul.butlist {
     margin-top: 0;
   }
 }
-/* line 477, ../sass/screen.scss */
-div.contentmodal div.SettingsContentModal ul.butlist li {
+/* line 426, ../sass/play.scss */
+body.playerbody div.contentmodal div.SettingsContentModal ul.butlist li {
   @inline-block-list-item;
   float: right;
 }
 @media (min-width: 1224px) and (min-resolution: 3dppx), (min-width: 1224px) and (-webkit-min-device-pixel-ratio: 3), (min-width: 1224px) and (min--moz-device-pixel-ratio: 3), (min-width: 1224px) and (min-resolution: 288dpi), (min-width: 768px) and (max-width: 1224px) and (min-resolution: 3dppx), (min-width: 768px) and (max-width: 1224px) and (-webkit-min-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (min--moz-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (min-resolution: 288dpi), (max-width: 768px) {
-  /* line 477, ../sass/screen.scss */
-  div.contentmodal div.SettingsContentModal ul.butlist li {
+  /* line 426, ../sass/play.scss */
+  body.playerbody div.contentmodal div.SettingsContentModal ul.butlist li {
     float: none;
   }
 }
-/* line 485, ../sass/screen.scss */
-div.contentmodal div.SettingsContentModal button.setbut {
+/* line 434, ../sass/play.scss */
+body.playerbody div.contentmodal div.SettingsContentModal button.setbut {
   font-size: 10px;
   padding: 0.5em 1.5em;
   display: inline-block;
@@ -1112,24 +1097,24 @@ div.contentmodal div.SettingsContentModal button.setbut {
   outline: none;
 }
 /* line 15, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-div.contentmodal div.SettingsContentModal button.setbut:hover {
+body.playerbody div.contentmodal div.SettingsContentModal button.setbut:hover {
   text-decoration: none;
 }
 /* line 30, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-div.contentmodal div.SettingsContentModal button.setbut:hover {
+body.playerbody div.contentmodal div.SettingsContentModal button.setbut:hover {
   background-color: #212121;
   background: -moz-linear-gradient(#363636 50%, #212121 51%);
   background: -webkit-linear-gradient(#363636 50%, #212121 51%);
   background: linear-gradient(#363636 50%, #212121 51%);
 }
 /* line 33, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-div.contentmodal div.SettingsContentModal button.setbut:active {
+body.playerbody div.contentmodal div.SettingsContentModal button.setbut:active {
   -moz-box-shadow: #1f1f1f 0 1px 2px inset;
   -webkit-box-shadow: #1f1f1f 0 1px 2px inset;
   box-shadow: #1f1f1f 0 1px 2px inset;
 }
 /* line 6, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-div.contentmodal div.SettingsContentModal button.setbut.disabled, div.contentmodal div.SettingsContentModal button.setbut[disabled] {
+body.playerbody div.contentmodal div.SettingsContentModal button.setbut.disabled, body.playerbody div.contentmodal div.SettingsContentModal button.setbut[disabled] {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
   opacity: 0.6;
   background: #333333;
@@ -1139,12 +1124,12 @@ div.contentmodal div.SettingsContentModal button.setbut.disabled, div.contentmod
   box-shadow: none;
 }
 /* line 74, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\_sassy-buttons.sass */
-div.contentmodal div.SettingsContentModal button.setbut::-moz-focus-inner {
+body.playerbody div.contentmodal div.SettingsContentModal button.setbut::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
 }
-/* line 491, ../sass/screen.scss */
-div.contentmodal div.SettingsContentModal button.uclose {
+/* line 440, ../sass/play.scss */
+body.playerbody div.contentmodal div.SettingsContentModal button.uclose {
   font-size: 10px;
   padding: 0.5em 1.5em;
   display: inline-block;
@@ -1172,24 +1157,24 @@ div.contentmodal div.SettingsContentModal button.uclose {
   border-radius: 2px;
 }
 /* line 15, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-div.contentmodal div.SettingsContentModal button.uclose:hover {
+body.playerbody div.contentmodal div.SettingsContentModal button.uclose:hover {
   text-decoration: none;
 }
 /* line 18, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-div.contentmodal div.SettingsContentModal button.uclose:hover {
+body.playerbody div.contentmodal div.SettingsContentModal button.uclose:hover {
   background-color: #e63100;
   background: -moz-linear-gradient(#ff5e33 3%, #e63100 75%);
   background: -webkit-linear-gradient(#ff5e33 3%, #e63100 75%);
   background: linear-gradient(#ff5e33 3%, #e63100 75%);
 }
 /* line 21, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-div.contentmodal div.SettingsContentModal button.uclose:active {
+body.playerbody div.contentmodal div.SettingsContentModal button.uclose:active {
   -moz-box-shadow: #d62d00 0 1px 2px inset;
   -webkit-box-shadow: #d62d00 0 1px 2px inset;
   box-shadow: #d62d00 0 1px 2px inset;
 }
 /* line 6, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-pseudo-states.sass */
-div.contentmodal div.SettingsContentModal button.uclose.disabled, div.contentmodal div.SettingsContentModal button.uclose[disabled] {
+body.playerbody div.contentmodal div.SettingsContentModal button.uclose.disabled, body.playerbody div.contentmodal div.SettingsContentModal button.uclose[disabled] {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
   opacity: 0.6;
   background: #ff3600;
@@ -1199,46 +1184,46 @@ div.contentmodal div.SettingsContentModal button.uclose.disabled, div.contentmod
   box-shadow: none;
 }
 /* line 74, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\_sassy-buttons.sass */
-div.contentmodal div.SettingsContentModal button.uclose::-moz-focus-inner {
+body.playerbody div.contentmodal div.SettingsContentModal button.uclose::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
 }
 @media (min-width: 1224px) and (min-resolution: 3dppx), (min-width: 1224px) and (-webkit-min-device-pixel-ratio: 3), (min-width: 1224px) and (min--moz-device-pixel-ratio: 3), (min-width: 1224px) and (min-resolution: 288dpi), (min-width: 768px) and (max-width: 1224px) and (min-resolution: 3dppx), (min-width: 768px) and (max-width: 1224px) and (-webkit-min-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (min--moz-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (min-resolution: 288dpi), (max-width: 768px) {
-  /* line 495, ../sass/screen.scss */
-  div.contentmodal div.SettingsContentModal button.setbut {
+  /* line 444, ../sass/play.scss */
+  body.playerbody div.contentmodal div.SettingsContentModal button.setbut {
     width: auto !important;
     width: 38px;
     min-width: 38px;
     text-align: center;
   }
 }
-/* line 501, ../sass/screen.scss */
-div.contentmodal div.SettingsContentModal button.active {
+/* line 450, ../sass/play.scss */
+body.playerbody div.contentmodal div.SettingsContentModal button.active {
   -moz-box-shadow: #363636 0 0.2em 0.4em inset;
   -webkit-box-shadow: #363636 0 0.2em 0.4em inset;
   box-shadow: #363636 0 0.2em 0.4em inset;
   border: solid 1px #242424;
 }
 /* line 14, C:\Ruby200-x64\lib\ruby\gems\2.0.0\gems\sassy-buttons-0.2.6\stylesheets\sassy-buttons\_sassy-button-styles.sass */
-div.contentmodal div.SettingsContentModal button.active:active {
+body.playerbody div.contentmodal div.SettingsContentModal button.active:active {
   -moz-box-shadow: #2b2b2b 0 0.2em 0.4em inset;
   -webkit-box-shadow: #2b2b2b 0 0.2em 0.4em inset;
   box-shadow: #2b2b2b 0 0.2em 0.4em inset;
 }
-/* line 504, ../sass/screen.scss */
-div.contentmodal div.SettingsContentModal ul.image_picker_selector {
+/* line 453, ../sass/play.scss */
+body.playerbody div.contentmodal div.SettingsContentModal ul.image_picker_selector {
   overflow: auto;
 }
-/* line 507, ../sass/screen.scss */
-div.contentmodal div.SettingsContentModal ul.image_picker_selector li {
+/* line 456, ../sass/play.scss */
+body.playerbody div.contentmodal div.SettingsContentModal ul.image_picker_selector li {
   width: 10.8%;
   float: left;
   margin-right: 5.26316%;
   margin-right: 1.7%;
 }
 @media (min-width: 1224px) and (min-resolution: 1.5dppx) and (max-resolution: 3dppx), (min-width: 768px) and (max-width: 1224px) and (max-resolution: 3dppx), (min-width: 768px) and (max-width: 1224px) and (-webkit-max-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (max--moz-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (max-resolution: 288dpi) {
-  /* line 507, ../sass/screen.scss */
-  div.contentmodal div.SettingsContentModal ul.image_picker_selector li {
+  /* line 456, ../sass/play.scss */
+  body.playerbody div.contentmodal div.SettingsContentModal ul.image_picker_selector li {
     width: 14.6%;
     float: left;
     margin-right: 5.26316%;
@@ -1246,19 +1231,19 @@ div.contentmodal div.SettingsContentModal ul.image_picker_selector li {
   }
 }
 @media (min-width: 1224px) and (min-resolution: 3dppx), (min-width: 1224px) and (-webkit-min-device-pixel-ratio: 3), (min-width: 1224px) and (min--moz-device-pixel-ratio: 3), (min-width: 1224px) and (min-resolution: 288dpi), (min-width: 768px) and (max-width: 1224px) and (min-resolution: 3dppx), (min-width: 768px) and (max-width: 1224px) and (-webkit-min-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (min--moz-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (min-resolution: 288dpi), (max-width: 768px) {
-  /* line 507, ../sass/screen.scss */
-  div.contentmodal div.SettingsContentModal ul.image_picker_selector li {
+  /* line 456, ../sass/play.scss */
+  body.playerbody div.contentmodal div.SettingsContentModal ul.image_picker_selector li {
     width: 23%;
     float: left;
     margin-right: 5.26316%;
     margin-right: 2%;
   }
 }
-/* line 519, ../sass/screen.scss */
-div.contentmodal div.SettingsContentModal div.SetContentModal,
-div.contentmodal div.SettingsContentModal div.CashOutContentModal,
-div.contentmodal div.SettingsContentModal div.DoBuyInContentModal,
-div.contentmodal div.SettingsContentModal div.LogoutContentModal {
+/* line 468, ../sass/play.scss */
+body.playerbody div.contentmodal div.SettingsContentModal div.SetContentModal,
+body.playerbody div.contentmodal div.SettingsContentModal div.CashOutContentModal,
+body.playerbody div.contentmodal div.SettingsContentModal div.DoBuyInContentModal,
+body.playerbody div.contentmodal div.SettingsContentModal div.LogoutContentModal {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -1269,40 +1254,39 @@ div.contentmodal div.SettingsContentModal div.LogoutContentModal {
   transform: translate(-50%, -50%);
 }
 @media (min-width: 1224px) and (min-resolution: 3dppx), (min-width: 1224px) and (-webkit-min-device-pixel-ratio: 3), (min-width: 1224px) and (min--moz-device-pixel-ratio: 3), (min-width: 1224px) and (min-resolution: 288dpi), (min-width: 768px) and (max-width: 1224px) and (min-resolution: 3dppx), (min-width: 768px) and (max-width: 1224px) and (-webkit-min-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (min--moz-device-pixel-ratio: 3), (min-width: 768px) and (max-width: 1224px) and (min-resolution: 288dpi), (max-width: 768px) {
-  /* line 526, ../sass/screen.scss */
-  div.contentmodal span.nomob {
+  /* line 475, ../sass/play.scss */
+  body.playerbody div.contentmodal span.nomob {
     display: none;
   }
 }
-
-/* line 533, ../sass/screen.scss */
-body.logged_out div#checker-tr {
+/* line 482, ../sass/play.scss */
+body.playerbody body.logged_out div#checker-tr {
   display: none;
 }
-/* line 536, ../sass/screen.scss */
-body.logged_out div#checker-bl {
+/* line 485, ../sass/play.scss */
+body.playerbody body.logged_out div#checker-bl {
   display: none;
 }
-/* line 539, ../sass/screen.scss */
-body.logged_out h1 {
+/* line 488, ../sass/play.scss */
+body.playerbody body.logged_out h1 {
   font-size: 32px;
   font-weight: normal;
   margin-top: 10px;
 }
-/* line 544, ../sass/screen.scss */
-body.logged_out div.contentmodal {
+/* line 493, ../sass/play.scss */
+body.playerbody body.logged_out div.contentmodal {
   background: none;
 }
-/* line 547, ../sass/screen.scss */
-body.logged_out input[type=checkbox] + .lbl, body.logged_out .logged_out input[type=radio] + .lbl {
+/* line 496, ../sass/play.scss */
+body.playerbody body.logged_out input[type=checkbox] + .lbl, body.playerbody body.logged_out .logged_out input[type=radio] + .lbl {
   color: gray;
 }
-/* line 550, ../sass/screen.scss */
-body.logged_out canvas {
+/* line 499, ../sass/play.scss */
+body.playerbody body.logged_out canvas {
   display: none;
 }
-/* line 553, ../sass/screen.scss */
-body.logged_out div#loginwidget {
+/* line 502, ../sass/play.scss */
+body.playerbody body.logged_out div#loginwidget {
   height: 100%;
   position: absolute;
   top: 50%;
@@ -1313,8 +1297,326 @@ body.logged_out div#loginwidget {
   -o-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
-
-/* line 562, ../sass/screen.scss */
-button#tooglebut {
+/* line 511, ../sass/play.scss */
+body.playerbody button#tooglebut {
   display: none !important;
+}
+
+/* line 32, ../sass/admin.scss */
+body.adminbody .icon-Poker:before {
+  content: "\f072";
+}
+/* line 33, ../sass/admin.scss */
+body.adminbody .icon-Slot:before {
+  content: "\f0fb";
+}
+/* line 34, ../sass/admin.scss */
+body.adminbody .icon-Bot:before {
+  content: "\f0c6";
+}
+/* line 36, ../sass/admin.scss */
+body.adminbody .navbar .nav > li > a.brand {
+  padding-left: 20px;
+  margin-left: 0;
+}
+/* line 41, ../sass/admin.scss */
+body.adminbody .content {
+  width: 100%;
+}
+/* line 45, ../sass/admin.scss */
+body.adminbody footer {
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  height: 30px;
+  width: 100%;
+  background: #ddd;
+  -webkit-box-shadow: 0 8px 6px 6px black;
+  -moz-box-shadow: 0 8px 6px 6px black;
+  box-shadow: 0 8px 6px 6px black;
+}
+/* line 57, ../sass/admin.scss */
+body.adminbody footer p {
+  padding: 5px 0 12px 10px;
+}
+/* line 60, ../sass/admin.scss */
+body.adminbody .menu-min .sidebar-shortcuts-large {
+  width: 176px;
+}
+/* line 64, ../sass/admin.scss */
+body.adminbody .ngViewport {
+  min-height: 500px;
+}
+/* line 68, ../sass/admin.scss */
+body.adminbody .navbar .navbar-inner {
+  background-color: #333333;
+}
+/* line 71, ../sass/admin.scss */
+body.adminbody .breadcrumbs {
+  background-color: #3a3a3a;
+  border-bottom-color: #4f4f4f;
+}
+/* line 75, ../sass/admin.scss */
+body.adminbody .breadcrumb > li {
+  text-shadow: 0 1px 0 #000000;
+}
+/* line 78, ../sass/admin.scss */
+body.adminbody .breadcrumb > li > a {
+  color: white;
+}
+/* line 81, ../sass/admin.scss */
+body.adminbody .breadcrumb > li, body.adminbody .breadcrumb > li.active {
+  color: white;
+}
+/* line 84, ../sass/admin.scss */
+body.adminbody .page-content {
+  background-color: #282828;
+}
+/* line 87, ../sass/admin.scss */
+body.adminbody .page-content .page-header:first-child h1 {
+  color: #9deeff;
+}
+/* line 90, ../sass/admin.scss */
+body.adminbody .page-content .page-header:first-child h1 small {
+  color: #3f8695;
+}
+/* line 93, ../sass/admin.scss */
+body.adminbody .page-content .page-header:first-child {
+  border-bottom-color: #4f4f4f;
+}
+/* line 96, ../sass/admin.scss */
+body.adminbody .sidebar-shortcuts {
+  background-color: #282828;
+}
+/* line 99, ../sass/admin.scss */
+body.adminbody .sidebar {
+  border-right-color: #4f4f4f;
+  background-color: #3a3a3a;
+}
+/* line 103, ../sass/admin.scss */
+body.adminbody .sidebar:before {
+  border-right-color: #4f4f4f;
+  background-color: #3a3a3a;
+}
+/* line 107, ../sass/admin.scss */
+body.adminbody .nav-list > li {
+  border-top-color: #8f8f8f;
+  border-bottom-color: #000;
+}
+/* line 111, ../sass/admin.scss */
+body.adminbody .nav-list > li > a {
+  background-color: #595959;
+  color: white;
+  text-shadow: 1px 1px 0px #000 !important;
+}
+/* line 116, ../sass/admin.scss */
+body.adminbody .nav-list > li > .submenu > li > a {
+  background-color: #4f4f4f;
+  color: white;
+  text-shadow: 1px 1px 0px #000 !important;
+}
+/* line 121, ../sass/admin.scss */
+body.adminbody .nav-list > li > a:hover,
+body.adminbody .nav-list > li.active > a,
+body.adminbody .nav-list > li > .submenu > li > a:hover,
+body.adminbody .nav-list > li > .submenu > li.active > a,
+body.adminbody .navlist a:focus {
+  text-shadow: none !important;
+}
+/* line 129, ../sass/admin.scss */
+body.adminbody .navlist a:focus {
+  outline: none;
+}
+/* line 132, ../sass/admin.scss */
+body.adminbody .nav-list > li > .submenu > li > a:hover,
+body.adminbody .nav-list > li > .submenu > li.active > a {
+  background-color: white;
+}
+/* line 136, ../sass/admin.scss */
+body.adminbody .nav-list > li a:hover:before {
+  background-color: white;
+}
+/* line 139, ../sass/admin.scss */
+body.adminbody .nav-list > li a:hover > .arrow {
+  color: white;
+}
+/* line 142, ../sass/admin.scss */
+body.adminbody .nav-list > li .submenu {
+  border-top-color: #000;
+}
+/* line 145, ../sass/admin.scss */
+body.adminbody .nav-list > li > .submenu:before {
+  border-left-color: #8f8f8f;
+}
+/* line 148, ../sass/admin.scss */
+body.adminbody .nav-list > li > .submenu > li:first-child > a {
+  border-top-color: #8f8f8f;
+}
+/* line 151, ../sass/admin.scss */
+body.adminbody .nav-list > li .submenu > li a > [class*="icon-"]:first-child {
+  background-color: #8f8f8f;
+  color: white;
+}
+/* line 155, ../sass/admin.scss */
+body.adminbody .sidebar-collapse {
+  background-color: #1e1e1e;
+  border-bottom-color: #8f8f8f;
+}
+/* line 159, ../sass/admin.scss */
+body.adminbody .sidebar-collapse:before {
+  border-top-color: #8f8f8f;
+}
+/* line 162, ../sass/admin.scss */
+body.adminbody .sidebar-collapse > [class*="icon-"] {
+  background-color: #4f4f4f;
+  border-color: #8f8f8f;
+  color: white;
+  text-shadow: 1px 1px 0px #000;
+}
+/* line 168, ../sass/admin.scss */
+body.adminbody .navbar .brand {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+/* line 172, ../sass/admin.scss */
+body.adminbody .brand i.icon-leaf {
+  font-size: 37px;
+  line-height: 45px;
+}
+/* line 176, ../sass/admin.scss */
+body.adminbody .sidebar:before {
+  display: block;
+}
+/* line 181, ../sass/admin.scss */
+body.adminbody .nav-tabs li a {
+  background-color: #3a3a3a;
+  border-color: #4f4f4f;
+}
+/* line 184, ../sass/admin.scss */
+body.adminbody .nav-tabs li a:focus {
+  background-color: #3a3a3a;
+}
+/* line 190, ../sass/admin.scss */
+body.adminbody .nav-tabs li.active a {
+  border-bottom-color: transparent;
+}
+/* line 196, ../sass/admin.scss */
+body.adminbody .table {
+  background-color: white;
+}
+/* line 199, ../sass/admin.scss */
+body.adminbody .table thead tr {
+  background-image: -moz-linear-gradient(#d15b47, #d15b47 3%, #b74635);
+  background-image: -webkit-linear-gradient(#d15b47, #d15b47 3%, #b74635);
+  background-image: linear-gradient(#d15b47, #d15b47 3%, #b74635);
+  color: white;
+  text-shadow: 0 1px 0 black;
+}
+/* line 207, ../sass/admin.scss */
+body.adminbody .infobox {
+  background-color: #595959;
+  border-color: black;
+  height: 98px;
+}
+/* line 211, ../sass/admin.scss */
+body.adminbody .infobox .infobox-content {
+  color: white;
+  text-shadow: 1px 1px 0px #3a3a3a;
+}
+/* line 215, ../sass/admin.scss */
+body.adminbody .infobox div.bottom-stats {
+  width: 100%;
+  font-size: 11px;
+  padding-top: 10px;
+}
+/* line 219, ../sass/admin.scss */
+body.adminbody .infobox div.bottom-stats div.bottom-infobox-data {
+  margin-left: 5px;
+}
+/* line 222, ../sass/admin.scss */
+body.adminbody .infobox div.bottom-stats span.lab {
+  color: #FFFFFF;
+  line-height: 19px;
+  margin-left: 3px;
+  top: 5px;
+}
+/* line 230, ../sass/admin.scss */
+body.adminbody .infobox-green {
+  border-color: #9abc32;
+  color: #9abc32;
+}
+/* line 234, ../sass/admin.scss */
+body.adminbody .infobox-blue {
+  border-color: #6fb3e0;
+  color: #6fb3e0;
+}
+/* line 238, ../sass/admin.scss */
+body.adminbody .infobox-pink {
+  border-color: #cb6fd7;
+  color: #cb6fd7;
+}
+/* line 242, ../sass/admin.scss */
+body.adminbody .infobox-red {
+  border-color: #d53f40;
+  color: #d53f40;
+}
+/* line 246, ../sass/admin.scss */
+body.adminbody .infobox-orange2 {
+  border-color: #f79263;
+  color: #f79263;
+}
+/* line 251, ../sass/admin.scss */
+body.adminbody .hr {
+  border-top-color: #4f4f4f;
+}
+/* line 254, ../sass/admin.scss */
+body.adminbody .hr-dotted {
+  border-style: dotted;
+}
+/* line 258, ../sass/admin.scss */
+body.adminbody .three_gutter div.span4 {
+  margin-left: 0;
+  width: 33.2%;
+}
+/* line 54, ../sass/mixins.scss */
+body.adminbody div.widget-box .infobox-icon > [class*="icon-"]:before {
+  color: #FFFFFF;
+}
+/* line 57, ../sass/mixins.scss */
+body.adminbody div.widget-box .infobox-icon > [class*="icon-"]:before {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 100%;
+  color: rgba(255, 255, 255, 0.9);
+  display: block;
+  font-size: 19px;
+  padding: 7px 0 6px;
+  text-align: center;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.14);
+  width: 35px;
+}
+/* line 68, ../sass/mixins.scss */
+body.adminbody div.widget-box .infobox-icon > [class*="icon-"] {
+  background-color: #d53f40;
+  border: 0 none;
+  border-radius: 100%;
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+  display: inline-block;
+  height: 38px;
+  margin: 0;
+  padding: 1px 1px 0 2px;
+  position: relative;
+  text-align: center;
+}
+/* line 266, ../sass/admin.scss */
+body.adminbody .historical div.widget-box {
+  background-color: #3a3a3a;
+}
+/* line 269, ../sass/admin.scss */
+body.adminbody .historical .widget-main {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+/* line 272, ../sass/admin.scss */
+body.adminbody .historical .widget-main .itemdiv > .body > .text {
+  color: white;
 }

@@ -21,9 +21,690 @@
 			</small>
 		</h1>
 	</div><!--/.page-header-->	
-  <div>
-    <div data-ng-controller='BotsController'>
-      {{botparams.engagementcount}}
+  <div class="group">  	  	
+    <div class="row-fluid" data-ng-controller='BotsController'>
+			<div class="span12">
+				<div class="space-6"></div>
+				<div class="row-fluid">
+					<div class="span8 infobox-container">
+						<div class="three_gutter row-fluid">
+							<div class="span4 infobox infobox-blue  ">
+								<div class="infobox-icon">
+									<i class="icon-user"></i>
+								</div>
+				
+								<div class="infobox-data">
+									<span class="infobox-data-number">3 225</span>
+									<div class="infobox-content">Total registered users</div>
+								</div>
+				
+								<div class="badge badge-success">
+									+33%
+									<i class="icon-arrow-up"></i>
+								</div>
+								<div class="bottom-stats">
+	
+									<div class="bottom-infobox-data left">
+										<span class="registered-bar">52, 68, 44, 70, 24, 65, 52</span>
+										<span class="lab">Last week</span>
+									</div>
+	
+									<div class="bottom-infobox-data left">
+										<span class="registered-bar">5, 1, 8, 4, 6, 3</span>
+										<span class="lab">Last hour</span>
+									</div>
+									
+									<div class="bottom-infobox-data left">
+										<button class="btn btn-minier btn-yellow tooltip-info" data-rel="tooltip" data-placement="top" title="" data-original-title="Find more about registered users">More</button>
+									</div>	
+	
+								</div>
+							</div>						
+							
+							<div class="span4 infobox infobox-green  ">
+
+								<div class="infobox-icon">
+									<i class="icon-play"></i>
+								</div>
+				
+								<div class="infobox-data">
+									<span class="infobox-data-number">68</span>
+									<div class="infobox-content">Curently playing users</div>
+								</div>
+								<div class="stat stat-success">8%</div>
+							</div>			
+				
+							<div class="span4 infobox infobox-red  ">
+								<div class="infobox-icon">
+									<i class="icon-usd"></i>
+								</div>
+				
+								<div class="infobox-data">
+									<span class="infobox-data-number">$760</span>
+									<div class="infobox-content">Money on tables</div>
+								</div>
+								<div class="stat stat-important">+2%</div>
+								<div class="bottom-stats">								
+									<div class="bottom-infobox-data">
+										<span class="registered-bar">52, -120, 223, -16, -55, 422, -250, 55, 41, -300</span>
+										<span class="lab">Last hour</span>
+									</div>								
+								</div>
+							</div>
+						</div>		
+						
+						<div class="three_gutter row-fluid">
+							<div class="span4 infobox infobox-blue  ">
+								<div class="infobox-icon">
+									<i class="icon-Bot"></i>
+								</div>
+				
+								<div class="infobox-data">
+									<span class="infobox-data-number">350</span>
+									<div class="infobox-content">Targeted bots number</div>
+								</div>
+				
+								<div class="badge badge-success">
+									+13%
+									<i class="icon-arrow-up"></i>
+								</div>
+							</div>						
+							
+							<div class="span4 infobox infobox-green  ">
+								<div class="infobox-icon">
+									<i class="icon-play"></i>
+								</div>
+				
+								<div class="infobox-data">
+									<span class="infobox-data-number">313</span>
+									<div class="infobox-content">Curently playing bots</div>
+								</div>
+								<div class="stat stat-success">16%</div>
+							</div>			
+				
+							<div class="span4 infobox infobox-red  ">
+								<div class="infobox-icon">
+									<i class="icon-usd"></i>
+								</div>
+				
+								<div class="infobox-data">
+									<span class="infobox-data-number">$1 442</span>
+									<div class="infobox-content">Bots money on tables</div>
+								</div>
+								<div class="stat stat-success">+12%</div>
+							</div>						
+						</div>
+						
+					</div>
+					<div class="span4 historical">
+
+									<div class="widget-box">
+										<div class="widget-header group widget-header-flat widget-header-small">
+											<ul class="nav nav-tabs" id="recent-tab">
+												<li class="active">
+													<a data-toggle="tab" href="#activities-tab">Activities</a>
+												</li>
+
+												<li>
+													<a data-toggle="tab" href="#cash-tab">Cash flow</a>
+												</li>
+
+												<li>
+													<a data-toggle="tab" href="#top-tab">Top players</a>
+												</li>
+											</ul>
+
+
+											<div class="widget-toolbar no-border">
+												<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown">
+													This Week
+													<i class="icon-angle-down icon-on-right"></i>
+												</button>
+
+												<ul class="dropdown-menu dropdown-info pull-right dropdown-caret">
+													<li class="active">
+														<a href="#">This Week</a>
+													</li>
+
+													<li>
+														<a href="#">Last Week</a>
+													</li>
+
+													<li>
+														<a href="#">This Month</a>
+													</li>
+
+													<li>
+														<a href="#">Last Month</a>
+													</li>
+												</ul>
+											</div>
+										</div>
+
+										<div class="widget-body">
+											<div class="widget-main">
+												<div class="tab-content">
+													<div id="activities-tab" class="tab-pane in active">
+														<div class="comments activities">
+															<div class="itemdiv commentdiv">
+															<div class="infobox-icon left">
+																<i class="icon-warning-sign"></i>
+															</div>
+
+																<div class="body">
+																	<div class="name">
+																		<a href="#">Bob Doe</a>
+																	</div>
+
+																	<div class="time">
+																		<i class="icon-time"></i>
+																		<span class="green">6 min</span>
+																	</div>
+
+																	<div class="text">
+																		<i class="icon-quote-left"></i>
+																		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis &hellip;
+																	</div>
+																</div>
+
+																<div class="tools">
+																	<div class="inline position-relative">
+																		<button class="btn btn-minier bigger btn-yellow dropdown-toggle" data-toggle="dropdown">
+																			<i class="icon-angle-down icon-only bigger-120"></i>
+																		</button>
+
+																		<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+																			<li>
+																				<a href="#" class="tooltip-success" data-rel="tooltip" title="Approve">
+																					<span class="green">
+																						<i class="icon-ok bigger-110"></i>
+																					</span>
+																				</a>
+																			</li>
+
+																			<li>
+																				<a href="#" class="tooltip-warning" data-rel="tooltip" title="Reject">
+																					<span class="orange">
+																						<i class="icon-remove bigger-110"></i>
+																					</span>
+																				</a>
+																			</li>
+
+																			<li>
+																				<a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+																					<span class="red">
+																						<i class="icon-trash bigger-110"></i>
+																					</span>
+																				</a>
+																			</li>
+																		</ul>
+																	</div>
+																</div>
+															</div>
+
+															<div class="itemdiv commentdiv">
+																<div class="infobox-icon lrft">
+																	<i class="icon-usd"></i>
+																</div>
+
+																<div class="body">
+																	<div class="name">
+																		<a href="#">Jennifer</a>
+																	</div>
+
+																	<div class="time">
+																		<i class="icon-time"></i>
+																		<span class="blue">15 min</span>
+																	</div>
+
+																	<div class="text">
+																		<i class="icon-quote-left"></i>
+																		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis &hellip;
+																	</div>
+																</div>
+
+																<div class="tools">
+																	<a href="#" class="btn btn-minier btn-info">
+																		<i class="icon-only icon-pencil"></i>
+																	</a>
+
+																	<a href="#" class="btn btn-minier btn-danger">
+																		<i class="icon-only icon-trash"></i>
+																	</a>
+																</div>
+															</div>
+
+															<div class="itemdiv commentdiv">
+																<div class="infobox-icon left">
+																	<i class="icon-usd"></i>
+																</div>
+
+																<div class="body">
+																	<div class="name">
+																		<a href="#">Joe</a>
+																	</div>
+
+																	<div class="time">
+																		<i class="icon-time"></i>
+																		<span class="orange">22 min</span>
+																	</div>
+
+																	<div class="text">
+																		<i class="icon-quote-left"></i>
+																		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis &hellip;
+																	</div>
+																</div>
+
+																<div class="tools">
+																	<a href="#" class="btn btn-minier btn-info">
+																		<i class="icon-only icon-pencil"></i>
+																	</a>
+
+																	<a href="#" class="btn btn-minier btn-danger">
+																		<i class="icon-only icon-trash"></i>
+																	</a>
+																</div>
+															</div>
+
+															<div class="itemdiv commentdiv">
+																<div class="infobox-icon left">
+																	<i class="icon-usd"></i>
+																</div>
+
+																<div class="body">
+																	<div class="name">
+																		<a href="#">Rita</a>
+																	</div>
+
+																	<div class="time">
+																		<i class="icon-time"></i>
+																		<span class="red">50 min</span>
+																	</div>
+
+																	<div class="text">
+																		<i class="icon-quote-left"></i>
+																		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis &hellip;
+																	</div>
+																</div>
+
+																<div class="tools">
+																	<a href="#" class="btn btn-minier btn-info">
+																		<i class="icon-only icon-pencil"></i>
+																	</a>
+
+																	<a href="#" class="btn btn-minier btn-danger">
+																		<i class="icon-only icon-trash"></i>
+																	</a>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div id="cash-tab" class="tab-pane">
+														Cash flow tab
+													</div>
+													<div id="top-tab" class="tab-pane">
+														<div class="comments">
+															<div class="itemdiv commentdiv">
+																<div class="user">
+																	<img alt="Bob Doe's Avatar" src="lib/ace/avatars/avatar.png" />
+																</div>
+
+																<div class="body">
+																	<div class="name">
+																		<a href="#">Bob Doe</a>
+																	</div>
+
+																	<div class="time">
+																		<i class="icon-time"></i>
+																		<span class="green">6 min</span>
+																	</div>
+
+																	<div class="text">
+																		<i class="icon-quote-left"></i>
+																		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis &hellip;
+																	</div>
+																</div>
+
+																<div class="tools">
+																	<div class="inline position-relative">
+																		<button class="btn btn-minier bigger btn-yellow dropdown-toggle" data-toggle="dropdown">
+																			<i class="icon-angle-down icon-only bigger-120"></i>
+																		</button>
+
+																		<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+																			<li>
+																				<a href="#" class="tooltip-success" data-rel="tooltip" title="Approve">
+																					<span class="green">
+																						<i class="icon-ok bigger-110"></i>
+																					</span>
+																				</a>
+																			</li>
+
+																			<li>
+																				<a href="#" class="tooltip-warning" data-rel="tooltip" title="Reject">
+																					<span class="orange">
+																						<i class="icon-remove bigger-110"></i>
+																					</span>
+																				</a>
+																			</li>
+
+																			<li>
+																				<a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+																					<span class="red">
+																						<i class="icon-trash bigger-110"></i>
+																					</span>
+																				</a>
+																			</li>
+																		</ul>
+																	</div>
+																</div>
+															</div>
+
+															<div class="itemdiv commentdiv">
+																<div class="user">
+																	<img alt="Jennifer's Avatar" src="lib/ace/avatars/avatar1.png" />
+																</div>
+
+																<div class="body">
+																	<div class="name">
+																		<a href="#">Jennifer</a>
+																	</div>
+
+																	<div class="time">
+																		<i class="icon-time"></i>
+																		<span class="blue">15 min</span>
+																	</div>
+
+																	<div class="text">
+																		<i class="icon-quote-left"></i>
+																		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis &hellip;
+																	</div>
+																</div>
+
+																<div class="tools">
+																	<a href="#" class="btn btn-minier btn-info">
+																		<i class="icon-only icon-pencil"></i>
+																	</a>
+
+																	<a href="#" class="btn btn-minier btn-danger">
+																		<i class="icon-only icon-trash"></i>
+																	</a>
+																</div>
+															</div>
+
+															<div class="itemdiv commentdiv">
+																<div class="user">
+																	<img alt="Joe's Avatar" src="lib/ace/avatars/avatar2.png" />
+																</div>
+
+																<div class="body">
+																	<div class="name">
+																		<a href="#">Joe</a>
+																	</div>
+
+																	<div class="time">
+																		<i class="icon-time"></i>
+																		<span class="orange">22 min</span>
+																	</div>
+
+																	<div class="text">
+																		<i class="icon-quote-left"></i>
+																		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis &hellip;
+																	</div>
+																</div>
+
+																<div class="tools">
+																	<a href="#" class="btn btn-minier btn-info">
+																		<i class="icon-only icon-pencil"></i>
+																	</a>
+
+																	<a href="#" class="btn btn-minier btn-danger">
+																		<i class="icon-only icon-trash"></i>
+																	</a>
+																</div>
+															</div>
+
+															<div class="itemdiv commentdiv">
+																<div class="user">
+																	<img alt="Rita's Avatar" src="lib/ace/avatars/avatar3.png" />
+																</div>
+
+																<div class="body">
+																	<div class="name">
+																		<a href="#">Rita</a>
+																	</div>
+
+																	<div class="time">
+																		<i class="icon-time"></i>
+																		<span class="red">50 min</span>
+																	</div>
+
+																	<div class="text">
+																		<i class="icon-quote-left"></i>
+																		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis &hellip;
+																	</div>
+																</div>
+
+																<div class="tools">
+																	<a href="#" class="btn btn-minier btn-info">
+																		<i class="icon-only icon-pencil"></i>
+																	</a>
+
+																	<a href="#" class="btn btn-minier btn-danger">
+																		<i class="icon-only icon-trash"></i>
+																	</a>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+<!--
+												<div class="clearfix">
+													<div class="grid3">
+														<span class="grey">
+															<i class="icon-facebook-sign icon-2x blue"></i>
+															&nbsp; likes
+														</span>
+														<h4 class="bigger pull-right">1,255</h4>
+													</div>
+
+													<div class="grid3">
+														<span class="grey">
+															<i class="icon-twitter-sign icon-2x purple"></i>
+															&nbsp; tweets
+														</span>
+														<h4 class="bigger pull-right">941</h4>
+													</div>
+
+													<div class="grid3">
+														<span class="grey">
+															<i class="icon-pinterest-sign icon-2x red"></i>
+															&nbsp; pins
+														</span>
+														<h4 class="bigger pull-right">1,050</h4>
+													</div>
+												</div>
+-->
+
+
+											</div><!--/widget-main-->
+										</div><!--/widget-body-->
+									</div><!--/widget-box-->
+
+
+
+					</div>						
+    		</div>
+
+
+
+    		
+				<div class="hr hr32 hr-dotted"></div>				
+				<div class="span7 infobox-container group">
+					<div class="infobox infobox-green  ">
+						<div class="infobox-icon">
+							<i class="icon-comments"></i>
+						</div>
+		
+						<div class="infobox-data">
+							<span class="infobox-data-number">32</span>
+							<div class="infobox-content">comments + 2 reviews</div>
+						</div>
+						<div class="stat stat-success">8%</div>
+					</div>
+		
+					<div class="infobox infobox-blue  ">
+						<div class="infobox-icon">
+							<i class="icon-twitter"></i>
+						</div>
+		
+						<div class="infobox-data">
+							<span class="infobox-data-number">11</span>
+							<div class="infobox-content">new followers</div>
+						</div>
+		
+						<div class="badge badge-success">
+							+32%
+							<i class="icon-arrow-up"></i>
+						</div>
+					</div>
+		
+					<div class="infobox infobox-pink  ">
+						<div class="infobox-icon">
+							<i class="icon-shopping-cart"></i>
+						</div>
+		
+						<div class="infobox-data">
+							<span class="infobox-data-number">8</span>
+							<div class="infobox-content">new orders</div>
+						</div>
+						<div class="stat stat-important">+4%</div>
+					</div>
+		
+					<div class="infobox infobox-red  ">
+						<div class="infobox-icon">
+							<i class="icon-beaker"></i>
+						</div>
+		
+						<div class="infobox-data">
+							<span class="infobox-data-number">7</span>
+							<div class="infobox-content">experiments</div>
+						</div>
+					</div>
+		
+					<div class="infobox infobox-orange2  ">
+						<div class="infobox-chart">
+							<span class="sparkline" data-values="196,128,202,177,154,94,100,170,224"></span>
+						</div>
+		
+						<div class="infobox-data">
+							<span class="infobox-data-number">6,251</span>
+							<div class="infobox-content">pageviews</div>
+						</div>
+		
+						<div class="badge badge-success">
+							7.2%
+							<i class="icon-arrow-up"></i>
+						</div>
+					</div>
+		
+					<div class="infobox infobox-blue2  ">
+						<div class="infobox-progress">
+							<div class="easy-pie-chart percentage" data-percent="42" data-size="46">
+								<span class="percent">42</span>%
+							</div>
+						</div>
+		
+						<div class="infobox-data">
+							<span class="infobox-text">traffic used</span>
+		
+							<div class="infobox-content">
+								<span class="bigger-110">~</span>
+								58GB remaining
+							</div>
+						</div>
+					</div>
+		
+					<div class="space-6"></div>
+		
+					<div class="infobox infobox-green infobox-small infobox-dark">
+						<div class="infobox-progress">
+							<div class="easy-pie-chart percentage" data-percent="61" data-size="39">
+								<span class="percent">61</span>%
+							</div>
+						</div>
+		
+						<div class="infobox-data">
+							<div class="infobox-content">Task</div>
+							<div class="infobox-content">Completion</div>
+						</div>
+					</div>
+		
+					<div class="infobox infobox-blue infobox-small infobox-dark">
+						<div class="infobox-chart">
+							<span class="sparkline" data-values="3,4,2,3,4,4,2,2"></span>
+						</div>
+		
+						<div class="infobox-data">
+							<div class="infobox-content">Earnings</div>
+							<div class="infobox-content">$32,000</div>
+						</div>
+					</div>
+		
+					<div class="infobox infobox-grey infobox-small infobox-dark">
+						<div class="infobox-icon">
+							<i class="icon-download-alt"></i>
+						</div>
+		
+						<div class="infobox-data">
+							<div class="infobox-content">Downloads</div>
+							<div class="infobox-content">1,205</div>
+						</div>
+					</div>
+				</div>		
+	      {{botparams.engagementcount}}    		
+				<div class="space-6"></div>
+    	</div>
     </div>
   </div>
 </div>
+
+
+		<script type="text/javascript">
+			$(function() {
+				$('.easy-pie-chart.percentage').each(function(){
+					var $box = $(this).closest('.infobox');
+					var barColor = $(this).data('color') || (!$box.hasClass('infobox-dark') ? $box.css('color') : 'rgba(255,255,255,0.95)');
+					var trackColor = barColor == 'rgba(255,255,255,0.95)' ? 'rgba(255,255,255,0.25)' : '#4F4F4F';
+					var size = parseInt($(this).data('size')) || 50;
+					$(this).easyPieChart({
+						barColor: barColor,
+						trackColor: trackColor,
+						scaleColor: false,
+						lineCap: 'butt',
+						lineWidth: parseInt(size/10),
+						animate: /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase()) ? false : 1000,
+						size: size
+					});
+				})
+			
+				$('.sparkline').each(function(){
+					var $box = $(this).closest('.infobox');
+					var barColor = !$box.hasClass('infobox-dark') ? $box.css('color') : '#FFF';
+					$(this).sparkline('html', {tagValuesAttribute:'data-values', type: 'bar', barColor: barColor , chartRangeMin:$(this).data('min') || 0} );
+				});
+				$('.registered-bar').each(function(){
+					var $box = $(this).closest('.infobox');
+					var barColor = !$box.hasClass('infobox-dark') ? $box.css('color') : '#FFF';
+					$(this).sparkline('html', {tagValuesAttribute:'data-values', type: 'bar', barColor: barColor , chartRangeMin:$(this).data('min') || 0} );
+				});
+				
+				$('[data-rel=tooltip]').tooltip();
+				$('[data-rel=popover]').popover({html:true});				
+
+				$('.dialogs,.comments').slimScroll({
+					height: '250px'
+			    });
+				
+			});
+		</script>		
