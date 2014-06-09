@@ -1566,17 +1566,36 @@ body.adminbody .infobox-orange2 {
   color: #f79263;
 }
 /* line 251, ../sass/admin.scss */
+body.adminbody .infobox-green.infobox-dark {
+  background-color: #9ABC32;
+  border-color: #9ABC32;
+  color: white;
+  font-weight: lighter;
+  text-shadow: 1px 1px #629b58;
+}
+/* line 259, ../sass/admin.scss */
+body.adminbody .infobox-blue.infobox-dark {
+  background-color: #6fb3e0;
+  border-color: #6fb3e0;
+  color: white;
+}
+/* line 265, ../sass/admin.scss */
 body.adminbody .hr {
   border-top-color: #4f4f4f;
 }
-/* line 254, ../sass/admin.scss */
+/* line 268, ../sass/admin.scss */
 body.adminbody .hr-dotted {
   border-style: dotted;
 }
-/* line 258, ../sass/admin.scss */
+/* line 272, ../sass/admin.scss */
 body.adminbody .three_gutter div.span4 {
   margin-left: 0;
   width: 33.2%;
+}
+/* line 276, ../sass/admin.scss */
+body.adminbody .three_gutter div.span6 {
+  margin-left: 0;
+  width: 49.7%;
 }
 /* line 54, ../sass/mixins.scss */
 body.adminbody div.widget-box .infobox-icon > [class*="icon-"]:before {
@@ -1596,7 +1615,7 @@ body.adminbody div.widget-box .infobox-icon > [class*="icon-"]:before {
 }
 /* line 68, ../sass/mixins.scss */
 body.adminbody div.widget-box .infobox-icon > [class*="icon-"] {
-  background-color: #d53f40;
+  background-color: black;
   border: 0 none;
   border-radius: 100%;
   box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
@@ -1607,16 +1626,78 @@ body.adminbody div.widget-box .infobox-icon > [class*="icon-"] {
   position: relative;
   text-align: center;
 }
-/* line 266, ../sass/admin.scss */
+/* line 80, ../sass/mixins.scss */
+body.adminbody div.widget-box .green-ico > .infobox-icon > [class*="icon-"] {
+  background-color: #9ABC32;
+}
+/* line 83, ../sass/mixins.scss */
+body.adminbody div.widget-box .blue-ico > .infobox-icon > [class*="icon-"] {
+  background-color: #6FB3E0;
+}
+/* line 86, ../sass/mixins.scss */
+body.adminbody div.widget-box .red-ico > .infobox-icon > [class*="icon-"] {
+  background-color: #D53F40;
+}
+/* line 284, ../sass/admin.scss */
 body.adminbody .historical div.widget-box {
   background-color: #3a3a3a;
 }
-/* line 269, ../sass/admin.scss */
-body.adminbody .historical .widget-main {
+/* line 287, ../sass/admin.scss */
+body.adminbody .historical {
   padding-top: 0px;
   padding-bottom: 0px;
 }
-/* line 272, ../sass/admin.scss */
-body.adminbody .historical .widget-main .itemdiv > .body > .text {
+/* line 290, ../sass/admin.scss */
+body.adminbody .historical .itemdiv > .body > .text {
   color: white;
+}
+/* line 293, ../sass/admin.scss */
+body.adminbody .historical .itemdiv > .body > .text:after {
+  border-top-width: 0px;
+}
+/* line 296, ../sass/admin.scss */
+body.adminbody .historical div.itemdiv {
+  border-bottom: 1px solid black;
+  border-top: 1px solid #595959;
+  padding-top: 5px;
+}
+/* line 299, ../sass/admin.scss */
+body.adminbody .historical div.itemdiv:first-child {
+  border-top: 0px solid #595959;
+}
+/* line 302, ../sass/admin.scss */
+body.adminbody .historical div.itemdiv:last-child {
+  border-bottom: 0px solid #595959;
+}
+/* line 307, ../sass/admin.scss */
+body.adminbody .historical .widget-header-flat, body.adminbody .historical .widget-body {
+  background-color: #595959;
+  border-color: #4f4f4f;
+}
+/* line 311, ../sass/admin.scss */
+body.adminbody .historical .nav-tabs > li.active > a,
+body.adminbody .historical .nav-tabs > li.active > a:hover,
+body.adminbody .historical .nav-tabs > li.active > a:focus {
+  background-color: #595959;
+  color: white;
+}
+/* line 318, ../sass/admin.scss */
+body.adminbody .lico {
+  font-size: 24px;
+}
+/* line 320, ../sass/admin.scss */
+body.adminbody .lico span.lablab {
+  position: relative;
+  top: -3px;
+}
+/* line 324, ../sass/admin.scss */
+body.adminbody .lico i {
+  font-size: 36px;
+}
+/* line 328, ../sass/admin.scss */
+body.adminbody div.memvalue {
+  width: 100%;
+  font-size: 34px;
+  letter-spacing: -4px;
+  text-align: center;
 }
