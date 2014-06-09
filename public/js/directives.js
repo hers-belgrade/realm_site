@@ -28,3 +28,14 @@ angular.module('mean.ui').directive('spinner',function(){
   }
 });
 */
+
+angular.module('mean.ui').directive('sparkline',function(){
+  return {
+    restrict: 'E',
+    link: function(scope,elem,attrs){
+      scope.$watch(attrs.ngModel,function(val){
+        elem.sparkline(val,{chartRangeMin:attrs.min,type:attrs.type});
+      },true);
+    }
+  }
+});

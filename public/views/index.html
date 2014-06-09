@@ -45,12 +45,12 @@
 								<div class="bottom-stats">
 	
 									<div class="bottom-infobox-data left">
-										<span class="registered-bar">52, 68, 44, 70, 24, 65, 52</span>
+                    <sparkline type='bar' data-ng-model = 'stats'></sparkline>
 										<span class="lab">Last week</span>
 									</div>
 	
 									<div class="bottom-infobox-data left">
-										<span class="registered-bar">5, 1, 8, 4, 6, 3</span>
+                    <sparkline type='bar' data-ng-model = 'stats'></sparkline>
 										<span class="lab">Last hour</span>
 									</div>
 									
@@ -100,7 +100,7 @@
 								</div>
 				
 								<div class="infobox-data">
-									<span class="infobox-data-number">350</span>
+                  <span class="infobox-data-number">{{botparams.botcount}}</span>
 									<div class="infobox-content">Targeted bots number</div>
 								</div>
 				
@@ -108,6 +108,11 @@
 									+13%
 									<i class="icon-arrow-up"></i>
 								</div>
+								<div class="bottom-stats">								
+                  <div class="bottom-infobox-data left">
+                    <sparkline type='bar' data-ng-model = 'botparamhistory.botcount'></sparkline>
+                  </div>
+                </div>
 							</div>						
 							
 							<div class="span4 infobox infobox-green  ">
@@ -116,10 +121,15 @@
 								</div>
 				
 								<div class="infobox-data">
-									<span class="infobox-data-number">313</span>
+                  <span class="infobox-data-number">{{botparams.engagementcount}}</span>
 									<div class="infobox-content">Curently playing bots</div>
 								</div>
 								<div class="stat stat-success">16%</div>
+								<div class="bottom-stats">								
+                  <div class="bottom-infobox-data left">
+                    <sparkline type='bar' data-ng-model = 'botparamhistory.engagementcount'></sparkline>
+                  </div>
+                </div>
 							</div>			
 				
 							<div class="span4 infobox infobox-red  ">
@@ -128,10 +138,15 @@
 								</div>
 				
 								<div class="infobox-data">
-									<span class="infobox-data-number">$1 442</span>
+                  <span class="infobox-data-number">{{botparams.totalmoney}}</span>
 									<div class="infobox-content">Bots money on tables</div>
 								</div>
 								<div class="stat stat-success">+12%</div>
+								<div class="bottom-stats">								
+                  <div class="bottom-infobox-data left">
+                    <sparkline type='bar' data-ng-model = 'botparamhistory.totalmoney'></sparkline>
+                  </div>
+                </div>
 							</div>						
 						</div>
 						

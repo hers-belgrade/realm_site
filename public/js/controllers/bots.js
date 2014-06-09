@@ -1,3 +1,34 @@
+function formatValue(name,val){
+  if(name==='totalmoney' || name==='balance'){
+    val = val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+  return val;
+}
+
+var _historylen = 10;
+
+function doValue(hash,historyhash,name,value){
+  if(typeof value === 'undefined'){
+    delete hash[name];
+  }else{
+    var nv = formatValue(name,value);
+    if(!historyhash[name]){
+      historyhash[name] = [];
+    }
+    historyhash[name].push(value);
+    if(historyhash[name].length>_historylen){
+      historyhash[name].shift();
+    }
+    for(var i in historyhash){
+      if(i===name){continue;}
+      if(historyhash[i].length<_historylen){
+        historyhash[i].push(historyhash[i][historyhash[i].length-1]);
+      }
+    }
+    hash[name] = nv;
+  }
+}
+
 function Distincter(resarray){
   if(!resarray){return;}
   this.map = {};
@@ -56,7 +87,7 @@ SelectOptionDistincter.prototype.compare = function(storedval,providedval){
 function handleBot(bot,follower,scope){
   function handleBotField(fieldname){
     follower.listenToScalar(bot,fieldname,{setter:function(val,oldval){
-      this[fieldname]=val;
+      this[fieldname]=formatValue(fieldname,val);
     }});
   };
   handleBotField('rooms');
@@ -74,6 +105,7 @@ angular.module('mean.bots').controller('BotsController', ['$scope', 'Bots', 'fol
 	
   $scope.bots = [];
   $scope.display_data = [];
+  $scope.stats = [152,168,144,170,124,165,152];
   $scope.pagingOptions = {
     pageSizes: [5,10,20, 50, 100], 
     pageSize: 5,
@@ -200,11 +232,14 @@ angular.module('mean.bots').controller('BotsController', ['$scope', 'Bots', 'fol
   $scope.listeners = {};
   $scope.rooms = [{name:'All',value:''}];
   $scope.botparams = {};
-  follower.follow('bots').listenToScalars($scope.botparams,{setter:function(name,val){
+  $scope.botparamhistory = {};
+  follower.follow('bots').listenToScalars($scope,{setter:function(name,val){
+    doValue(this.botparams,this.botparamhistory,name,val);
+    return;
     if(typeof val === 'undefined'){
       delete this[name];
     }else{
-      this[name] = val;
+      this[name] = formatValue(name,val);
     }
   }});
   follower.follow('bots').listenToCollection($scope,'bots',{activator:function(){
