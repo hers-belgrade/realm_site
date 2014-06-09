@@ -28,3 +28,55 @@ angular.module('mean.ui').directive('spinner',function(){
   }
 });
 */
+
+angular.module('mean.ui').directive('sparkline',function(){
+  return {
+    restrict: 'E',
+    link: function(scope,elem,attrs){
+      scope.$watch(attrs.ngModel,function(val){
+        elem.sparkline(val,{chartRangeMin:attrs.min,type:attrs.type});
+      },true);
+    }
+  };
+});
+
+angular.module('mean.ui').directive('trend',function(){
+  return {
+    restrict: 'E',
+    link: function(scope,elem,attrs){
+      var upgood=(attrs.good !== 'down');
+      var lastval;
+      scope.$watch(attrs.ngModel,function(val){
+        if(typeof lastval !== 'undefined'){
+          if(val > lastval){
+            elem.addClass('stat-up');
+            elem.removeClass('stat-down');
+            if(upgood){
+              elem.addClass('stat-green');
+              elem.removeClass('stat-red');
+            }else{
+              elem.addClass('stat-red');
+              elem.removeClass('stat-green');
+            }
+          }else if(val < lastval){
+            elem.addClass('stat-down');
+            elem.removeClass('stat-up');
+            if(upgood){
+              elem.addClass('stat-red');
+              elem.removeClass('stat-green');
+            }else{
+              elem.addClass('stat-green');
+              elem.removeClass('stat-red');
+            }
+          }else{
+            elem.removeClass('stat-down');
+            elem.removeClass('stat-up');
+          }
+          elem[0].innerHTML = ~~((val-lastval)/val*100)+'%';
+          //console.log(elem,'trend',elem.innerHTML,val,lastval);
+        }
+        lastval = val;
+      },true);
+    }
+  };
+});

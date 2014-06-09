@@ -1597,6 +1597,11 @@ body.adminbody .three_gutter div.span6 {
   margin-left: 0;
   width: 49.7%;
 }
+/* line 280, ../sass/admin.scss */
+body.adminbody .three_gutter div.span9 {
+  margin-left: 0;
+  width: 74.55%;
+}
 /* line 54, ../sass/mixins.scss */
 body.adminbody div.widget-box .infobox-icon > [class*="icon-"]:before {
   color: #FFFFFF;
@@ -1638,66 +1643,115 @@ body.adminbody div.widget-box .blue-ico > .infobox-icon > [class*="icon-"] {
 body.adminbody div.widget-box .red-ico > .infobox-icon > [class*="icon-"] {
   background-color: #D53F40;
 }
-/* line 284, ../sass/admin.scss */
+/* line 288, ../sass/admin.scss */
 body.adminbody .historical div.widget-box {
   background-color: #3a3a3a;
 }
-/* line 287, ../sass/admin.scss */
+/* line 291, ../sass/admin.scss */
 body.adminbody .historical {
   padding-top: 0px;
   padding-bottom: 0px;
 }
-/* line 290, ../sass/admin.scss */
+/* line 294, ../sass/admin.scss */
 body.adminbody .historical .itemdiv > .body > .text {
   color: white;
 }
-/* line 293, ../sass/admin.scss */
+/* line 297, ../sass/admin.scss */
 body.adminbody .historical .itemdiv > .body > .text:after {
   border-top-width: 0px;
 }
-/* line 296, ../sass/admin.scss */
+/* line 300, ../sass/admin.scss */
 body.adminbody .historical div.itemdiv {
   border-bottom: 1px solid black;
   border-top: 1px solid #595959;
   padding-top: 5px;
 }
-/* line 299, ../sass/admin.scss */
+/* line 303, ../sass/admin.scss */
 body.adminbody .historical div.itemdiv:first-child {
   border-top: 0px solid #595959;
 }
-/* line 302, ../sass/admin.scss */
+/* line 306, ../sass/admin.scss */
 body.adminbody .historical div.itemdiv:last-child {
   border-bottom: 0px solid #595959;
 }
-/* line 307, ../sass/admin.scss */
+/* line 311, ../sass/admin.scss */
 body.adminbody .historical .widget-header-flat, body.adminbody .historical .widget-body {
   background-color: #595959;
   border-color: #4f4f4f;
 }
-/* line 311, ../sass/admin.scss */
+/* line 315, ../sass/admin.scss */
 body.adminbody .historical .nav-tabs > li.active > a,
 body.adminbody .historical .nav-tabs > li.active > a:hover,
 body.adminbody .historical .nav-tabs > li.active > a:focus {
   background-color: #595959;
   color: white;
 }
-/* line 318, ../sass/admin.scss */
+/* line 322, ../sass/admin.scss */
 body.adminbody .lico {
   font-size: 24px;
 }
-/* line 320, ../sass/admin.scss */
+/* line 324, ../sass/admin.scss */
 body.adminbody .lico span.lablab {
   position: relative;
   top: -3px;
 }
-/* line 324, ../sass/admin.scss */
+/* line 328, ../sass/admin.scss */
 body.adminbody .lico i {
   font-size: 36px;
 }
-/* line 328, ../sass/admin.scss */
+/* line 332, ../sass/admin.scss */
 body.adminbody div.memvalue {
   width: 100%;
   font-size: 34px;
   letter-spacing: -4px;
   text-align: center;
+}
+/* line 338, ../sass/admin.scss */
+body.adminbody .infobox > .stat:after {
+  border-bottom-color: transparent;
+}
+/* line 341, ../sass/admin.scss */
+body.adminbody .infobox > .stat.stat-red:before {
+  background-color: #E4564F;
+}
+/* line 345, ../sass/admin.scss */
+body.adminbody .infobox > .stat.stat-green:before {
+  background-color: #77C646;
+}
+/* line 349, ../sass/admin.scss */
+body.adminbody .infobox > .stat.stat-blue:before {
+  background-color: #62a8d1;
+}
+/* line 352, ../sass/admin.scss */
+body.adminbody .infobox > .stat.stat-up.stat-red:after {
+  border-top-color: transparent;
+  border-bottom-color: #E4564F;
+}
+/* line 356, ../sass/admin.scss */
+body.adminbody .infobox > .stat.stat-up.stat-green:after {
+  border-top-color: transparent;
+  border-bottom-color: #77C646;
+}
+/* line 360, ../sass/admin.scss */
+body.adminbody .infobox > .stat.stat-down.stat-red:after {
+  border-bottom-color: transparent;
+  border-top-color: #E4564F;
+  top: 18px;
+}
+/* line 365, ../sass/admin.scss */
+body.adminbody .infobox > .stat.stat-down.stat-green:after {
+  border-bottom-color: transparent;
+  border-top-color: #77C646;
+  top: 18px;
+}
+/* line 370, ../sass/admin.scss */
+body.adminbody .infobox > .stat.stat-up.stat-blue:after {
+  border-top-color: transparent;
+  border-bottom-color: #62a8d1;
+}
+/* line 374, ../sass/admin.scss */
+body.adminbody .infobox > .stat.stat-down.stat-blue:after {
+  border-bottom-color: transparent;
+  border-top-color: #62a8d1;
+  top: 18px;
 }

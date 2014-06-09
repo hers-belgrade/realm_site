@@ -1,3 +1,29 @@
+var _historylen = 20;
+
+function doValue(hash,historyhash,trendhash,name,value){
+  if(typeof value === 'undefined'){
+    delete hash[name];
+  }else{
+    if(!historyhash[name]){
+      historyhash[name] = [];
+    }
+    historyhash[name].push(value);
+    if(historyhash[name].length>_historylen){
+      historyhash[name].shift();
+    }
+    for(var i in historyhash){
+      if(i===name){continue;}
+      if(historyhash[i].length<_historylen){
+        historyhash[i].push(historyhash[i][historyhash[i].length-1]);
+      }
+    }
+    if(hash[name]){
+      trendhash[name] = ~~((value-hash[name])/hash[name]*100);
+    }
+    hash[name] = value;
+  }
+}
+
 function Distincter(resarray){
   if(!resarray){return;}
   this.map = {};
@@ -74,6 +100,7 @@ angular.module('mean.bots').controller('BotsController', ['$scope', 'Bots', 'fol
 	
   $scope.bots = [];
   $scope.display_data = [];
+  $scope.stats = [152,168,144,170,124,165,152];
   $scope.pagingOptions = {
     pageSizes: [5,10,20, 50, 100], 
     pageSize: 5,
@@ -200,12 +227,10 @@ angular.module('mean.bots').controller('BotsController', ['$scope', 'Bots', 'fol
   $scope.listeners = {};
   $scope.rooms = [{name:'All',value:''}];
   $scope.botparams = {};
-  follower.follow('bots').listenToScalars($scope.botparams,{setter:function(name,val){
-    if(typeof val === 'undefined'){
-      delete this[name];
-    }else{
-      this[name] = val;
-    }
+  $scope.botparamhistory = {};
+  $scope.botparamtrend = {};
+  follower.follow('bots').listenToScalars($scope,{setter:function(name,val){
+    doValue(this.botparams,this.botparamhistory,this.botparamtrend,name,val);
   }});
   follower.follow('bots').listenToCollection($scope,'bots',{activator:function(){
     var botf = follower.follow('bots').follow('bots');

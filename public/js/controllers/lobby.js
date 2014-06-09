@@ -31,7 +31,7 @@ angular.module('HERS').controller('LobbyController',['$scope','follower',functio
             this.$scope.lobby[val] = {};
           }
           this.$scope.lobby[val][this.name] = this.obj;
-          console.log(name,val,this.$scope.lobby);
+          //console.log(name,val,this.$scope.lobby);
         }
       }});
     }});
