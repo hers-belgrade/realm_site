@@ -1817,12 +1817,25 @@ body.adminbody .infobox > .stat.stat-green {
 body.adminbody .infobox > .stat.stat-blue {
   color: #62a8d1;
 }
-/* line 436, ../sass/admin.scss */
+/* line 435, ../sass/admin.scss */
+body.adminbody .dbrooms {
+  color: white;
+}
+/* line 437, ../sass/admin.scss */
 body.adminbody .dbrooms div.tab-content.dbrooms-content {
   padding-top: 0;
   padding-bottom: 0;
 }
-/* line 440, ../sass/admin.scss */
+/* line 441, ../sass/admin.scss */
 body.adminbody .dbrooms div#form_field_select_3_chzn {
   width: 100% !important;
+}
+/* line 444, ../sass/admin.scss */
+body.adminbody .dbrooms .tab-content {
+  background-color: #595959;
+}
+/* line 447, ../sass/admin.scss */
+body.adminbody .dbrooms .widget-header-flat, body.adminbody .dbrooms .widget-body {
+  background-color: #595959;
+  border-color: #4f4f4f;
 }

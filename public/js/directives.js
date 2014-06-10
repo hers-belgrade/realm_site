@@ -33,8 +33,10 @@ angular.module('mean.ui').directive('sparkline',function(){
   return {
     restrict: 'E',
     link: function(scope,elem,attrs){
+      var clr = (window.getComputedStyle(elem[0])).color;
+      console.log('color',clr);
       scope.$watch(attrs.ngModel,function(val){
-        elem.sparkline(val,{chartRangeMin:attrs.min,type:attrs.type});
+        elem.sparkline(val,{barColor:clr,chartRangeMin:attrs.min,type:attrs.type});
       },true);
     }
   };
