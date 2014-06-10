@@ -5,9 +5,9 @@ var mongoose = require('mongoose'),
     User = mongoose.model('User'),
     RealmUsers = require('realm_site').Users;
 
-RealmUsers.setDBInterface(function(findobj,cb){
+RealmUsers.setDBInterface(User);/*function(findobj,cb){
   User.findOne(findobj).exec(cb);
-});
+});*/
 
 /**
  * Auth callback

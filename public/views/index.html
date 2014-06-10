@@ -22,19 +22,19 @@
 		</h1>
 	</div><!--/.page-header-->	
   <div class="group">  	  	
-    <div class="row-fluid" data-ng-controller='BotsController'>
+    <div class="row-fluid">
 			<div class="span12">
 				<div class="space-6"></div>
 				<div class="row-fluid">
 					<div class="span8 infobox-container">
-						<div class="three_gutter row-fluid">
+						<div class="three_gutter row-fluid" data-ng-controller='PlayersController'>
 							<div class="span4 infobox infobox-blue  ">
 								<div class="infobox-icon">
 									<i class="icon-user"></i>
 								</div>
 				
 								<div class="infobox-data">
-									<span class="infobox-data-number">3 225</span>
+                  <span class="infobox-data-number">{{playertotals.registered}}</span>
 									<div class="infobox-content">Total registered users</div>
 								</div>
 				
@@ -68,7 +68,7 @@
 								</div>
 				
 								<div class="infobox-data">
-									<span class="infobox-data-number">68</span>
+                  <span class="infobox-data-number">{{playertotals.playing}}</span>
 									<div class="infobox-content">Curently playing users</div>
 								</div>
 								<div class="stat stat-success">8%</div>
@@ -80,7 +80,7 @@
 								</div>
 				
 								<div class="infobox-data">
-									<span class="infobox-data-number">$760</span>
+                  <span class="infobox-data-number">{{playertotals.totalmoney | number}}</span>
 									<div class="infobox-content">Money on tables</div>
 								</div>
 								<div class="stat stat-important">+2%</div>
@@ -93,7 +93,7 @@
 							</div>
 						</div>		
 						
-						<div class="three_gutter row-fluid">
+						<div class="three_gutter row-fluid" data-ng-controller='BotsController'>
 							<div class="span4 infobox infobox-blue  ">
 								<div class="infobox-icon">
 									<i class="icon-Bot"></i>
@@ -159,12 +159,12 @@
 							</div>						
 						</div>
 						<div class="space-6"></div>
-						<div class="three_gutter row-fluid">
+						<div class="three_gutter row-fluid" data-ng-controller="SystemController">
 							<div class="span3 infobox infobox-green infobox-small infobox-dark">				
 								<div class="three_gutter row-fluid">
 									<div class="span6 lico"><i class="icon-shield"></i> <span class="lablab">CPU</span></div>
 									<div class="span6">
-									<div class="memvalue">97%</div>
+                    <div class="memvalue">{{CPU}}%</div>
 <!--
 										<div class="infobox-data">
 											<div class="infobox-progress">
@@ -186,9 +186,9 @@
 				
 							<div class="span9 infobox infobox-blue infobox-small infobox-dark">
 								<div class="three_gutter row-fluid">
-									<div class="span8 lico"><i class="icon-shield"></i> <span class="lablab">RAM Memory usage</span></div>
+									<div class="span8 lico"><i class="icon-shield"></i> <span class="lablab">RAM usage</span></div>
 									<div class="span4">
-									<div class="memvalue">1120 Mb</div>
+                    <div class="memvalue"><span class="memoryusage">{{memoryusage}}</span>/<span class="memoryavailable">{{memoryavailable}}</span>MB</div>
 								</div>	
 							</div>
 							</div>

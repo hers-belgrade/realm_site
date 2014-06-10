@@ -193,7 +193,7 @@ angular.module('mean.bots').controller('BotsController', ['$scope', 'Bots', 'fol
   };
 
   $scope.list = function(){
-    follower.do_command(':activate','botsFollower');
+    follower.do_command(':activate','bots');
     Bots.query(function(bots){
       for(var i in bots){
         var bot = getOrCreateBot(bots[i].username);
@@ -253,7 +253,7 @@ angular.module('mean.bots').controller('BotsController', ['$scope', 'Bots', 'fol
     //follower.do_command('/local/bots/pokerbots/setSwarmParams',this.botparams);
   };
   $scope.$on('$destroy',function(event){
-    follower.do_command(':deactivate','botsFollower');
+    follower.do_command(':deactivate','bots');
     for(var i in event.currentScope.listeners){
       event.currentScope.listeners[i].destroy();
     }
