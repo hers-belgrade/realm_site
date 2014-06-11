@@ -667,7 +667,7 @@
 										</div>											
 											<div class="tab-content">
 												<div id="room-stream" class="tab-pane in active">
-													<div class="comments">
+													<div class="room-stream">
 														<div class="itemdiv commentdiv">
 															<div class="user">
 																<img alt="Bob Doe's Avatar" src="lib/ace/avatars/avatar.png" />
@@ -685,7 +685,158 @@
 		
 																<div class="text">
 																	<i class="icon-quote-left"></i>
-																	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis &hellip;
+																	Bob Doe Rise to 120 &hellip;
+																</div>
+															</div>
+		
+															<div class="tools">
+																<div class="inline position-relative">
+																	<button class="btn btn-minier bigger btn-yellow dropdown-toggle" data-toggle="dropdown">
+																		<i class="icon-angle-down icon-only bigger-120"></i>
+																	</button>
+		
+																	<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+																		<li>
+																			<a href="#" class="tooltip-success" data-rel="tooltip" title="Approve">
+																				<span class="green">
+																					<i class="icon-ok bigger-110"></i>
+																				</span>
+																			</a>
+																		</li>
+		
+																		<li>
+																			<a href="#" class="tooltip-warning" data-rel="tooltip" title="Reject">
+																				<span class="orange">
+																					<i class="icon-remove bigger-110"></i>
+																				</span>
+																			</a>
+																		</li>
+		
+																		<li>
+																			<a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+																				<span class="red">
+																					<i class="icon-trash bigger-110"></i>
+																				</span>
+																			</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</div>
+		
+														<div class="itemdiv commentdiv">
+															<div class="user">
+																<img alt="Jennifer's Avatar" src="lib/ace/avatars/avatar1.png" />
+															</div>
+		
+															<div class="body">
+																<div class="name">
+																	<a href="#">Jennifer</a>
+																</div>
+		
+																<div class="time">
+																	<i class="icon-time"></i>
+																	<span class="blue">15 min</span>
+																</div>
+		
+																<div class="text">
+																	<i class="icon-quote-left"></i>
+																	Jennifer just left the room &hellip;
+																</div>
+															</div>
+		
+															<div class="tools">
+																<a href="#" class="btn btn-minier btn-info">
+																	<i class="icon-only icon-pencil"></i>
+																</a>
+		
+																<a href="#" class="btn btn-minier btn-danger">
+																	<i class="icon-only icon-trash"></i>
+																</a>
+															</div>
+														</div>
+		
+														<div class="itemdiv commentdiv">
+															<div class="user">
+																<img alt="Joe's Avatar" src="lib/ace/avatars/avatar2.png" />
+															</div>
+		
+															<div class="body">
+																<div class="name">
+																	<a href="#">Joe</a>
+																</div>
+		
+																<div class="time">
+																	<i class="icon-time"></i>
+																	<span class="orange">22 min</span>
+																</div>
+		
+																<div class="text">
+																	<i class="icon-quote-left"></i>
+																	Joe fold &hellip;
+																</div>
+															</div>
+		
+															<div class="tools">
+																<a href="#" class="btn btn-minier btn-info">
+																	<i class="icon-only icon-pencil"></i>
+																</a>
+		
+																<a href="#" class="btn btn-minier btn-danger">
+																	<i class="icon-only icon-trash"></i>
+																</a>
+															</div>
+														</div>
+		
+														<div class="itemdiv commentdiv">
+															<div class="user">
+																<img alt="Rita's Avatar" src="lib/ace/avatars/avatar3.png" />
+														</div>
+		
+															<div class="body">
+																<div class="name">
+																	<a href="#">Rita</a>
+																</div>
+		
+																<div class="time">
+																	<i class="icon-time"></i>
+																	<span class="red">50 min</span>
+																</div>
+		
+																<div class="text">
+																	<i class="icon-quote-left"></i>
+																	Rita Bet 30 &hellip;
+																</div>
+															</div>
+		
+															<div class="tools">
+																<a href="#" class="btn btn-minier btn-info">
+																	<i class="icon-only icon-pencil"></i>
+																</a>
+		
+																<a href="#" class="btn btn-minier btn-danger">
+																	<i class="icon-only icon-trash"></i>
+																</a>
+															</div>
+														</div>
+														<div class="itemdiv commentdiv">
+															<div class="user">
+																<img alt="Bob Doe's Avatar" src="lib/ace/avatars/avatar.png" />
+															</div>
+		
+															<div class="body">
+																<div class="name">
+																	<a href="#">Bob Doe</a>
+																</div>
+		
+																<div class="time">
+																	<i class="icon-time"></i>
+																	<span class="green">6 min</span>
+																</div>
+		
+																<div class="text">
+																	<i class="icon-quote-left"></i>
+																	Bob Doe Rise to 40 &hellip;
 																</div>
 															</div>
 		
@@ -791,7 +942,7 @@
 														<div class="itemdiv commentdiv">
 															<div class="user">
 																<img alt="Rita's Avatar" src="lib/ace/avatars/avatar3.png" />
-															</div>
+														</div>
 		
 															<div class="body">
 																<div class="name">
@@ -1590,7 +1741,10 @@
 
 				$('.dialogs,.comments').slimScroll({
 					height: '250px'
-			    }); 
+			    });
+				$('.room-stream').slimScroll({
+					height: '350px'
+			    });			     
 			  var spvalues = [54,78,92,96,84,88,42,67,84,81];
         $('#cpugraph').sparkline(spvalues, {type: 'line', spotColor: 'white', maxSpotColor:'red', spotRadius:3, highlightSpotColor:'yellow', highlightLineColor:'white' });  
 // , {type: 'line', spotColor: 'white', maxSpotColor:'red', spotRadius:3, highlightSpotColor:'yellow', highlightLineColor:'white' }
