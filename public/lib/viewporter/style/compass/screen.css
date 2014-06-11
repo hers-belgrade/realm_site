@@ -1836,6 +1836,25 @@ body.adminbody .dbrooms .tab-content {
 }
 /* line 447, ../sass/admin.scss */
 body.adminbody .dbrooms .widget-header-flat, body.adminbody .dbrooms .widget-body {
-  background-color: #595959;
+  background-color: #3a3a3a;
   border-color: #4f4f4f;
+}
+/* line 451, ../sass/admin.scss */
+body.adminbody .dbrooms .nav-tabs > li.active > a,
+body.adminbody .dbrooms .nav-tabs > li.active > a:hover,
+body.adminbody .dbrooms .nav-tabs > li.active > a:focus {
+  background-color: #595959;
+  color: white;
+}
+/* line 457, ../sass/admin.scss */
+body.adminbody .dbrooms div.widget-main {
+  padding: 0;
+}
+/* line 460, ../sass/admin.scss */
+body.adminbody .dbrooms div.second-tabs {
+  background-color: #3a3a3a;
+}
+/* line 463, ../sass/admin.scss */
+body.adminbody .dbrooms div.tab-content {
+  padding: 5px 10px;
 }
