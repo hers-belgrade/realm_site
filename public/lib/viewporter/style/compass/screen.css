@@ -1506,9 +1506,9 @@ body.adminbody .table {
 }
 /* line 199, ../sass/admin.scss */
 body.adminbody .table thead tr {
-  background-image: -moz-linear-gradient(#d15b47, #d15b47 3%, #b74635);
-  background-image: -webkit-linear-gradient(#d15b47, #d15b47 3%, #b74635);
-  background-image: linear-gradient(#d15b47, #d15b47 3%, #b74635);
+  background-image: -moz-linear-gradient(#d15b47 3%, #b74635);
+  background-image: -webkit-linear-gradient(#d15b47 3%, #b74635);
+  background-image: linear-gradient(#d15b47 3%, #b74635);
   color: white;
   text-shadow: 0 1px 0 black;
 }
@@ -1818,43 +1818,86 @@ body.adminbody .infobox > .stat.stat-blue {
   color: #62a8d1;
 }
 /* line 435, ../sass/admin.scss */
-body.adminbody .dbrooms {
+body.adminbody .dbrooms, body.adminbody .dbplayers {
+  border-bottom: 1px solid #000;
   color: white;
 }
-/* line 437, ../sass/admin.scss */
-body.adminbody .dbrooms div.tab-content.dbrooms-content {
+/* line 438, ../sass/admin.scss */
+body.adminbody .dbrooms div.tab-content.dbrooms-content, body.adminbody .dbplayers div.tab-content.dbrooms-content {
   padding-top: 0;
   padding-bottom: 0;
 }
-/* line 441, ../sass/admin.scss */
-body.adminbody .dbrooms div#form_field_select_3_chzn {
+/* line 442, ../sass/admin.scss */
+body.adminbody .dbrooms div#form_field_select_3_chzn, body.adminbody .dbplayers div#form_field_select_3_chzn {
   width: 100% !important;
 }
-/* line 444, ../sass/admin.scss */
-body.adminbody .dbrooms .tab-content {
+/* line 445, ../sass/admin.scss */
+body.adminbody .dbrooms .tab-content, body.adminbody .dbplayers .tab-content {
   background-color: #595959;
 }
-/* line 447, ../sass/admin.scss */
-body.adminbody .dbrooms .widget-header-flat, body.adminbody .dbrooms .widget-body {
+/* line 448, ../sass/admin.scss */
+body.adminbody .dbrooms .widget-header-flat, body.adminbody .dbplayers .widget-header-flat, body.adminbody .dbrooms .widget-body, body.adminbody .dbplayers .widget-body {
   background-color: #3a3a3a;
   border-color: #4f4f4f;
 }
-/* line 451, ../sass/admin.scss */
-body.adminbody .dbrooms .nav-tabs > li.active > a,
+/* line 452, ../sass/admin.scss */
+body.adminbody .dbrooms .widget-header-flat, body.adminbody .dbplayers .widget-header-flat {
+  padding-top: 5px;
+}
+/* line 455, ../sass/admin.scss */
+body.adminbody .dbrooms .nav-tabs > li.active > a, body.adminbody .dbplayers .nav-tabs > li.active > a,
 body.adminbody .dbrooms .nav-tabs > li.active > a:hover,
-body.adminbody .dbrooms .nav-tabs > li.active > a:focus {
+body.adminbody .dbplayers .nav-tabs > li.active > a:hover,
+body.adminbody .dbrooms .nav-tabs > li.active > a:focus,
+body.adminbody .dbplayers .nav-tabs > li.active > a:focus {
   background-color: #595959;
   color: white;
 }
-/* line 457, ../sass/admin.scss */
-body.adminbody .dbrooms div.widget-main {
+/* line 461, ../sass/admin.scss */
+body.adminbody .dbrooms div.widget-main, body.adminbody .dbplayers div.widget-main {
   padding: 0;
 }
-/* line 460, ../sass/admin.scss */
-body.adminbody .dbrooms div.second-tabs {
-  background-color: #3a3a3a;
-}
-/* line 463, ../sass/admin.scss */
-body.adminbody .dbrooms div.tab-content {
+/* line 467, ../sass/admin.scss */
+body.adminbody .dbrooms div.tab-content, body.adminbody .dbplayers div.tab-content {
   padding: 5px 10px;
+}
+/* line 469, ../sass/admin.scss */
+body.adminbody .dbrooms div.tab-content .tab-pane div.tab-pane, body.adminbody .dbplayers div.tab-content .tab-pane div.tab-pane {
+  background-color: #4f4f4f;
+  padding: 0px 10px;
+}
+/* line 474, ../sass/admin.scss */
+body.adminbody .dbrooms h4, body.adminbody .dbplayers h4 {
+  color: #9DEEFF;
+  font-size: 18px;
+  font-weight: lighter;
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+/* line 481, ../sass/admin.scss */
+body.adminbody .dbrooms ul.ord li, body.adminbody .dbplayers ul.ord li {
+  margin-bottom: 3px;
+}
+/* line 484, ../sass/admin.scss */
+body.adminbody .dbrooms div.headholder, body.adminbody .dbplayers div.headholder {
+  padding: 15px;
+  background-color: #595959;
+}
+/* line 488, ../sass/admin.scss */
+body.adminbody .dbrooms div.dbrooms-content, body.adminbody .dbplayers div.dbrooms-content {
+  padding: 0;
+}
+/* line 491, ../sass/admin.scss */
+body.adminbody .dbrooms div.room-stat, body.adminbody .dbplayers div.room-stat {
+  height: auto !important;
+  height: 350px;
+  min-height: 350px;
+}
+/* line 495, ../sass/admin.scss */
+body.adminbody .dbrooms .chzn-drop li, body.adminbody .dbplayers .chzn-drop li {
+  color: #444444;
+}
+/* line 498, ../sass/admin.scss */
+body.adminbody .dbrooms .chzn-drop li.highlighted, body.adminbody .dbplayers .chzn-drop li.highlighted {
+  color: white;
 }
