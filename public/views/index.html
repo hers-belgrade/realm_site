@@ -198,7 +198,7 @@
 					</div>
 					<div class="span4 historical">
 
-									<div class="widget-box">
+									<div class="widget-box" data-ng-controller="LogController">
 										<div class="widget-header group widget-header-flat widget-header-small">
 											<ul class="nav nav-tabs" id="recent-tab">
 												<li class="active">
@@ -246,10 +246,10 @@
 												<div class="tab-content">
 													<div id="activities-tab" class="tab-pane in active">
 														<div class="comments activities">
-															<div class="itemdiv commentdiv red-ico">
-															<div class="infobox-icon left">
-																<i class="icon-warning-sign"></i>
-															</div>
+                              <div class="itemdiv commentdiv" data-ng-class="item.htmlcolorclass" data-ng-repeat="item in items | filter:{category:'system'}">
+                                <div class="infobox-icon left">
+                                  <i data-ng-class="item.htmltypeclass"></i>
+                                </div>
 
 																<div class="body">
 																	<div class="name">
@@ -258,12 +258,12 @@
 
 																	<div class="time">
 																		<i class="icon-time"></i>
-																		<span class="green">6 min</span>
+                                    <age date=item.moment></age>
 																	</div>
 
 																	<div class="text">
 																		<i class="icon-quote-left"></i>
-																		Check your system configuration for recent changes &hellip;
+                                    {{item.msg}}
 																	</div>
 																</div>
 
@@ -302,6 +302,7 @@
 																</div>
 															</div>
 
+                          <!--
 															<div class="itemdiv commentdiv red-ico">
 																<div class="infobox-icon left">
 																	<i class="icon-usd"></i>
@@ -397,14 +398,71 @@
 																	</a>
 																</div>
 															</div>
+                            //-->
 														</div>
 													</div>
 													<div id="cash-tab" class="tab-pane">
-														Cash flow tab
+														<div class="comments">
+                              <div class="itemdiv commentdiv" data-ng-class='item.htmlcolorclass' data-ng-repeat="item in items | filter:{category:'finance'}">
+                                <div class="infobox-icon left">
+                                  <i data-ng-class="item.htmltypeclass"></i>
+                                </div>
+
+																<div class="body">
+																	<div class="name">
+																		<a href="#">System issue</a>
+																	</div>
+
+																	<div class="time">
+																		<i class="icon-time"></i>
+                                    <age date=item.moment></age>
+																	</div>
+
+																	<div class="text">
+																		<i class="icon-quote-left"></i>
+                                    {{item.msg}}
+																	</div>
+																</div>
+
+																<div class="tools">
+																	<div class="inline position-relative">
+																		<button class="btn btn-minier bigger btn-yellow dropdown-toggle" data-toggle="dropdown">
+																			<i class="icon-angle-down icon-only bigger-120"></i>
+																		</button>
+
+																		<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+																			<li>
+																				<a href="#" class="tooltip-success" data-rel="tooltip" title="Approve">
+																					<span class="green">
+																						<i class="icon-ok bigger-110"></i>
+																					</span>
+																				</a>
+																			</li>
+
+																			<li>
+																				<a href="#" class="tooltip-warning" data-rel="tooltip" title="Reject">
+																					<span class="orange">
+																						<i class="icon-remove bigger-110"></i>
+																					</span>
+																				</a>
+																			</li>
+
+																			<li>
+																				<a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+																					<span class="red">
+																						<i class="icon-trash bigger-110"></i>
+																					</span>
+																				</a>
+																			</li>
+																		</ul>
+																	</div>
+																</div>
+                              </div>
+                            </div>
 													</div>
 													<div id="top-tab" class="tab-pane">
 														<div class="comments">
-															<div class="itemdiv commentdiv">
+                              <div class="itemdiv commentdiv">
 																<div class="user">
 																	<img alt="Bob Doe's Avatar" src="lib/ace/avatars/avatar.png" />
 																</div>
