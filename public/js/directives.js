@@ -34,7 +34,6 @@ angular.module('mean.ui').directive('sparkline',function(){
     restrict: 'E',
     link: function(scope,elem,attrs){
       var clr = (window.getComputedStyle(elem[0])).color;
-      console.log('color',clr);
       scope.$watch(attrs.ngModel,function(val){
         elem.sparkline(val,{barColor:clr,chartRangeMin:attrs.min,type:attrs.type});
       },true);
@@ -80,5 +79,44 @@ angular.module('mean.ui').directive('trend',function(){
         lastval = val;
       },true);
     }
+  };
+});
+
+angular.module('mean.ui').directive('age',function(){
+  return {
+    restrict: 'E',
+    replace:true,
+    controller: function ($scope) {
+      $scope.calc = function () {
+        if(!(this.t instanceof Date)){
+          this.t = new Date(this.t);
+        }
+        var diff = (new Date())-this.t;
+        diff = ~~(diff/1000);
+        if(diff<5){
+          this.klass = 'red';
+          diff = 'now';
+        }else if(diff<60){
+          this.klass = 'green';
+          diff = diff+' secs';
+        }else if(diff<60*60){
+          this.klass = 'green';
+          diff = ~~(diff/60);
+          diff = diff+' mins';
+        }else if(diff<60*60*24){
+          diff = ~~(diff/60/60);
+          diff = diff+' hours';
+        }else{
+          diff = ~~(diff/60/60/24);
+          diff = diff+' days';
+        }
+        return diff;
+      }
+    },
+    template:'<span class={{klass}}>{{calc()}}</span>',
+    scope: {
+      t : '=date'
+    },
+  
   };
 });
