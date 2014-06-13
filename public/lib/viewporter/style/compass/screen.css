@@ -1901,3 +1901,64 @@ body.adminbody .dbrooms .chzn-drop li, body.adminbody .dbplayers .chzn-drop li {
 body.adminbody .dbrooms .chzn-drop li.highlighted, body.adminbody .dbplayers .chzn-drop li.highlighted {
   color: white;
 }
+/* line 506, ../sass/admin.scss */
+body.adminbody div.mainstats {
+  background-image: -moz-linear-gradient(#555555, #2f2f2f);
+  background-image: -webkit-linear-gradient(#555555, #2f2f2f);
+  background-image: linear-gradient(#555555, #2f2f2f);
+  padding-bottom: 5px;
+}
+/* line 509, ../sass/admin.scss */
+body.adminbody div.mainstats .datalabel {
+  padding-top: 5px;
+  color: #000;
+  text-shadow: 2px 2px 1px #585858;
+}
+/* line 514, ../sass/admin.scss */
+body.adminbody div.mainstats div.row-fluid.main {
+  border-top: 1px solid #555555;
+  border-bottom: 1px solid #2f2f2f;
+}
+/* line 518, ../sass/admin.scss */
+body.adminbody div.mainstats div.row-fluid:first {
+  border-top: 0px solid transparent;
+}
+/* line 521, ../sass/admin.scss */
+body.adminbody div.mainstats div.row-fluid:last {
+  border-top: 0px solid transparent;
+}
+/* line 524, ../sass/admin.scss */
+body.adminbody div.mainstats div.incon {
+  text-align: center;
+  color: white;
+  font-size: 54px;
+}
+/* line 528, ../sass/admin.scss */
+body.adminbody div.mainstats div.incon i {
+  margin-top: 20px;
+}
+/* line 531, ../sass/admin.scss */
+body.adminbody div.mainstats div.incon i:before {
+  text-shadow: 1px 1px 2px black;
+}
+/* line 535, ../sass/admin.scss */
+body.adminbody div.mainstats .dataValue.green {
+  font-size: 45px;
+  text-shadow: 0 1px 0 black;
+}
+/* line 539, ../sass/admin.scss */
+body.adminbody div.mainstats .widget-header-flat {
+  background-color: #3a3a3a;
+  border-color: transparent;
+  margin-bottom: 10px;
+}
+/* line 544, ../sass/admin.scss */
+body.adminbody div.mainstats .widget-toolbar {
+  float: right;
+}
+/* line 547, ../sass/admin.scss */
+body.adminbody div.mainstats div.main {
+  height: auto !important;
+  height: 87px;
+  min-height: 87px;
+}
