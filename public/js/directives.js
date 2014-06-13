@@ -120,3 +120,24 @@ angular.module('mean.ui').directive('age',function(){
   
   };
 });
+
+angular.module('mean.ui').directive('chosenselect',function(){
+  return {
+    restrict:'A',
+    link:function(scope,elem,attrs){
+      if(attrs.chosenselect){
+        scope.$watch(attrs.chosenselect,function(val){
+          elem.find('option').remove().end();
+          elem.append('<option value=""></option>').end();
+          for(var i in val){
+            var r = val[i];
+            if(r.name){
+              elem.append('<option value="'+r.name+'">'+r.name+'</option>');
+            }
+          }
+          jQuery(elem).chosen();
+        },true);
+      }
+    }
+  };
+});

@@ -656,21 +656,13 @@
 
 				<div class="hr hr32 hr-dotted"></div>				
 				<div class="space-6"></div>										
-    		<div class="row-fluid">
+    		<div class="row-fluid" data-ng-controller='LobbyController'>
 	    		<div class="span6">
 						<div class="widget-box dbrooms">
 							<div class="widget-header group widget-header-flat widget-header-small">
 								<ul class="nav nav-tabs" id="recent-tab">
-									<li class="active">
-										<a data-toggle="tab" href="#pokerr-tab">Poker rooms</a>
-									</li>
-
-									<li>
-										<a data-toggle="tab" href="#slotr-tab">Slot rooms</a>
-									</li>
-
-									<li>
-										<a data-toggle="tab" href="#vpokerr-tab">Video poker</a>
+									<li class="active" data-ng-repeat='(klass,rooms) in lobby'>
+                    <a data-toggle="tab" href="#{{klass}}-tab">{{klass}} rooms</a>
 									</li>
 								</ul>
 
@@ -704,17 +696,12 @@
 							<div class="widget-body">
 								<div class="widget-main">
 									<div class="tab-content dbrooms-content">
-										<div id="pokerr-tab" class="tab-pane in active">
+                    <div id="{{klass}}-tab" class="tab-pane in active" data-ng-repeat="(klass,rooms) in lobby">
 										<div class="row-fluid">
 											<div class="headholder">
 												<div class="second-tabs">
 														<div class="span4">
-															<select class="chzn-select" id="form-field-select-3" data-placeholder="Choose a Room...">
-																<option value=""></option>
-																<option value="V1" >Vegas 1</option>
-																<option value="V2" >Vegas 2</option>
-																<option value="V3" >Vegas 3</option>
-																<option value="L1" >London 1</option>
+                              <select class="chzn-select" chosenselect='rooms' id="form-field-select-3" data-ng-model='previewroomname' data-placeholder="Choose a Room..." ng-change='preview()'>
 															</select>	
 														</div>
 														<div class="active span8">
@@ -727,6 +714,24 @@
 											<div class="tab-content">
 												<div id="room-stream" class="tab-pane in active">
 													<div class="room-stream">
+                            <div class="itemdiv commentdiv {{item.klass}}" data-ng-repeat='item in lobby.Poker.preview.events'>
+                              <div class="user" ng-switch="item.hasplayer">
+                                <img ng-switch-when='true'  href='/img/avatars/b3.png'></img>
+                              </div>
+                              <div class="body">
+                                <span class={{item.code}}>{{item.code}}</span>
+                                <span ng-switch='item.hasamount'>
+                                  <span ng-switch-when='true'>
+                                    <span class='money'>{{item.amount}}</span>
+                                  </span>
+                                </span>
+                                <span ng-switch='item.hascards'>
+                                  <span class='card flop' ng-repeat='card in item.flop'>{{card}}</span>
+                                  <span class='card turn'>{{item.turn}}</span>
+                                  <span class='card river'>{{item.river}}</span>
+                                </span>
+                              </div>
+                            </div>
 														<div class="itemdiv commentdiv">
 															<div class="user">
 																<img alt="Bob Doe's Avatar" src="lib/ace/avatars/avatar.png" />
@@ -1804,7 +1809,7 @@
 			  var spvalues = [54,78,92,96,84,88,42,67,84,81];
         $('#cpugraph').sparkline(spvalues, {type: 'line', spotColor: 'white', maxSpotColor:'red', spotRadius:3, highlightSpotColor:'yellow', highlightLineColor:'white' });  
 // , {type: 'line', spotColor: 'white', maxSpotColor:'red', spotRadius:3, highlightSpotColor:'yellow', highlightLineColor:'white' }
-				$(".chzn-select").chosen(); 
+				//$(".chzn-select").chosen(); 
 				
 			});
 		</script>		
