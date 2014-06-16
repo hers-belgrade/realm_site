@@ -1962,3 +1962,24 @@ body.adminbody div.mainstats div.main {
   height: 87px;
   min-height: 87px;
 }
+/* line 551, ../sass/admin.scss */
+body.adminbody div.mainstats .tabbable .tab-content {
+  padding: 5px 0;
+  background-color: transparent;
+  border-color: transparent;
+  height: auto !important;
+  height: 56px;
+  min-height: 56px;
+}
+/* line 557, ../sass/admin.scss */
+body.adminbody div.mainstats .tabbable ul.nav-tabs {
+  border-top-width: 0;
+}
+/* line 559, ../sass/admin.scss */
+body.adminbody div.mainstats .tabbable ul.nav-tabs li a {
+  border-width: 0px;
+  background-color: transparent;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  font-size: 11px;
+}

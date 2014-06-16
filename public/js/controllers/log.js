@@ -22,7 +22,9 @@ var __LogInterpretation = {
           item.htmltypeclass = 'icon-info';
           break;
       }
-      item.msg = item.params[0]+" "+item.params[1]+" entered "+item.params[2]+" room "+item.params[3]+" with "+item.params[4];
+      item.klass = item.params[2];
+      item.room = item.params[3];
+      item.msg = item.params[0]+" "+item.params[1]+" takes a seat "+" with "+item.params[4];
     },
     roomleft:function(item){
       item.htmlcolorclass = 'red-ico';
@@ -34,7 +36,9 @@ var __LogInterpretation = {
           item.htmltypeclass = 'icon-info';
           break;
       }
-      item.msg = item.params[0]+" "+item.params[1]+" left "+item.params[2]+" room "+item.params[3]+" with "+item.params[4];
+      item.klass = item.params[2];
+      item.room = item.params[3];
+      item.msg = item.params[0]+" "+item.params[1]+" leaves with "+item.params[4];
     }
   }
 };
