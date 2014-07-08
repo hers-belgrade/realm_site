@@ -71,9 +71,12 @@ angular.module('mean.system').controller('LogController',['$scope','follower',fu
             if(ifn){
               ifn(this.o);
             }
-            this.t.unshift(this.o);
-            if(this.t.length>100){
-              this.t.pop();
+            if(!this.t[this.o.category]){
+              this.t[this.o.category] = [];
+            }
+            this.t[this.o.category].unshift(this.o);
+            if(this.t[this.o.category].length>30){
+              this.t[this.o.category].pop();
             }
           }
         }
