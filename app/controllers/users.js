@@ -186,6 +186,10 @@ exports.setup = function(app){
     u.makeSession(session);
     u.sessions[session].setSocketIO(sock);
     sock.on('!',function(data){
+      if(!sock.user){
+        sock.emit('=',{errorcode:'NO_SESSION',errorparams:[session]});
+        return;
+      }
       dataMaster.functionalities.sessionuserfunctionality.f.executeOnUser({user:u,session:session,commands:data},function(errc,errp,errm){
         sock.emit('=',errc==='OK' ? errp[0] : {errorcode:errc,errorparams:errp,errormessage:errm});
       });

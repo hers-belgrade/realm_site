@@ -339,7 +339,7 @@
 									<div class="tab-content">
 										<div id="activities-tab" class="tab-pane in active">
 											<div class="comments activities">
-                        <div class="itemdiv commentdiv" data-ng-class='item.htmlcolorclass' data-ng-repeat="item in items | filter:{category:'system'}">
+                        <div class="itemdiv commentdiv" data-ng-class='item.htmlcolorclass' data-ng-repeat="item in items.system">
                           <div class="infobox-icon left">
                             <i data-ng-class="item.htmltypeclass"></i>
                           </div>
@@ -398,7 +398,7 @@
 										</div>
 										<div id="cash-tab" class="tab-pane">
 											<div class="comments">
-                        <div class="itemdiv commentdiv" data-ng-class='item.htmlcolorclass' data-ng-repeat="item in items | filter:{category:'finance'}">
+                        <div class="itemdiv commentdiv" data-ng-class='item.htmlcolorclass' data-ng-repeat="item in items.finance">
                           <div class="infobox-icon left">
                             <i data-ng-class="item.htmltypeclass"></i>
                           </div>
