@@ -59,12 +59,14 @@ var LobbyPokerEventsTranslator = (function () {
   function parseHandStart (hash, list) {
     var rd = list[0];
     hash.code='start';
+    hash.codeicon= 'icon-play';
     hash.players = rd.players;
     hash.handId = rd.handId;
   };
 
   function parseHandEnd(hash) {
     hash.code='end';
+    hash.codeicon= 'icon-stop';
   };
 
   function parsePaymentDoneEvent(hash,code,list, isAllIn){
@@ -75,24 +77,31 @@ var LobbyPokerEventsTranslator = (function () {
     switch(code){
       case 2:
         hash.code='ante';
+        hash.codeicon='icon-medkit';
         break;
       case 3:
         hash.code='sb';
+        hash.codeicon='icon-hospital';
         break;
       case 4:
         hash.code='bb';
+        hash.codeicon='icon-ambulance';
         break;
       case 5:
         hash.code='check';
+        hash.codeicon='icon-ok-sign';
         break;
       case 6:
         hash.code='call';
+        hash.codeicon='icon-thumbs-up';
         break;
       case 7:
         hash.code='bet';
+        hash.codeicon='icon-thumbs-up';
         break;
       case 8:
         hash.code='raise';
+        hash.codeicon='icon-hand-up';
         break;
       default:
       break;
@@ -109,6 +118,7 @@ var LobbyPokerEventsTranslator = (function () {
     hash.player=list[0];
     hash.realm=list[1];
     hash.code='fold';
+    hash.codeicon='icon-thumbs-down';
   };
 
   function parseStreetEvent(hash,code,list_a){
@@ -119,13 +129,16 @@ var LobbyPokerEventsTranslator = (function () {
     switch(code){
       case 0:
         hash.code = 'flop';
+        hash.codeicon='icon-user-md';
         break;
       case 1:
         hash.code = 'turn';
+        hash.codeicon='icon-stethoscope';
         hash.turn = list[3];
         break;
       case 2:
         hash.code = 'river';
+        hash.codeicon='icon-suitcase';
         hash.turn = list[3];
         hash.river = list[4];
         break;
@@ -144,16 +157,20 @@ var LobbyPokerEventsTranslator = (function () {
     switch(code){
       case 0:
         hash.code='return';
+        hash.codeicon='icon-rotate-right';
         break;
       case 1:
         hash.code='collect';
+        hash.codeicon='icon-share-alt';
         break;
       case 2:
         hash.code='win';
+        hash.codeicon='icon-trophy';
         hash.hand = handStrength(list[4]);
         break;
       case 3:
         hash.code='tie';
+        hash.codeicon='icon-resize-full';
         hash.hand = handStrength(list[4]);
         break;
     }

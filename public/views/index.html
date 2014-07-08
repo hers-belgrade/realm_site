@@ -77,19 +77,57 @@
 									<div class="tabbable tabs-below">
 										<div class="tab-content">
 											<div id="by_game" class="tab-pane in active">
-												<p>Poker earnings</p>
+											 <div class="span12">
+												 	<ul class="span4">
+												 		<li class="plabel">HoldEm</li>
+												 		<li class="pvalue green">6,235</li>
+												 	</ul>
+												 	<ul class="span4">
+												 		<li class="plabel">Omaha</li>
+												 		<li class="pvalue green">225</li>
+												 	</ul>
+												 	<ul class="span4">
+												 		<li class="plabel">Omaha HiLo</li>
+												 		<li class="pvalue green">2,235</li>
+												 	</ul>		 	
+											 </div>
 											</div>
 
 											<div id="by_kind" class="tab-pane">
-												<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
+											 <div class="span12">
+												 	<ul class="span6">
+												 		<li class="plabel"><i class="icon-Bot"></i> Boot earning</li>
+												 		<li class="pvalue green">6,235</li>
+												 	</ul>
+												 	<ul class="span6">
+												 		<li class="plabel"><i class="icon-renren"></i> Rake earning</li>
+												 		<li class="pvalue green">225</li>
+												 	</ul>
+											 </div>
 											</div>
 
 											<div id="by_rooms" class="tab-pane">
-												<p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>
+											 <div class="span12">
+												 	<ul class="span4">
+												 		<li class="plabel">Vegas 1</li>
+												 		<li class="pvalue green">6,235</li>
+												 	</ul>
+												 	<ul class="span4">
+												 		<li class="plabel">Vegas 2</li>
+												 		<li class="pvalue green">225</li>
+												 	</ul>
+												 	<ul class="span4">
+												 		<li class="plabel">London 1</li>
+												 		<li class="pvalue green">2,235</li>
+												 	</ul>		 	
+												 	<div class="full-list"><i class="icon-list-alt bigger-160"></i></div>
+												 	</ul>
+											 </div>
 											</div>
 										</div>
 
-										<ul class="nav nav-tabs" id="myTab2">
+										<div class="row-fluid">
+										<ul class="nav nav-tabs span9" id="pearnings">
 											<li class="active">
 												<a data-toggle="tab" href="#by_game">by Game</a>
 											</li>
@@ -102,14 +140,16 @@
 												<a data-toggle="tab" href="#by_rooms">by Rooms</a>
 											</li>
 										</ul>
+										<ul class="span3 pokerearning"><li class="green">10,302</li></ul>
+										</div>
 									</div>
 								</div>				
 							</div>
 							<div class="row-fluid main">
-								<div class="span2 incon"><i class="icon-Slot"></i></div>
+								<div class="span2 incon"><i class="icon-truck"></i></div>
 								<div class="span7 data">
-									<div class="row-fluid datalabel">Slot earnings</div>
-									<div class="row-fluid dataValue">8,740</div>
+									<div class="row-fluid datalabel">Total Slot earnings</div>
+									<div class="row-fluid dataValue green">3,264</div>
 								</div>
 								<div class="span3 graph">Graph</div>					
 							</div>						
@@ -185,6 +225,36 @@
 						
 						<div class="three_gutter row-fluid" data-ng-controller='BotsController'>
 							<div class="span4 infobox infobox-blue  ">
+
+								<div class="corner-actions">
+									<button id="bootbox-regular" href="#bot-config" data-toggle="modal" data-original-title="Change number of active Bots" title="" data-placement="bottom" data-rel="tooltip" class="btn btn-minier btn-yellow tooltip-info">Edit</button>
+									<div id="bot-config" class="modal hide fade botconf" tabindex="-1">
+										<div class="modal-header no-padding">
+											<div class="table-header">
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+												Please set targeted number of Bots
+											</div>
+										</div>
+		
+										<div class="modal-body no-padding">
+											<div class="row-fluid">
+												<div class='span12'>dgfh</div>
+											</div>
+										</div>
+		
+										<div class="modal-footer">
+											<button class="btn btn-small btn-danger pull-left" data-dismiss="modal">
+												<i class="icon-remove"></i>
+												Close
+											</button>
+										</div>
+									</div><!--PAGE CONTENT ENDS-->
+<!--
+									+13%
+									<i class="icon-arrow-up"></i>
+-->
+								</div>
+
 								<div class="infobox-icon">
 									<i class="icon-Bot"></i>
 								</div>
@@ -194,10 +264,6 @@
 									<div class="infobox-content">Targeted bots number</div>
 								</div>
 				
-								<div class="badge badge-success">
-									+13%
-									<i class="icon-arrow-up"></i>
-								</div>
 								<div class="bottom-stats">								
                   <div class="bottom-infobox-data left">
                     <sparkline type='bar' data-ng-model = 'botparamhistory.botcount'></sparkline>
@@ -246,7 +312,7 @@
 								<div class="three_gutter row-fluid">
 									<div class="span8 lico"><i class="icon-shield"></i> <span class="lablab">CPU</span></div>
 									<div class="span4">
-                    <div class="memvalue">{{CPU}}%</div>
+                    <div class="memvalue" style="width:50px;" data-ng-transclude data-ng-style='{fontSize:fontSize}' data-fittext='0.15'>{{CPU}}%</div>
 <!--
 										<div class="infobox-data">
 											<div class="infobox-progress">
@@ -268,8 +334,8 @@
 				
 							<div class="span6 infobox infobox-blue infobox-small infobox-dark">
 								<div class="three_gutter row-fluid">
-									<div class="span8 lico"><i class="icon-shield"></i> <span class="lablab">RAM usage</span></div>
-									<div class="span4">
+									<div class="span7 lico"><i class="icon-hdd"></i> <span class="lablab">RAM usage</span></div>
+									<div class="span5">
                     <div class="memvalue"><span class="memoryusage">{{memoryusage}}</span>/<span class="memoryavailable">{{memoryavailable}}</span>MB</div>
 								</div>	
 							</div>
@@ -279,7 +345,7 @@
 									<div class="numrum">{{count}}</div><div class="acr"><span class="above">Active</span><br /><span class="below">rooms</span></div>
 								</div>
 								<div class="span8 actrooms">
-									<div class="span12" data-ng-repeat='(klass,count) in classcounts'><i class="icon-{{klass}}"></i> {{klass}} {{count}}</div>
+									<div class="span12" data-ng-repeat='(klass,count) in classcounts'><div class="aholder"><i class="icon-{{klass}}"></i> {{klass}} {{count}}</div></div>
 								</div>
 							</div>
 						</div>
@@ -654,7 +720,7 @@
                                 <div class="name" ng-switch="item.hasplayer">
                                   <a href='#' ng-switch-when='true'>{{item.player}}</a>
                                 </div>
-                                <span class={{item.code}}>{{item.code}}</span>
+                                <a class='eventcode' href='javascript:void()' tooltip="{{item.code}}"><i class={{item.codeicon}}></i></a>
                                 <span ng-switch='item.hasamount'>
                                   <span ng-switch-when='true'>
                                     <span class='money'>{{item.amount}}</span>
@@ -717,10 +783,36 @@
 						</div><!--/widget-box-->		    		
 	    		</div>
     		</div>
+        <!--
 				<div class="hr hr32 hr-dotted"></div>	
+				<ul style="color:white;">
+					<li><i class="icon-play"></i> Start</li>
+					<li><i class="icon-stop"></i> End</li>
 
+					<li><i class="icon-medkit"></i> Ante</li>
+					<li><i class="icon-hospital"></i> Small Blind</li>
+					<li><i class="icon-ambulance"></i> Big Blind</li>
+
+					<li><i class="icon-ok-sign"></i> Check</li>
+					<li><i class="icon-thumbs-up"></i> Call</li>
+					<li><i class="icon-thumbs-up"></i> Bet</li>
+					<li><i class="icon-thumbs-down"></i> Fold</li>
+					<li><i class="icon-hand-up"></i> Raise</li>
+					<li><i class="icon-flag"></i> Allin</li>
+
+					<li><i class="icon-user-md"></i> Flop</li>
+					<li><i class="icon-stethoscope"></i> Turn</li>
+					<li><i class="icon-suitcase"></i> River</li>
+
+
+					<li><i class="icon-rotate-right"></i> Return</li>
+					<li><i class="icon-share-alt"></i> Collect</li>
+					<li><i class="icon-trophy"></i> Win</li>
+					<li><i class="icon-resize-full"></i> Tie</li>
+				</ul>
 
     		</div>
+        //-->
    		
 				<div class="space-6"></div>
     	</div>
@@ -746,6 +838,27 @@
 						size: size
 					});
 				})
+				
+/*
+				$("#bootbox-regular").on(ace.click_event, function() {
+
+					bootbox.confirm("<form data-ng-submit='setSwarmParams()' class='form-horizontal'>\
+					    <input class='input-medium' type='hidden' ng-model='botparams.botprefix' value='Bot'/>\
+					    <div class='swarm-cg control-group span4 limit-holder'>\
+					    <label class='control-label' for='limit'>Limit</label>\
+    					<input id='limit' type='text' ng-model='botparams.botcount' class='input-mini' />\
+					    </div>\
+					    <div class='swarm-cg control-group span4 factor-holder'>\
+					    <label class='control-label' for='leavefactor'>Leave Factor</label>\
+					    <input id='leavefactor' class='input-mini' type='text' ng-model='botparams.leavefactor' />\
+					    </div>\
+					    <div class='span3'><button class='btn btn-small btn-success' type='submit'>Change<i class='icon-arrow-right icon-on-right bigger-110'></i></button></div>\
+					    </form>", function(result) {
+					        if(result)
+					            $('#infos').submit();
+					});
+				});				
+*/
 			
 				$('.sparkline').each(function(){
 					var $box = $(this).closest('.infobox');
@@ -771,6 +884,12 @@
         $('#cpugraph').sparkline(spvalues, {type: 'line', spotColor: 'white', maxSpotColor:'red', spotRadius:3, highlightSpotColor:'yellow', highlightLineColor:'white' });  
 // , {type: 'line', spotColor: 'white', maxSpotColor:'red', spotRadius:3, highlightSpotColor:'yellow', highlightLineColor:'white' }
 				//$(".chzn-select").chosen(); 
-				
+
+/*
+				$('.pokerearning li').inflateText({maxFontSize:24});		
+				$('li.plabel').inflateText({maxFontSize:18});
+				$('li.pvalue').inflateText({maxFontSize:24});												
+				$('div.memvalue, .infobox-orange div.numrum').inflateText({maxFontSize:70});
+*/
 			});
 		</script>		

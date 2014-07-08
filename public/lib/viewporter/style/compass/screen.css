@@ -1939,30 +1939,31 @@ body.adminbody div.mainstats div.incon i {
 }
 /* line 531, ../sass/admin.scss */
 body.adminbody div.mainstats div.incon i:before {
-  text-shadow: 1px 1px 2px black;
+  text-shadow: 1px 1px 1px black;
 }
 /* line 535, ../sass/admin.scss */
 body.adminbody div.mainstats .dataValue.green {
   font-size: 45px;
   text-shadow: 0 1px 0 black;
+  padding-top: 10px;
 }
-/* line 539, ../sass/admin.scss */
+/* line 540, ../sass/admin.scss */
 body.adminbody div.mainstats .widget-header-flat {
   background-color: #3a3a3a;
   border-color: transparent;
   margin-bottom: 10px;
 }
-/* line 544, ../sass/admin.scss */
+/* line 545, ../sass/admin.scss */
 body.adminbody div.mainstats .widget-toolbar {
   float: right;
 }
-/* line 547, ../sass/admin.scss */
+/* line 548, ../sass/admin.scss */
 body.adminbody div.mainstats div.main {
   height: auto !important;
   height: 87px;
   min-height: 87px;
 }
-/* line 551, ../sass/admin.scss */
+/* line 552, ../sass/admin.scss */
 body.adminbody div.mainstats .tabbable .tab-content {
   padding: 5px 0;
   background-color: transparent;
@@ -1971,15 +1972,120 @@ body.adminbody div.mainstats .tabbable .tab-content {
   height: 56px;
   min-height: 56px;
 }
-/* line 557, ../sass/admin.scss */
+/* line 558, ../sass/admin.scss */
 body.adminbody div.mainstats .tabbable ul.nav-tabs {
   border-top-width: 0;
 }
-/* line 559, ../sass/admin.scss */
+/* line 560, ../sass/admin.scss */
 body.adminbody div.mainstats .tabbable ul.nav-tabs li a {
   border-width: 0px;
   background-color: transparent;
   padding-top: 10px;
   padding-bottom: 5px;
   font-size: 11px;
+}
+/* line 570, ../sass/admin.scss */
+body.adminbody div.corner-actions {
+  float: right;
+  margin-right: 10px;
+}
+/* line 574, ../sass/admin.scss */
+body.adminbody div.botform {
+  margin-left: 0;
+}
+/* line 576, ../sass/admin.scss */
+body.adminbody div.botform .form-horizontal .control-label {
+  width: 92px;
+  padding-top: 8px;
+  padding-right: 5px;
+}
+/* line 582, ../sass/admin.scss */
+body.adminbody div.botform div.limit-holder div.controls {
+  margin-left: 60px;
+}
+/* line 587, ../sass/admin.scss */
+body.adminbody div.swarm-cg {
+  padding-top: 0;
+}
+/* line 590, ../sass/admin.scss */
+body.adminbody div.well.bootcontroll {
+  padding: 10px;
+}
+/* line 592, ../sass/admin.scss */
+body.adminbody div.well.bootcontroll div.botform {
+  padding-top: 6px;
+}
+/* line 594, ../sass/admin.scss */
+body.adminbody div.well.bootcontroll div.botform div.control-group {
+  margin-bottom: 0;
+}
+/* line 598, ../sass/admin.scss */
+body.adminbody div.well.bootcontroll div.ng-binding {
+  padding-top: 6px;
+}
+/* line 600, ../sass/admin.scss */
+body.adminbody div.well.bootcontroll div.ng-binding i {
+  color: #D15B47;
+}
+/* line 609, ../sass/admin.scss */
+body.adminbody ul.pokerearning li {
+  padding: 2px 5px;
+}
+/* line 616, ../sass/admin.scss */
+body.adminbody div.ngHeaderCell {
+  background-image: -moz-linear-gradient(#d15b47 3%, #b74635);
+  background-image: -webkit-linear-gradient(#d15b47 3%, #b74635);
+  background-image: linear-gradient(#d15b47 3%, #b74635);
+}
+/* line 619, ../sass/admin.scss */
+body.adminbody div.ngHeaderText {
+  color: white;
+  text-align: center;
+}
+/* line 623, ../sass/admin.scss */
+body.adminbody ul#pearnings {
+  border-bottom-width: 0px;
+}
+/* line 625, ../sass/admin.scss */
+body.adminbody ul#pearnings .active a {
+  box-shadow: 0 0 0;
+}
+/* line 628, ../sass/admin.scss */
+body.adminbody ul#pearnings li:not(.active) {
+  background-image: -moz-linear-gradient(#363636, #343434);
+  background-image: -webkit-linear-gradient(#363636, #343434);
+  background-image: linear-gradient(#363636, #343434);
+  margin-bottom: 0;
+}
+/* line 634, ../sass/admin.scss */
+body.adminbody #by_game ul {
+  padding: 3px;
+}
+/* line 636, ../sass/admin.scss */
+body.adminbody #by_game ul li {
+  padding: 3px;
+}
+/* line 639, ../sass/admin.scss */
+body.adminbody #by_game ul li.plabel {
+  color: white;
+}
+/* line 642, ../sass/admin.scss */
+body.adminbody #by_game ul li.pvalue {
+  font-size: 1.6em;
+}
+/* line 648, ../sass/admin.scss */
+body.adminbody #by_kind ul {
+  padding: 3px;
+}
+/* line 650, ../sass/admin.scss */
+body.adminbody #by_kind ul li {
+  padding: 3px;
+}
+/* line 653, ../sass/admin.scss */
+body.adminbody #by_kind ul li.plabel {
+  color: white;
+}
+/* line 656, ../sass/admin.scss */
+body.adminbody #by_kind ul li.pvalue {
+  font-size: 1.6em;
 }
