@@ -720,45 +720,14 @@
 																</select>	
 															</div>
 															<div class="active span8">
-																<a data-toggle="tab" class="btn btn-mini btn-primary" href="#room-stream"><i class="icon-rss"></i> Room stream</a>
+                                <a data-toggle="tab" class="btn btn-mini btn-primary" href="#{{klass}}-room-stream"><i class="icon-rss"></i> Room stream</a>
 																<a data-toggle="tab" class="btn btn-mini btn-primary" href="#room-stat"><i class="icon-gear"></i> Room Settings</a>
 															</div>																					
 													</div>
 												</div>
 											</div>											
 											<div class="tab-content">
-												<div id="{{klass}}-room-stream" class="tab-pane in active">
-													<div class="room-stream">
-                            <div class="itemdiv commentdiv {{item.klass}}" data-ng-repeat='item in lobby.Poker.preview.events'>
-                              <div class="user" ng-switch="item.hasplayer">
-                                <img ng-switch-when='true'  src='{{item.avatar}}' />
-                              </div>
-                              <div class="body">
-                                <div class="name" ng-switch="item.hasplayer">
-                                  <a href='#' ng-switch-when='true'>{{item.player}}</a>
-                                </div>
-                                <a class='eventcode' href='javascript:void()' tooltip="{{item.code}}"><i class={{item.codeicon}}></i></a>
-                                <span ng-switch='item.hasamount'>
-                                  <span ng-switch-when='true'>
-                                    <span class='money'>{{item.amount}}</span>
-                                  </span>
-                                </span>
-                                <span ng-switch='item.hascards'>
-                                  <span class='card flop' ng-repeat='card in item.flop'>{{card}}</span>
-                                  <span class='card turn'>{{item.turn}}</span>
-                                  <span class='card river'>{{item.river}}</span>
-                                </span>
-                              </div>
-                          	</div>                         	
-                            <script>
-                              $('.room-stream').each(function(){
-                                console.log(this);
-                              });
-                              $('.room-stream').slimScroll({
-                                height: '350px'
-                              });
-                            </script>
-													</div>
+                        <div id="{{klass}}-room-stream" class="tab-pane in active" data-ng-include="'/views/'+klass+'events.html'">
 												</div>
 												<div id="room-stat" class="tab-pane">
 													<div class="room-stat">
@@ -776,7 +745,7 @@
 																	</ul>
 																</div>	
 																<div class="curent-info span6">
-																	<h4><i class="icon-info"></i> Room informations</h4>
+																	<h4><i class="icon-info"></i> Room information</h4>
 																	<ul class="ord">
 																		<li><i class="icon-plus"></i> Created at 24.04.2014. by admin</li>
 																		<li><i class="icon-plane"></i> Game type: Holdem</li>

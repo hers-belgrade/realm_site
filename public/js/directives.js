@@ -127,7 +127,8 @@ angular.module('mean.ui').directive('chosenselect',function(){
     link:function(scope,elem,attrs){
       if(attrs.chosenselect){
         scope.$watch(attrs.chosenselect,function(val){
-          elem.find('option').remove().end();
+          //elem.find('option').remove().end();
+          elem.empty();
           elem.append('<option value=""></option>').end();
           for(var i in val){
             var r = val[i];
@@ -135,7 +136,12 @@ angular.module('mean.ui').directive('chosenselect',function(){
               elem.append('<option value="'+r.name+'">'+r.name+'</option>');
             }
           }
-          jQuery(elem).chosen();
+          if(!elem.isChosen){
+            console.log(elem,'is chosen');
+            elem.chosen();
+            elem.isChosen = true;
+          }
+          elem.trigger('chosen:updated');
         },true);
       }
     }
