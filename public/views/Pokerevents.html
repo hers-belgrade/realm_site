@@ -1,0 +1,29 @@
+<div class="room-stream">
+  <div class="itemdiv commentdiv {{item.klass}}" data-ng-repeat='item in lobby.Poker.preview.events'>
+    <div class="user" ng-switch="item.hasplayer">
+      <img ng-switch-when='true'  src='{{item.avatar}}' />
+    </div>
+    <div class="body">
+      <div class="name" ng-switch="item.hasplayer">
+        <a href='#' ng-switch-when='true'>{{item.player}}</a>
+      </div>
+      <a class='eventcode' href='javascript:void()' tooltip="{{item.code}}"><i class={{item.codeicon}}></i></a>
+      <span ng-switch='item.hasamount'>
+        <span ng-switch-when='true'>
+          <span class='money'>{{item.amount}}</span>
+        </span>
+      </span>
+      <span ng-switch='item.hascards'>
+        <span class='card flop' ng-repeat='card in item.flop'>{{card}}</span>
+        <span class='card turn'>{{item.turn}}</span>
+        <span class='card river'>{{item.river}}</span>
+      </span>
+    </div>
+  </div>                         	
+  <script>
+    $('.room-stream').slimScroll({
+      height: '350px'
+    });
+  </script>
+</div>
+

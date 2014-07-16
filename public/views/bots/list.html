@@ -25,23 +25,25 @@
 <!--  <button class='btn' data-ng-click="needNew()">Add New</button> -->
 
   <div ng-include="'/views/bots/edit.html'" data-ng-init="list()"></div>
-<div class="well">
+<div class="well bootcontroll">
 	<div class="row-fluid">
-	<div class="span2"><button href="#modal-form" role="button" data-ng-click="needNew()" data-toggle="modal" class="btn btn-primary"><i class="icon-bug bigger-125"></i> Add New </button></div>
-	<div class="span10">
-  <form data-ng-submit='setSwarmParams()' class="form-horizontal">
-<div class="swarm-cg control-group">
-    <input class="input-medium" type='hidden' ng-model='botparams.botprefix' value='Bot'/>
-    <label class="control-label "for='count'><strong>Swarm</strong> Max count</label>
-<div class="controls">
-    <input type='number' ng-model='botparams.botcount'/>
-		<button class="btn btn-small btn-success" type='submit'>Change<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
-</div>
-</div>
-<!--    <input type='submit' value='Change'/> -->
-  </form>		
-  </div>
-		</div>
+	<div class="span2"><button href="#modal-form" role="button" data-ng-click="needNew()" data-toggle="modal" class="btn btn-primary"><i class="icon-Bot bigger-125"></i> Add New </button></div>
+	<div class="span7 botform">
+		  <form data-ng-submit='setSwarmParams()' class="form-horizontal">
+		  	<input class="input-medium" type='hidden' ng-model='botparams.botprefix' value='Bot'/>
+				<div class="swarm-cg control-group span4 limit-holder">
+		    	<label class="control-label" for='limit'>Limit</label>			
+		    	<input id='limit' type='text' ng-model='botparams.botcount' class='input-mini' />
+				</div>
+				<div class="swarm-cg control-group span4 factor-holder">
+			    <label class="control-label" for='leavefactor'>Leave Factor</label>
+			    <input id='leavefactor' class="input-mini" type='text' ng-model='botparams.leavefactor' />
+				</div>			    
+				<div class="span3"><button ng-controller="BotsController" class="btn btn-small btn-success" type='submit'>Change <i class="icon-arrow-right icon-on-right bigger-110"></i></button></div>
+		  </form>		
+	</div>
+	<div class="span3"><i class="icon-Bot"></i> Swarm Engaged {{botparams.engagementcount}}<br /><i class="icon-shield"></i> Total Money Engaged {{botparams.totalengaged}}</div>
+	</div>
 	</div>
 
 <!--
@@ -1713,4 +1715,6 @@
 
 		<script type="text/javascript">
 
+		$('#leavefactor').ace_spinner({value:0,min:0,max:1000,step:10, icon_up:'icon-plus', icon_down:'icon-minus', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
+		$('#limit').ace_spinner({value:0,min:0,max:5000,step:25, icon_up:'icon-plus', icon_down:'icon-minus', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
 		</script>

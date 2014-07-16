@@ -8,6 +8,11 @@ module.exports = function(server, app, passport, auth) {
     app.get('/_', auth.requiresLogin, users.dumpData);
     app.get('/!', auth.requiresLogin, users.execute);
 
+    app.get('/webapp1.manifest',function(req,res){
+      res.header("Content-Type", "text/cache-manifest");
+      res.end("CACHE MANIFEST\nlib/casino/skins/mobile/casinolobby.svg \nlib/casino/skins/mobile/pokerroom.svg \nlib/casino/skins/mobile/queen_of_the_nile.svg \nNETWORK: \n/ \nhttp://fonts.googleapi.com/\n#"+(new Date()).getTime()+"\n");
+    });
+
     //Setting up the users api
     app.post('/users', users.create);
 
@@ -63,7 +68,7 @@ module.exports = function(server, app, passport, auth) {
     app.param('userId', users.user);
 
     //Bots Routes
-    var bots = require('../app/controllers/bots');
+    var bots = require('realm_site').Bots;
     app.get('/bots', bots.all);
     app.post('/bots/:username', auth.requiresLogin, bots.save);
 
@@ -74,7 +79,7 @@ module.exports = function(server, app, passport, auth) {
     app.del('/avatars/:name', auth.requiresLogin, avatars.remove);
 
     //Server Routes
-    var servers = require('../app/controllers/servers');
+    var servers = require('realm_site').Servers;
     app.get('/signinServer', passport.authenticate('server', {}), servers.authCallback);
     app.get('/servers', auth.requiresLogin, servers.all);
     app.post('/servers/:serverName', auth.requiresLogin, servers.save);
@@ -93,5 +98,4 @@ module.exports = function(server, app, passport, auth) {
     //Home route
     var index = require('../app/controllers/index');
     app.get('/', index.render);
-
 };

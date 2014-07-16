@@ -3,174 +3,28 @@
  */
 var mongoose = require('mongoose'),
     User = mongoose.model('User'),
-    dataMaster = require('./datamaster'),
-    UserBase = require('hersdata').UserBase,
-    _BC_ = new(require('hersdata').BigCounter)(),
-    randomBytes = require('crypto').randomBytes,
-    util = require('util'),
-    Timeout = require('herstimeout');
+    RealmUsers = require('realm_site').Users;
 
-dataMaster.commit('users_starting',[
-  ['set',['local','users']]
-]);
-/*
-dataMaster.newUser.attach(function(user){
-  dataMaster.commit('new_user',[
-    ['set',['local','users',user.username]]
-  ]);
-});
-dataMaster.userOut.attach(function(user){
-  dataMaster.commit('user_out',[
-    ['remove',['local','users',user.username]]
-  ]);
-});
-*/
-
-dataMaster.functionalities.sessionuserfunctionality.f.registerUserProductionCallback({cb:function(u){
-  if(u.contains('admin')){
-    u.commitTransaction = function(params,statuscb){
-      dataMaster.commit(params.txnalias,params.txns);
-      statuscb('OK',[]);
-    };
-  }
-  if(u.contains('player')){
-    u.takeLobby = function(params,statuscb){
-      if(!this.lobby){
-        var lobby = {};
-        dataMaster.element(['rooms']).waitFor(['*',['name','class','servername']],function(roomname,map){
-          if(!lobby[map.class]){
-            lobby[map.class] = [];
-          }else{
-            if(lobby[map.class].length>=30){
-              return;
-            }
-          }
-          var a = lobby[map.class];
-          a.push([map.name,map.servername]);
-        });
-        this.lobby = lobby;
-      }
-      statuscb('OK',this.lobby);
-    };
-    u.requestPayment = function (params, ocb) {
-      var room_name = params.target.match(/(\w+|\d*)+$/)[0];
-      var balance = dataMaster.getUsersBalance(this);
-      var command = params.target + '/' +params.command;
-      this.invoke (dataMaster, command, params.params, function () {
-        //TODO: meri tih 30 sekundi odavde i odazovi se na dati cb sa 0 amount - om... imas gomilu koda pride koji treba da odradis ...
-        console.log('payment request pending ...');
-        ocb.apply (this, arguments);
-      });
-    };
-
-    u.confirmPayment = function (params, ocb) {
-      ///TODO: sanity checks ...
-      var room_name = params.target.match(/(\w+|\d*)+$/)[0];
-      var balance = dataMaster.getUsersBalance(this);
-      var amount = params.params.amount;
-      var command = params.target+'/'+params.command;
-      var self = this;
-      this.invoke(dataMaster, command, params.params, function () {
-        console.log('payment confirmed');
-        dataMaster.createEngagement(self, room_name, amount);
-        ocb.apply(this, arguments);
-      });
-    };
-  }
-}});
-
-function produceUser1(req){
-  var user = dataMaster.setFollower(req.user.username,dataMaster.realmName,req.user.roles,function(item){
-    for(var i in this.sessions){
-      if(!this.sessions[i].push){
-        delete this.sessions[i];
-      }
-      if(this.sessions[i].push(item)===false){
-        delete this.sessions[i];
-      }
-    }
-  });
-
-  if(!user.makeSession){
-    user.makeSession = function(sess){
-      if(!sess){
-        console.trace();
-        console.log('no session to make');
-        process.exit(0);
-      }
-      if(this.sessions[sess]){return;}
-      //console.log('new cs',this.followingpaths);
-      var _s = new ConsumerSession(this,dataMaster,sess);
-      var t = this;
-      this.sessions[sess] = _s;
-    };
-  }
-
-
-  if (!user.commitTransaction) {
-    user.commitTransaction = function(params,statuscb){
-      dataMaster.commit(params.txnalias,params.txns);
-      statuscb('OK',[]);
-    };
-
-    user.requestPayment = function (params, ocb) {
-      var room_name = params.target.match(/(\w+|\d*)+$/)[0];
-      var balance = dataMaster.getUsersBalance(user);
-      var command = params.target + '/' +params.command;
-      this.invoke (dataMaster, command, params.params, function () {
-        //TODO: meri tih 30 sekundi odavde i odazovi se na dati cb sa 0 amount - om... imas gomilu koda pride koji treba da odradis ...
-        console.log('payment request pending ...');
-        ocb.apply (this, arguments);
-      });
-    };
-
-    user.confirmPayment = function (params, ocb) {
-      ///TODO: sanity checks ...
-      var room_name = params.target.match(/(\w+|\d*)+$/)[0];
-      var balance = dataMaster.getUsersBalance(user);
-      var amount = params.params.amount;
-      var command = params.target+'/'+params.command;
-      var self = this;
-      this.invoke(dataMaster, command, params.params, function () {
-        console.log('payment confirmed');
-        dataMaster.createEngagement(self, room_name, amount);
-        ocb.apply(this, arguments);
-      });
-    };
-    user.takeLobby = function(params,statuscb){
-      if(!this.lobby){
-        var lobby = {};
-        dataMaster.element(['rooms']).waitFor(['*',['name','class','servername']],function(roomname,map){
-          if(!lobby[map.class]){
-            lobby[map.class] = [];
-          }else{
-            if(lobby[map.class].length>=30){
-              return;
-            }
-          }
-          var a = lobby[map.class];
-          a.push([map.name,map.servername]);
-        });
-        this.lobby = lobby;
-      }
-      statuscb('OK',this.lobby);
-    };
-  }
-  return user;
-}
-
+RealmUsers.setDBInterface(User);/*function(findobj,cb){
+  User.findOne(findobj).exec(cb);
+});*/
 
 /**
  * Auth callback
  */
 exports.authCallback = function(req, res, next) {
-  res.redirect('/');
+  console.log('authCallback',req.user);
+  res.redirect('/admin');
 };
 
 /**
  * Show login form
  */
+var index = require('./index');
 exports.signin = function(req, res) {
+  console.log('signin');
+    index.render(req,res);
+    return;
     res.render('users/signin', {
         title: 'Signin',
         message: req.flash('error')
@@ -191,10 +45,7 @@ exports.signup = function(req, res) {
  * Logout
  */
 exports.signout = function(req, res) {
-    if (req.user && req.user.username){
-      UserBase.removeUser(req.user.username,dataMaster.realmName);
-      dataMaster.removeUser(req.user.username);
-    }
+  RealmUsers.signout(req,res);
     req.logout();
     res.redirect('/');
 };
@@ -258,7 +109,8 @@ exports.dumpData = function(req, res, next) {
   }
   req.query.name = req.user.username;
   req.query.roles = req.user.roles;
-  dataMaster.functionalities.sessionuserfunctionality.f.dumpData(req.query,function(errc,errp,errm){
+  req.query.address = req.connection.remoteAddress;
+  dataMaster.functionalities.sessionuserfunctionality.dumpData(req.query,function(errc,errp,errm){
     if(errc==='OK'){
       res.jsonp(errp[0]);
     }else{
@@ -274,7 +126,7 @@ exports.execute = function(req, res, next) {
   }
   req.query.name = req.user.username;
   req.query.roles = req.user.roles;
-  dataMaster.functionalities.sessionuserfunctionality.f.produceAndExecute(req.query,function(errc,errp,errm){
+  dataMaster.functionalities.sessionuserfunctionality.produceAndExecute(req.query,function(errc,errp,errm){
     if(errc==='OK'){
       res.jsonp(errp[0]);
     }else{
@@ -311,22 +163,16 @@ exports.setup = function(app){
   console.log('socket.io listening');
   io.set('authorization', function(handshakeData, callback){
     var username = handshakeData.query.username;
-    var sess = handshakeData.query[dataMaster.functionalities.sessionuserfunctionality.f.fingerprint];
+    var sess = handshakeData.query[dataMaster.functionalities.sessionuserfunctionality.fingerprint];
     console.log('sock.io incoming',username,sess);
     if(username && sess){
-      var u = UserBase.findUser(username,dataMaster.functionalities.sessionuserfunctionality.f.realmName);
+      var u = dataMaster.functionalities.sessionuserfunctionality._findUser(username);
       if(!u){
         callback(null,false);
       }else{
-        storeUserToTree(u, function (err) {
-          if (err) {
-            callback(null, false);
-          }else{
-            handshakeData.username = username;
-            handshakeData.session = sess;
-            callback(null,true);
-          }
-        });
+        handshakeData.username = username;
+        handshakeData.session = sess;
+        callback(null,true);
       }
     }else{
       callback(null,false);
@@ -335,12 +181,16 @@ exports.setup = function(app){
   io.sockets.on('connection',function(sock){
     var username = sock.handshake.username,
       session = sock.handshake.session,
-      u = UserBase.findUser(username,dataMaster.functionalities.sessionuserfunctionality.f.realmName);
+      u = dataMaster.functionalities.sessionuserfunctionality._findUser(username);
     //console.log(username,'sockio connected',session,'session',u.sessions);
     u.makeSession(session);
     u.sessions[session].setSocketIO(sock);
     sock.on('!',function(data){
-      dataMaster.functionalities.sessionuserfunctionality.f.executeOnUser({user:u,session:session,commands:data},function(errc,errp,errm){
+      if(!sock.user){
+        sock.emit('=',{errorcode:'NO_SESSION',errorparams:[session]});
+        return;
+      }
+      dataMaster.functionalities.sessionuserfunctionality.executeOnUser({user:u,session:session,commands:data},function(errc,errp,errm){
         sock.emit('=',errc==='OK' ? errp[0] : {errorcode:errc,errorparams:errp,errormessage:errm});
       });
     });

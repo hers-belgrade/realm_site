@@ -21,4 +21,861 @@
 			</small>
 		</h1>
 	</div><!--/.page-header-->	
+  <div class="group">  	  	
+    <div class="row-fluid">
+			<div class="span12">
+				<div class="space-6"></div>
+				<div class="row-fluid">
+					<div class="span4 mainstats">
+						<div class="span12">
+							<div class="widget-header group widget-header-flat widget-header-small">
+								<div class="widget-toolbar no-border">
+									<button data-toggle="dropdown" class="btn btn-small btn-primary dropdown-toggle">
+										Today
+										<i class="icon-angle-down icon-on-right"></i>
+									</button>
+
+									<ul class="dropdown-menu dropdown-info pull-right dropdown-caret">
+
+										<li class="active">
+											<a href="#">Today</a>
+										</li>
+
+										<li>
+											<a href="#">Yesterday</a>
+										</li>
+
+										<li>
+											<a href="#">This Week</a>
+										</li>
+
+										<li>
+											<a href="#">Last Week</a>
+										</li>
+
+										<li>
+											<a href="#">This Month</a>
+										</li>
+
+										<li>
+											<a href="#">Last Month</a>
+										</li>
+									</ul>
+								</div>
+							</div>							
+							<div class="row-fluid main">
+								<div class="span2 incon"><i class="icon-usd"></i></div>
+								<div class="span7 data">
+									<div class="row-fluid datalabel">Total earnings</div>
+									<div class="row-fluid dataValue green">12,264</div>
+								</div>
+								<div class="span3 graph">Graph</div>					
+							</div>
+							<div class="row-fluid main">
+								<div class="span2 incon"><i class="icon-Poker"></i></div>
+								<div class="span10 data">
+									<div class="tabbable tabs-below">
+										<div class="tab-content">
+											<div id="by_game" class="tab-pane in active">
+											 <div class="span12">
+												 	<ul class="span4">
+												 		<li class="plabel">HoldEm</li>
+												 		<li class="pvalue green">6,235</li>
+												 	</ul>
+												 	<ul class="span4">
+												 		<li class="plabel">Omaha</li>
+												 		<li class="pvalue green">225</li>
+												 	</ul>
+												 	<ul class="span4">
+												 		<li class="plabel">Omaha HiLo</li>
+												 		<li class="pvalue green">2,235</li>
+												 	</ul>		 	
+											 </div>
+											</div>
+
+											<div id="by_kind" class="tab-pane">
+											 <div class="span12">
+												 	<ul class="span6">
+												 		<li class="plabel"><i class="icon-Bot"></i> Boot earning</li>
+												 		<li class="pvalue green">6,235</li>
+												 	</ul>
+												 	<ul class="span6">
+												 		<li class="plabel"><i class="icon-renren"></i> Rake earning</li>
+												 		<li class="pvalue green">225</li>
+												 	</ul>
+											 </div>
+											</div>
+
+											<div id="by_rooms" class="tab-pane">
+											 <div class="span12">
+												 	<ul class="span4">
+												 		<li class="plabel">Vegas 1</li>
+												 		<li class="pvalue green">6,235</li>
+												 	</ul>
+												 	<ul class="span4">
+												 		<li class="plabel">Vegas 2</li>
+												 		<li class="pvalue green">225</li>
+												 	</ul>
+												 	<ul class="span4">
+												 		<li class="plabel">London 1</li>
+												 		<li class="pvalue green">2,235</li>
+												 	</ul>		 	
+												 	<div class="full-list"><i class="icon-list-alt bigger-160"></i></div>
+												 	</ul>
+											 </div>
+											</div>
+										</div>
+
+										<div class="row-fluid">
+										<ul class="nav nav-tabs span9" id="pearnings">
+											<li class="active">
+												<a data-toggle="tab" href="#by_game">by Game</a>
+											</li>
+
+											<li>
+												<a data-toggle="tab" href="#by_kind">by Kind</a>
+											</li>
+
+											<li>
+												<a data-toggle="tab" href="#by_rooms">by Rooms</a>
+											</li>
+										</ul>
+										<ul class="span3 pokerearning"><li class="green">10,302</li></ul>
+										</div>
+									</div>
+								</div>				
+							</div>
+							<div class="row-fluid main">
+								<div class="span2 incon"><i class="icon-truck"></i></div>
+								<div class="span7 data">
+									<div class="row-fluid datalabel">Total Slot earnings</div>
+									<div class="row-fluid dataValue green">3,264</div>
+								</div>
+								<div class="span3 graph">Graph</div>					
+							</div>						
+						</div>
+					</div>
+					<div class="span8 infobox-container">
+						<div class="three_gutter row-fluid" data-ng-controller='PlayersController'>
+							<div class="span4 infobox infobox-blue  ">
+								<div class="infobox-icon">
+									<i class="icon-user"></i>
+								</div>
+				
+								<div class="infobox-data">
+                  <span class="infobox-data-number">{{playertotals.registered}}</span>
+									<div class="infobox-content">Total registered users</div>
+								</div>
+				
+								<div class="badge badge-success">
+									+33%
+									<i class="icon-arrow-up"></i>
+								</div>
+								<div class="bottom-stats">
+	
+									<div class="bottom-infobox-data left">
+                    <sparkline type='bar' data-ng-model = 'stats'></sparkline>
+										<span class="lab">Last week</span>
+									</div>
+	
+									<div class="bottom-infobox-data left">
+                    <sparkline type='bar' data-ng-model = 'stats'></sparkline>
+										<span class="lab">Last hour</span>
+									</div>
+									
+									<div class="bottom-infobox-data left">
+										<button class="btn btn-minier btn-yellow tooltip-info" data-rel="tooltip" data-placement="top" title="" data-original-title="Find more about registered users">More</button>
+									</div>	
+	
+								</div>
+							</div>						
+							
+							<div class="span4 infobox infobox-green  ">
+
+								<div class="infobox-icon">
+									<i class="icon-play"></i>
+								</div>
+				
+								<div class="infobox-data">
+                  <span class="infobox-data-number">{{playertotals.playing}}</span>
+									<div class="infobox-content">Curently playing users</div>
+								</div>
+								<div class="stat stat-success">8%</div>
+							</div>			
+				
+							<div class="span4 infobox infobox-red  ">
+								<div class="infobox-icon">
+									<i class="icon-usd"></i>
+								</div>
+				
+								<div class="infobox-data">
+                  <span class="infobox-data-number playertotalmoney">{{playertotals.totalmoney | number}}</span>
+                  <span class="infobox-data-number playerengagedmoney">{{playertotals.totalengaged | number}}</span>
+									<div class="infobox-content">Money on tables</div>
+								</div>
+								<div class="stat stat-important">+2%</div>
+								<div class="bottom-stats">								
+									<div class="bottom-infobox-data">
+										<span class="registered-bar">52, -120, 223, -16, -55, 422, -250, 55, 41, -300</span>
+										<span class="lab">Last hour</span>
+									</div>								
+								</div>
+							</div>
+						</div>		
+						
+						<div class="three_gutter row-fluid" data-ng-controller='BotsController'>
+							<div class="span4 infobox infobox-blue  ">
+
+								<div class="corner-actions">
+									<button id="bootbox-regular" href="#bot-config" data-toggle="modal" data-original-title="Change number of active Bots" title="" data-placement="bottom" data-rel="tooltip" class="btn btn-minier btn-yellow tooltip-info">Edit</button>
+									<div id="bot-config" class="modal hide fade botconf" tabindex="-1">
+										<div class="modal-header no-padding">
+											<div class="table-header">
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+												Please set targeted number of Bots and leave factor
+											</div>
+										</div>
+		
+										<div class="modal-body no-padding">
+											<div class="row-fluid">
+												<div class='span12'>											
+												  <form data-ng-submit='setSwarmParams()' class="form-horizontal">
+												  	<input class="input-medium" type='hidden' ng-model='botparams.botprefix' value='Bot'/>
+														<div class="swarm-cg control-group span4 limit-holder">
+												    	<label class="control-label" for='limit'>Limit</label>			
+												    	<input id='limit' type='text' ng-model='botparams.botcount' class='input-mini' />
+														</div>
+														<div class="swarm-cg control-group span4 factor-holder">
+													    <label class="control-label" for='leavefactor'>Leave Factor</label>
+													    <input id='leavefactor' class="input-mini" type='text' ng-model='botparams.leavefactor' />
+														</div>			    
+														<div class="span3"><button ng-controller="BotsController" class="btn btn-small btn-success" type='submit'>Change <i class="icon-arrow-right icon-on-right bigger-110"></i></button></div>
+												  </form>	
+													<script type="text/javascript">
+														$('#leavefactor').ace_spinner({value:0,min:0,max:1000,step:10, icon_up:'icon-plus', icon_down:'icon-minus', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
+														$('#limit').ace_spinner({value:0,min:0,max:5000,step:25, icon_up:'icon-plus', icon_down:'icon-minus', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
+													</script>													
+												</div>
+											</div>
+										</div>
+		
+										<div class="modal-footer">
+											<button class="btn btn-small btn-danger pull-left" data-dismiss="modal">
+												<i class="icon-remove"></i>
+												Close
+											</button>
+										</div>
+									</div><!--PAGE CONTENT ENDS-->
+<!--
+									+13%
+									<i class="icon-arrow-up"></i>
+-->
+								</div>
+
+								<div class="infobox-icon">
+									<i class="icon-Bot"></i>
+								</div>
+				
+								<div class="infobox-data">
+                  <span class="infobox-data-number">{{botparams.botcount}}</span>
+									<div class="infobox-content">Targeted bots number</div>
+								</div>
+				
+								<div class="bottom-stats">								
+                  <div class="bottom-infobox-data left">
+                    <sparkline type='bar' data-ng-model = 'botparamhistory.botcount'></sparkline>
+                  </div>
+                </div>
+							</div>						
+							
+							<div class="span4 infobox infobox-green  ">
+								<div class="infobox-icon">
+									<i class="icon-play"></i>
+								</div>
+				
+								<div class="infobox-data">
+                  <span class="infobox-data-number">{{botparams.engagementcount}}</span>
+									<div class="infobox-content">Curently playing bots</div>
+								</div>
+                <trend class="stat" good="down" data-ng-model = 'botparams.engagementcount'></trend>
+                         
+								<div class="bottom-stats">								
+                  <div class="bottom-infobox-data left">
+                    <sparkline type='bar' data-ng-model = 'botparamhistory.engagementcount'></sparkline>
+                  </div>
+                </div>
+							</div>			
+				
+							<div class="span4 infobox infobox-red  ">
+								<div class="infobox-icon">
+									<i class="icon-usd"></i>
+								</div>
+				
+								<div class="infobox-data">
+                  <span class="infobox-data-number">{{botparams.totalengaged | number}}</span>
+									<div class="infobox-content">Bots money on tables</div>
+								</div>
+                <trend class="stat" data-ng-model = 'botparams.totalengaged'></trend>
+								<div class="bottom-stats">								
+                  <div class="bottom-infobox-data left">
+                    <sparkline type='bar' data-ng-model = 'botparamhistory.totalengaged'></sparkline>
+                  </div>
+                </div>
+							</div>						
+						</div>
+						<div class="space-6"></div>
+						<div class="three_gutter row-fluid" data-ng-controller="SystemController">
+							<div class="span3 infobox infobox-green infobox-small infobox-dark">				
+								<div class="three_gutter row-fluid">
+									<div class="span8 lico"><i class="icon-shield"></i> <span class="lablab">CPU</span></div>
+									<div class="span4">
+                    <div class="memvalue" style="width:50px;" data-ng-transclude data-ng-style='{fontSize:fontSize}' data-fittext='0.15'>{{CPU}}%</div>
+<!--
+										<div class="infobox-data">
+											<div class="infobox-progress">
+												<div class="easy-pie-chart percentage" data-percent="61" data-size="39">
+													<span class="percent">61</span>%
+												</div>
+											</div>										
+										</div>
+-->
+									</div>
+									<div class="span12"><div id="cpugraph"></div></div>	
+								</div>
+<!--
+								<div class="infobox-content"><i class="icon-shield"></i> Task</div>
+								<div class="infobox-content">Completion</div>
+-->								
+								
+							</div>
+				
+							<div class="span6 infobox infobox-blue infobox-small infobox-dark">
+								<div class="three_gutter row-fluid">
+									<div class="span7 lico"><i class="icon-hdd"></i> <span class="lablab">RAM usage</span></div>
+									<div class="span5">
+                    <div class="memvalue"><span class="memoryusage">{{memoryusage}}</span>/<span class="memoryavailable">{{memoryavailable}}</span>MB</div>
+								</div>	
+							</div>
+							</div>
+							<div class="span3 infobox infobox-orange infobox-small infobox-dark last" data-ng-controller="RoomsController">
+								<div class="span4 memvalue">
+									<div class="numrum">{{count}}</div><div class="acr"><span class="above">Active</span><br /><span class="below">rooms</span></div>
+								</div>
+								<div class="span8 actrooms">
+									<div class="span12" data-ng-repeat='(klass,count) in classcounts'><div class="aholder"><i class="icon-{{klass}}"></i> {{klass}} {{count}}</div></div>
+								</div>
+							</div>
+						</div>
+						
+					</div>	    		
+    		</div>    		
+
+				<div class="hr hr32 hr-dotted"></div>				
+				<div class="space-6"></div>										
+    		<div class="row-fluid">
+	    		<div class="span6">
+						<div class="widget-box dbplayers" data-ng-controller="LogController">
+							<div class="widget-header group widget-header-flat widget-header-small">
+								<ul class="nav nav-tabs" id="recent-tab">
+									<li class="active">
+										<a data-toggle="tab" href="#activities-tab">Activities</a>
+									</li>
+
+									<li>
+										<a data-toggle="tab" href="#cash-tab">Cash flow</a>
+									</li>
+
+									<li>
+										<a data-toggle="tab" href="#top-tab">Top players</a>
+									</li>
+								</ul>
+
+
+								<div class="widget-toolbar no-border">
+									<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown">
+										This Week
+										<i class="icon-angle-down icon-on-right"></i>
+									</button>
+
+									<ul class="dropdown-menu dropdown-info pull-right dropdown-caret">
+										<li class="active">
+											<a href="#">This Week</a>
+										</li>
+
+										<li>
+											<a href="#">Last Week</a>
+										</li>
+
+										<li>
+											<a href="#">This Month</a>
+										</li>
+
+										<li>
+											<a href="#">Last Month</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+
+							<div class="widget-body">
+								<div class="widget-main">
+									<div class="tab-content">
+										<div id="activities-tab" class="tab-pane in active">
+											<div class="comments activities">
+                        <div class="itemdiv commentdiv" data-ng-class='item.htmlcolorclass' data-ng-repeat="item in items.system">
+                          <div class="infobox-icon left">
+                            <i data-ng-class="item.htmltypeclass"></i>
+                          </div>
+
+													<div class="body">
+														<div class="name">
+															<a href="#">System issue</a>
+														</div>
+
+														<div class="time">
+															<i class="icon-time"></i>
+                              <age date=item.moment></age>
+														</div>
+
+														<div class="text">
+															<i class="icon-quote-left"></i>
+                              {{item.msg}}
+														</div>
+													</div>
+
+													<div class="tools">
+														<div class="inline position-relative">
+															<button class="btn btn-minier bigger btn-yellow dropdown-toggle" data-toggle="dropdown">
+																<i class="icon-angle-down icon-only bigger-120"></i>
+															</button>
+
+															<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+																<li>
+																	<a href="#" class="tooltip-success" data-rel="tooltip" title="Approve">
+																		<span class="green">
+																			<i class="icon-ok bigger-110"></i>
+																		</span>
+																	</a>
+																</li>
+
+																<li>
+																	<a href="#" class="tooltip-warning" data-rel="tooltip" title="Reject">
+																		<span class="orange">
+																			<i class="icon-remove bigger-110"></i>
+																		</span>
+																	</a>
+																</li>
+
+																<li>
+																	<a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+																		<span class="red">
+																			<i class="icon-trash bigger-110"></i>
+																		</span>
+																	</a>
+																</li>
+															</ul>
+														</div>
+													</div>
+                        </div>
+											</div>
+										</div>
+										<div id="cash-tab" class="tab-pane">
+											<div class="comments">
+                        <div class="itemdiv commentdiv" data-ng-class='item.htmlcolorclass' data-ng-repeat="item in items.finance">
+                          <div class="infobox-icon left">
+                            <i data-ng-class="item.htmltypeclass"></i>
+                          </div>
+
+													<div class="body">
+														<div class="name">
+															<i class='icon-{{item.klass}}'></i> <a href="javascript:void(0);">{{item.room}}</a>
+														</div>
+
+														<div class="time">
+															<i class="icon-time"></i>
+                              <age date=item.moment></age>
+														</div>
+
+														<div class="text">
+															<i class="icon-quote-left"></i>
+                              {{item.msg}}
+														</div>
+													</div>
+
+													<div class="tools">
+														<div class="inline position-relative">
+															<button class="btn btn-minier bigger btn-yellow dropdown-toggle" data-toggle="dropdown">
+																<i class="icon-angle-down icon-only bigger-120"></i>
+															</button>
+
+															<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+																<li>
+																	<a href="#" class="tooltip-success" data-rel="tooltip" title="Approve">
+																		<span class="green">
+																			<i class="icon-ok bigger-110"></i>
+																		</span>
+																	</a>
+																</li>
+
+																<li>
+																	<a href="#" class="tooltip-warning" data-rel="tooltip" title="Reject">
+																		<span class="orange">
+																			<i class="icon-remove bigger-110"></i>
+																		</span>
+																	</a>
+																</li>
+
+																<li>
+																	<a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+																		<span class="red">
+																			<i class="icon-trash bigger-110"></i>
+																		</span>
+																	</a>
+																</li>
+															</ul>
+														</div>
+													</div>
+                        </div>
+                      </div>
+										</div>
+										<div id="top-tab" class="tab-pane">
+											<div class="comments">
+												<div class="itemdiv commentdiv">
+													<div class="user">
+														<img alt="Bob Doe's Avatar" src="lib/ace/avatars/avatar.png" />
+													</div>
+
+													<div class="body">
+														<div class="name">
+															<a href="#">Bob Doe</a>
+														</div>
+
+														<div class="time">
+															<i class="icon-time"></i>
+															<span class="green">6 min</span>
+														</div>
+
+														<div class="text">
+															<i class="icon-quote-left"></i>
+															Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis &hellip;
+														</div>
+													</div>
+
+													<div class="tools">
+														<div class="inline position-relative">
+															<button class="btn btn-minier bigger btn-yellow dropdown-toggle" data-toggle="dropdown">
+																<i class="icon-angle-down icon-only bigger-120"></i>
+															</button>
+
+															<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+																<li>
+																	<a href="#" class="tooltip-success" data-rel="tooltip" title="Approve">
+																		<span class="green">
+																			<i class="icon-ok bigger-110"></i>
+																		</span>
+																	</a>
+																</li>
+
+																<li>
+																	<a href="#" class="tooltip-warning" data-rel="tooltip" title="Reject">
+																		<span class="orange">
+																			<i class="icon-remove bigger-110"></i>
+																		</span>
+																	</a>
+																</li>
+
+																<li>
+																	<a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+																		<span class="red">
+																			<i class="icon-trash bigger-110"></i>
+																		</span>
+																	</a>
+																</li>
+															</ul>
+														</div>
+													</div>
+												</div>
+
+												<div class="itemdiv commentdiv">
+													<div class="user">
+														<img alt="Jennifer's Avatar" src="lib/ace/avatars/avatar1.png" />
+													</div>
+
+													<div class="body">
+														<div class="name">
+															<a href="#">Jennifer</a>
+														</div>
+
+														<div class="time">
+															<i class="icon-time"></i>
+															<span class="blue">15 min</span>
+														</div>
+
+														<div class="text">
+															<i class="icon-quote-left"></i>
+															Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis &hellip;
+														</div>
+													</div>
+
+													<div class="tools">
+														<a href="#" class="btn btn-minier btn-info">
+															<i class="icon-only icon-pencil"></i>
+														</a>
+
+														<a href="#" class="btn btn-minier btn-danger">
+															<i class="icon-only icon-trash"></i>
+														</a>
+													</div>
+												</div>
+
+												<div class="itemdiv commentdiv">
+													<div class="user">
+														<img alt="Joe's Avatar" src="lib/ace/avatars/avatar2.png" />
+													</div>
+
+													<div class="body">
+														<div class="name">
+															<a href="#">Joe</a>
+														</div>
+
+														<div class="time">
+															<i class="icon-time"></i>
+															<span class="orange">22 min</span>
+														</div>
+
+														<div class="text">
+															<i class="icon-quote-left"></i>
+															Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis &hellip;
+														</div>
+													</div>
+
+													<div class="tools">
+														<a href="#" class="btn btn-minier btn-info">
+															<i class="icon-only icon-pencil"></i>
+														</a>
+
+														<a href="#" class="btn btn-minier btn-danger">
+															<i class="icon-only icon-trash"></i>
+														</a>
+													</div>
+												</div>
+
+												<div class="itemdiv commentdiv">
+													<div class="user">
+														<img alt="Rita's Avatar" src="lib/ace/avatars/avatar3.png" />
+													</div>
+
+													<div class="body">
+														<div class="name">
+															<a href="#">Rita</a>
+														</div>
+
+														<div class="time">
+															<i class="icon-time"></i>
+															<span class="red">50 min</span>
+														</div>
+
+														<div class="text">
+															<i class="icon-quote-left"></i>
+															Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis &hellip;
+														</div>
+													</div>
+
+													<div class="tools">
+														<a href="#" class="btn btn-minier btn-info">
+															<i class="icon-only icon-pencil"></i>
+														</a>
+
+														<a href="#" class="btn btn-minier btn-danger">
+															<i class="icon-only icon-trash"></i>
+														</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div><!--/widget-main-->
+							</div><!--/widget-body-->
+						</div><!--/widget-box-->		    		
+	    		</div>
+	    		<div class="span6" data-ng-controller='LobbyController'>
+						<div class="widget-box dbrooms">
+							<div class="widget-header group widget-header-flat widget-header-small">
+								<ul class="nav nav-tabs" id="recent-tab">
+									<li data-ng-repeat='(klass,rooms) in lobby' ng-class="{in:klass == 'Poker', active: klass == 'Poker'}" >
+										<a data-toggle="tab" href="#{{klass}}-tab" >{{klass}} rooms</a>
+									</li>
+								</ul>
+							</div>
+
+							<div class="widget-body">
+								<div class="widget-main">
+									<div class="tab-content dbrooms-content">
+										<div id="{{klass}}-tab" class="tab-pane" ng-class="{in:klass == 'Poker', active: klass == 'Poker'}" data-ng-repeat="(klass,rooms) in lobby">
+											<div class="row-fluid">
+												<div class="headholder">
+													<div class="second-tabs">
+															<div class="span4">
+																<select class="chzn-select" chosenselect='rooms' id="form-field-select-3" data-placeholder="Choose a Room..." data-ng-model='previewroomname' ng-change='preview()'>
+																</select>	
+															</div>
+															<div class="active span8">
+                                <a data-toggle="tab" class="btn btn-mini btn-primary" href="#{{klass}}-room-stream"><i class="icon-rss"></i> Room stream</a>
+																<a data-toggle="tab" class="btn btn-mini btn-primary" href="#room-stat"><i class="icon-gear"></i> Room Settings</a>
+															</div>																					
+													</div>
+												</div>
+											</div>											
+											<div class="tab-content">
+                        <div id="{{klass}}-room-stream" class="tab-pane in active" data-ng-include="'/views/'+klass+'events.html'">
+												</div>
+												<div id="room-stat" class="tab-pane">
+													<div class="room-stat">
+														<div class="row-fluid">
+															<div class="span12">
+																<div class="room-info span6">
+																	<h4><i class="icon-signal"></i> All the time stats</h4>
+																	<ul>
+																		<li><i class="icon-plus"></i> Created at 24.04.2014. by admin</li>
+																		<li><i class="icon-plane"></i> Game type: Holdem</li>
+																		<li><i class="icon-user"></i> Betting: PL</li>
+																		<li><i class="icon-user"></i> Stakes: 20/10</li>
+																		<li><i class="icon-user"></i> Capacity: 12</li>
+																		<li><i class="icon-rocket"></i> Game speed: fast</li>																		
+																	</ul>
+																</div>	
+																<div class="curent-info span6">
+																	<h4><i class="icon-info"></i> Room information</h4>
+																	<ul class="ord">
+																		<li><i class="icon-plus"></i> Created at 24.04.2014. by admin</li>
+																		<li><i class="icon-plane"></i> Game type: Holdem</li>
+																		<li><i class="icon-user"></i> Betting: PL</li>
+																		<li><i class="icon-user"></i> Stakes: 20/10</li>
+																		<li><i class="icon-user"></i> Capacity: 12</li>
+																		<li><i class="icon-rocket"></i> Game speed: fast</li>																		
+																	</ul>	
+																	<div class="hr hr-dotted"></div>
+																	<div class="span12"></div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>										
+											</div>												
+										</div>
+								</div>
+								</div><!--/widget-main-->
+							</div><!--/widget-body-->
+						</div><!--/widget-box-->		    		
+	    		</div>
+    		</div>
+        <!--
+				<div class="hr hr32 hr-dotted"></div>	
+				<ul style="color:white;">
+					<li><i class="icon-play"></i> Start</li>
+					<li><i class="icon-stop"></i> End</li>
+
+					<li><i class="icon-medkit"></i> Ante</li>
+					<li><i class="icon-hospital"></i> Small Blind</li>
+					<li><i class="icon-ambulance"></i> Big Blind</li>
+
+					<li><i class="icon-ok-sign"></i> Check</li>
+					<li><i class="icon-thumbs-up"></i> Call</li>
+					<li><i class="icon-thumbs-up"></i> Bet</li>
+					<li><i class="icon-thumbs-down"></i> Fold</li>
+					<li><i class="icon-hand-up"></i> Raise</li>
+					<li><i class="icon-flag"></i> Allin</li>
+
+					<li><i class="icon-user-md"></i> Flop</li>
+					<li><i class="icon-stethoscope"></i> Turn</li>
+					<li><i class="icon-suitcase"></i> River</li>
+
+
+					<li><i class="icon-rotate-right"></i> Return</li>
+					<li><i class="icon-share-alt"></i> Collect</li>
+					<li><i class="icon-trophy"></i> Win</li>
+					<li><i class="icon-resize-full"></i> Tie</li>
+				</ul>
+
+    		</div>
+        //-->
+   		
+				<div class="space-6"></div>
+    	</div>
+    </div>
+  </div>
 </div>
+
+
+		<script type="text/javascript">
+			$(function() {
+				$('.easy-pie-chart.percentage').each(function(){
+					var $box = $(this).closest('.infobox');
+					var barColor = $(this).data('color') || (!$box.hasClass('infobox-dark') ? $box.css('color') : 'rgba(255,255,255,0.95)');
+					var trackColor = barColor == 'rgba(255,255,255,0.95)' ? 'rgba(255,255,255,0.25)' : '#4F4F4F';
+					var size = parseInt($(this).data('size')) || 50;
+					$(this).easyPieChart({
+						barColor: barColor,
+						trackColor: trackColor,
+						scaleColor: false,
+						lineCap: 'butt',
+						lineWidth: parseInt(size/10),
+						animate: /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase()) ? false : 1000,
+						size: size
+					});
+				})
+				
+/*
+				$("#bootbox-regular").on(ace.click_event, function() {
+
+					bootbox.confirm("<form data-ng-submit='setSwarmParams()' class='form-horizontal'>\
+					    <input class='input-medium' type='hidden' ng-model='botparams.botprefix' value='Bot'/>\
+					    <div class='swarm-cg control-group span4 limit-holder'>\
+					    <label class='control-label' for='limit'>Limit</label>\
+    					<input id='limit' type='text' ng-model='botparams.botcount' class='input-mini' />\
+					    </div>\
+					    <div class='swarm-cg control-group span4 factor-holder'>\
+					    <label class='control-label' for='leavefactor'>Leave Factor</label>\
+					    <input id='leavefactor' class='input-mini' type='text' ng-model='botparams.leavefactor' />\
+					    </div>\
+					    <div class='span3'><button class='btn btn-small btn-success' type='submit'>Change<i class='icon-arrow-right icon-on-right bigger-110'></i></button></div>\
+					    </form>", function(result) {
+					        if(result)
+					            $('#infos').submit();
+					});
+				});				
+*/
+			
+				$('.sparkline').each(function(){
+					var $box = $(this).closest('.infobox');
+					var barColor = !$box.hasClass('infobox-dark') ? $box.css('color') : '#FFF';
+					$(this).sparkline('html', {tagValuesAttribute:'data-values', type: 'bar', barColor: barColor , chartRangeMin:$(this).data('min') || 0} );
+				});
+				$('.registered-bar').each(function(){
+					var $box = $(this).closest('.infobox');
+					var barColor = !$box.hasClass('infobox-dark') ? $box.css('color') : '#FFF';
+					$(this).sparkline('html', {tagValuesAttribute:'data-values', type: 'bar', barColor: '#6FB3E0', negBarColor: barColor, chartRangeMin:$(this).data('min') || 0} );
+				});
+				
+				$('[data-rel=tooltip]').tooltip();
+				$('[data-rel=popover]').popover({html:true});				
+
+				$('.dialogs,.comments').slimScroll({
+					height: '395px'
+			    });
+				$('.room-stream').slimScroll({
+					height: '350px'
+			    });			     
+			  var spvalues = [54,78,92,96,84,88,42,67,84,81];
+        $('#cpugraph').sparkline(spvalues, {type: 'line', spotColor: 'white', maxSpotColor:'red', spotRadius:3, highlightSpotColor:'yellow', highlightLineColor:'white' });  
+// , {type: 'line', spotColor: 'white', maxSpotColor:'red', spotRadius:3, highlightSpotColor:'yellow', highlightLineColor:'white' }
+				//$(".chzn-select").chosen(); 
+
+/*
+				$('.pokerearning li').inflateText({maxFontSize:24});		
+				$('li.plabel').inflateText({maxFontSize:18});
+				$('li.pvalue').inflateText({maxFontSize:24});												
+				$('div.memvalue, .infobox-orange div.numrum').inflateText({maxFontSize:70});
+*/
+			});
+		</script>		
