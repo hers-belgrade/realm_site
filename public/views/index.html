@@ -232,13 +232,30 @@
 										<div class="modal-header no-padding">
 											<div class="table-header">
 												<button type="button" class="close" data-dismiss="modal">&times;</button>
-												Please set targeted number of Bots
+												Please set targeted number of Bots and leave factor
 											</div>
 										</div>
 		
 										<div class="modal-body no-padding">
 											<div class="row-fluid">
-												<div class='span12'>dgfh</div>
+												<div class='span12'>											
+												  <form data-ng-submit='setSwarmParams()' class="form-horizontal">
+												  	<input class="input-medium" type='hidden' ng-model='botparams.botprefix' value='Bot'/>
+														<div class="swarm-cg control-group span4 limit-holder">
+												    	<label class="control-label" for='limit'>Limit</label>			
+												    	<input id='limit' type='text' ng-model='botparams.botcount' class='input-mini' />
+														</div>
+														<div class="swarm-cg control-group span4 factor-holder">
+													    <label class="control-label" for='leavefactor'>Leave Factor</label>
+													    <input id='leavefactor' class="input-mini" type='text' ng-model='botparams.leavefactor' />
+														</div>			    
+														<div class="span3"><button ng-controller="BotsController" class="btn btn-small btn-success" type='submit'>Change <i class="icon-arrow-right icon-on-right bigger-110"></i></button></div>
+												  </form>	
+													<script type="text/javascript">
+														$('#leavefactor').ace_spinner({value:0,min:0,max:1000,step:10, icon_up:'icon-plus', icon_down:'icon-minus', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
+														$('#limit').ace_spinner({value:0,min:0,max:5000,step:25, icon_up:'icon-plus', icon_down:'icon-minus', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
+													</script>													
+												</div>
 											</div>
 										</div>
 		

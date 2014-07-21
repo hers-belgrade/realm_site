@@ -39,7 +39,7 @@
 			    <label class="control-label" for='leavefactor'>Leave Factor</label>
 			    <input id='leavefactor' class="input-mini" type='text' ng-model='botparams.leavefactor' />
 				</div>			    
-				<div class="span3"><button class="btn btn-small btn-success" type='submit'>Change<i class="icon-arrow-right icon-on-right bigger-110"></i></button></div>
+				<div class="span3"><button ng-controller="BotsController" class="btn btn-small btn-success" type='submit'>Change <i class="icon-arrow-right icon-on-right bigger-110"></i></button></div>
 		  </form>		
 	</div>
 	<div class="span3"><i class="icon-Bot"></i> Swarm Engaged {{botparams.engagementcount}}<br /><i class="icon-shield"></i> Total Money Engaged {{botparams.totalengaged}}</div>
@@ -1717,5 +1717,4 @@
 
 		$('#leavefactor').ace_spinner({value:0,min:0,max:1000,step:10, icon_up:'icon-plus', icon_down:'icon-minus', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
 		$('#limit').ace_spinner({value:0,min:0,max:5000,step:25, icon_up:'icon-plus', icon_down:'icon-minus', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
-
 		</script>
