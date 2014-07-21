@@ -13,7 +13,13 @@ function viewForUser(req){
 }
 
 exports.render = function(req, res) {
-    res.render(viewForUser(req), {
-        user: req.user ? JSON.stringify(req.user) : "null"
-    });
+  res.render('app', {
+      user: req.user ? JSON.stringify(req.user) : "null"
+  });
+  return;
+  var vu = viewForUser(req);
+  console.log(req.user ? req.user.username : 'nobody','render view',vu);
+  res.render(vu, {
+      user: req.user ? JSON.stringify(req.user) : "null"
+  });
 };

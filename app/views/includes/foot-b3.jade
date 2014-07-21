@@ -1,0 +1,70 @@
+script(type='text/javascript', src='/socket.io/socket.io.js') 
+//[if !IE]><!
+script(type="text/javascript").
+script(type='text/javascript', src='/lib/ace/js/jquery.min.noie.js')
+script(type="text/javascript").
+  window.jQuery || document.write("<script src='/lib/ace/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+//<![endif]
+
+//[if IE]><!
+  script(type='text/javascript', src='/lib/ace/js/jquery.min.ie.js')
+  script(type="text/javascript").
+    window.jQuery || document.write("<script src='/lib/ace/js/jquery-1.10.2.min.js'>"+"<"+"/script>"); 
+//<![endif]
+
+
+//AngularJS
+script(type='text/javascript', src='/lib/ng-file-upload/angular-file-upload-shim.min.js')
+script(type='text/javascript', src='/lib/angular/angular.js')
+script(type='text/javascript', src='/lib/angular-cookies/angular-cookies.js')
+script(type='text/javascript', src='/lib/angular-resource/angular-resource.js')
+script(type='text/javascript', src='/lib/ng-file-upload/angular-file-upload.min.js')
+
+//Angular-socket-io
+script(type='text/javascript', src='/lib/angular-socket-io/socket.js')
+
+
+//Angular UI
+script(type='text/javascript', src='/lib/angular-bootstrap/ui-bootstrap.js')
+script(type='text/javascript', src='/lib/angular-bootstrap/ui-bootstrap-tpls.js')
+script(type='text/javascript', src='/lib/angular-ui-utils/modules/route/route.js')
+
+//Application Init
+script(type='text/javascript', src='/js/app.js')
+script(type='text/javascript', src='/js/config.js')
+script(type='text/javascript', src='/js/directives.js')
+script(type='text/javascript', src='/js/filters.js')
+
+//Application Services
+script(type='text/javascript', src='/js/services/global.js')
+script(type='text/javascript', src='/js/services/avatars.js')
+script(type='text/javascript', src='/js/services/bots.js')
+
+//Application Controllers
+script(type='text/javascript', src='/js/controllers/bots.js')
+script(type='text/javascript', src='/js/controllers/avatars.js')
+script(type='text/javascript', src='/js/controllers/index.js')
+script(type='text/javascript', src='/js/controllers/header.js')
+script(type='text/javascript', src='/js/init.js')
+
+//HERS angular
+script(type='text/javascript', src='/lib/hersangularclient/angular.js')
+script(type='text/javascript', src='/js/controllers/lobby.js')
+script(type="text/javascript").
+    angular.module('HERS').run(function(go){go();});
+
+if (req.host=='localhost')
+    //Livereload script rendered 
+    script(type='text/javascript', src='http://localhost:35729/livereload.js')
+
+//Ace Theme
+
+script(type='text/javascript', src='/lib/bootstrap3/js/bootstrap.min.js')
+script(type='text/javascript', src='/lib/viewporter/scripts/image-picker.min.js')
+script(type='text/javascript', src='/lib/viewporter/scripts/custom.js')
+script(type='text/javascript', src='/lib/viewporter/scripts/vars.js')
+script(type='text/javascript', src='/lib/viewporter/scripts/functions.js')
+
+script(type='text/javascript').
+  function show_box(id) { $('.widget-box.visible').removeClass('visible'); $('#'+id).addClass('visible');}
+script(type='text/javascript', src='/lib/ng-grid/build/ng-grid.debug.js')

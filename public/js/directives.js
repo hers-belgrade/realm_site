@@ -1,3 +1,4 @@
+/*
 angular.module('mean.ui').directive('spinner',function(){
   return {
     restrict: 'E',
@@ -25,4 +26,124 @@ angular.module('mean.ui').directive('spinner',function(){
         }).spin(d[0]);
     }
   }
+});
+*/
+
+angular.module('mean.ui').directive('sparkline',function(){
+  return {
+    restrict: 'E',
+    link: function(scope,elem,attrs){
+      var clr = (window.getComputedStyle(elem[0])).color;
+      scope.$watch(attrs.ngModel,function(val){
+        elem.sparkline(val,{barColor:clr,chartRangeMin:attrs.min,type:attrs.type});
+      },true);
+    }
+  };
+});
+
+angular.module('mean.ui').directive('trend',function(){
+  return {
+    restrict: 'E',
+    link: function(scope,elem,attrs){
+      var upgood=(attrs.good !== 'down');
+      var lastval;
+      scope.$watch(attrs.ngModel,function(val){
+        if(typeof lastval !== 'undefined'){
+          if(val > lastval){
+            elem.addClass('stat-up');
+            elem.removeClass('stat-down');
+            if(upgood){
+              elem.addClass('stat-green');
+              elem.removeClass('stat-red');
+            }else{
+              elem.addClass('stat-red');
+              elem.removeClass('stat-green');
+            }
+          }else if(val < lastval){
+            elem.addClass('stat-down');
+            elem.removeClass('stat-up');
+            if(upgood){
+              elem.addClass('stat-red');
+              elem.removeClass('stat-green');
+            }else{
+              elem.addClass('stat-green');
+              elem.removeClass('stat-red');
+            }
+          }else{
+            elem.removeClass('stat-down');
+            elem.removeClass('stat-up');
+          }
+          elem[0].innerHTML = ~~((val-lastval)/val*100)+'%';
+          //console.log(elem,'trend',elem.innerHTML,val,lastval);
+        }
+        lastval = val;
+      },true);
+    }
+  };
+});
+
+angular.module('mean.ui').directive('age',function(){
+  return {
+    restrict: 'E',
+    replace:true,
+    controller: function ($scope) {
+      $scope.calc = function () {
+        if(!(this.t instanceof Date)){
+          this.t = new Date(this.t);
+        }
+        var diff = (new Date())-this.t;
+        diff = ~~(diff/1000);
+        if(diff<5){
+          this.klass = 'red';
+          diff = 'now';
+        }else if(diff<60){
+          this.klass = 'green';
+          diff = diff+' secs';
+        }else if(diff<60*60){
+          this.klass = 'green';
+          diff = ~~(diff/60);
+          diff = diff+' mins';
+        }else if(diff<60*60*24){
+          diff = ~~(diff/60/60);
+          diff = diff+' hours';
+        }else{
+          diff = ~~(diff/60/60/24);
+          diff = diff+' days';
+        }
+        return diff;
+      }
+    },
+    template:'<span class={{klass}}>{{calc()}}</span>',
+    scope: {
+      t : '=date'
+    },
+  
+  };
+});
+
+angular.module('mean.ui').directive('chosenselect',function(){
+  return {
+    restrict:'A',
+    link:function(scope,elem,attrs){
+      if(attrs.chosenselect){
+        scope.$watch(attrs.chosenselect,function(val){
+          //elem.find('option').remove().end();
+          elem.empty();
+          elem.append('<option value=""></option>').end();
+          for(var i in val){
+            var r = val[i];
+            if(r.name){
+              elem.append('<option value="'+r.name+'">'+r.name+'</option>');
+            }
+          }
+          if(!elem.isChosen){
+            console.log(elem,'is chosen');
+            elem.chosen();
+            elem.isChosen = true;
+          }
+          elem.trigger('chosen:updated');
+        },true);
+      }
+    }
+  };
 });

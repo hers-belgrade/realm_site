@@ -1,3 +1,29 @@
+var _historylen = 20;
+
+function doValue(hash,historyhash,trendhash,name,value){
+  if(typeof value === 'undefined'){
+    delete hash[name];
+  }else{
+    if(!historyhash[name]){
+      historyhash[name] = [];
+    }
+    historyhash[name].push(value);
+    if(historyhash[name].length>_historylen){
+      historyhash[name].shift();
+    }
+    for(var i in historyhash){
+      if(i===name){continue;}
+      if(historyhash[i].length<_historylen){
+        historyhash[i].push(historyhash[i][historyhash[i].length-1]);
+      }
+    }
+    if(hash[name]){
+      trendhash[name] = ~~((value-hash[name])/hash[name]*100);
+    }
+    hash[name] = value;
+  }
+}
+
 function Distincter(resarray){
   if(!resarray){return;}
   this.map = {};
@@ -53,32 +79,17 @@ SelectOptionDistincter.prototype.compare = function(storedval,providedval){
   return storedval && providedval && (storedval.name===providedval.name);
 }
 
-function handleBot(bot,follower,roomdistincter){
+function handleBot(bot,follower,scope){
   function handleBotField(fieldname){
-    var rdadder,rdremover;
-    if(fieldname==='roomname'){
-      rdadder=function(val){
-        if(typeof val!=='undefined' && val.length){
-          roomdistincter.add(val);
-        }
-      };
-      rdremover=function(val){
-        if(typeof val!=='undefined' && val.length){
-          roomdistincter.remove(val);
-        }
-      };
-    }else{
-      rdadder=function(){};
-      rdremover=function(){};
-    }
     follower.listenToScalar(bot,fieldname,{setter:function(val,oldval){
-      rdadder(val);
-      rdremover(oldval);
       this[fieldname]=val;
     }});
   };
-  handleBotField('roomname');
-  handleBotField('status');
+  handleBotField('rooms');
+  handleBotField('policy');
+  handleBotField('balance');
+  //handleBotField('roomname');
+  //handleBotField('status');
   //handleBotField('balance');
   //handleBotField('chips');
   //handleBotField('lastActivity');
@@ -89,6 +100,7 @@ angular.module('mean.bots').controller('BotsController', ['$scope', 'Bots', 'fol
 	
   $scope.bots = [];
   $scope.display_data = [];
+  $scope.stats = [152,168,144,170,124,165,152];
   $scope.pagingOptions = {
     pageSizes: [5,10,20, 50, 100], 
     pageSize: 5,
@@ -101,7 +113,6 @@ angular.module('mean.bots').controller('BotsController', ['$scope', 'Bots', 'fol
     }
   }, true);
   $scope.$watch('bots.length', function (nv, ov) {
-    if (nv == ov) return;
     $scope.getPagedData($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
   }, true);
   $scope.getPagedData = function (size, current) {
@@ -119,11 +130,24 @@ angular.module('mean.bots').controller('BotsController', ['$scope', 'Bots', 'fol
 
   $scope.getPagedData($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
 
+  $scope.policies = ['Careful', 'Standard', 'Aggresive'];
+
+  $scope.$on('ngGridEventEndCellEdit', function(evnt) {
+    var r = evnt.targetScope.row.entity;
+    follower.do_command(':commitTransaction',{txnalias:'policy_change',txns:[
+      ['set',['local','bots','bots', r.username, 'policy'],[r.policy]]
+    ]});
+  });
+  var policySelectBox = "<select ng-class=\"'colt' + col.index\" ng-input=\"COL_FIELD\" ng-model='row.entity.policy'>";
+  for (var i in $scope.policies) {
+    policySelectBox+= "<option value="+i+">"+$scope.policies[i]+"</option>";
+  }
+  policySelectBox+= "</select>";
 
 	$scope.gridOptions = {
 		enableRowSelection: false,
     enablePaging:true,
-    enableCellEdit:true,
+    enableCellEdit:false,
     rowHeight: 50,
     multiSelect: false,
     showFooter:true,
@@ -133,8 +157,11 @@ angular.module('mean.bots').controller('BotsController', ['$scope', 'Bots', 'fol
 		columnDefs: [
      {field:'username', displayName:'Name'},
      {field:'avatar', displayName:'Avatar', cellTemplate:'<div class="ngCellText" ng-class="col.colIndex()"><img src="/img/avatars/{{row.getProperty(col.field)}}" width="60px"/></div>'},//cellTemplate:'<img src="/img/avatars/{{_bot.avatar}}" width="60px"/>'},
-     {field:'roomname', displayName:'Room'},
-     {field:'status', displayName:'Status'}/*,
+     {field:'rooms', displayName:'Sitting in Rooms'},
+     {field:'balance', displayName:'Money Engaged'},
+     {field:'policy', displayName:'Policy', editableCellTemplate: policySelectBox, enableCellEdit:true, 
+      cellTemplate: '<div class="ngCellText" ng-class="col.colIndex()"><span ng-cell-text>{{policies[row.getProperty(col.field)]}}</span></div>'
+     }/*,
      {field:'balance',displayName:'Balance'},
      {field:'lastActivity', displayName:'Last activity',cellFilter:'date'},
      {field:'lastAnswer', displayName:'Last answer',cellFilter:'date'},
@@ -166,6 +193,7 @@ angular.module('mean.bots').controller('BotsController', ['$scope', 'Bots', 'fol
   };
 
   $scope.list = function(){
+    follower.do_command(':activate','bots');
     Bots.query(function(bots){
       for(var i in bots){
         var bot = getOrCreateBot(bots[i].username);
@@ -196,43 +224,41 @@ angular.module('mean.bots').controller('BotsController', ['$scope', 'Bots', 'fol
   };
 
 
-  this.listeners = {};
+  $scope.listeners = {};
   $scope.rooms = [{name:'All',value:''}];
-  var distincter = new SelectOptionDistincter($scope.rooms);
-  $scope.botparams = follower.follow('local').follow('bots').scalars;
-  var botf = follower.follow('local').follow('bots').follow('bots');
-  this.listeners.bots = botf.listenToCollections($scope.bots,{activator:function(botname){
-    var bot = getOrCreateBot(botname);
-    handleBot(bot,botf.follow(botname),distincter);
-  },deactivator:function(botname){
-    var bo = getBotOrdinal(botname);
-    if(typeof bo !== 'undefined'){
-      this.splice(bo,1);
-      botf.follow(botname).destroy();
-    }
+  $scope.botparams = {};
+  $scope.botparamhistory = {};
+  $scope.botparamtrend = {};
+  follower.follow('bots').listenToScalars($scope,{setter:function(name,val){
+    doValue(this.botparams,this.botparamhistory,this.botparamtrend,name,val);
   }});
-  $scope.swarmprefix = '';
-  $scope.swarmcount = 0;
-  follower.listenToMultiScalars($scope,['botprefix','botcount'],function(hash){
-    this.swarmprefix = hash.botprefix;
-    this.swarmcount = hash.botcount;
-  });
+  follower.follow('bots').listenToCollection($scope,'bots',{activator:function(){
+    var botf = follower.follow('bots').follow('bots');
+    this.listeners.bots = botf.listenToCollections(this,{activator:function(botname){
+      var bot = getOrCreateBot(botname);
+      handleBot(bot,botf.follow(botname),this);
+    },deactivator:function(botname){
+      var bo = getBotOrdinal(botname);
+      if(typeof bo !== 'undefined'){
+        this.bots.splice(bo,1);
+        botf.follow(botname).destroy();
+      }
+    }});
+  }});
   $scope.setSwarmParams = function(){
     follower.do_command(':commitTransaction',{txnalias:'botcount_change',txns:[
-      ['set',['local','bots','botcount'],[this.botparams.botcount,undefined,'admin']]
+      ['set',['local','bots','botcount'],[this.botparams.botcount]],
+      ['set',['local','bots','leavefactor'],[this.botparams.leavefactor]]
     ]});
     //follower.do_command('/local/bots/pokerbots/setSwarmParams',this.botparams);
   };
-  $scope.$on('$destroy',(function(_t){
-    var t = _t;
-    return function(event){
-      console.log('destroyed');
-      for(var i in this.listeners){
-        this.listeners[i].destroy();
-      }
-      this.listeners = {};
-    };
-  })(this));
+  $scope.$on('$destroy',function(event){
+    follower.do_command(':deactivate','bots');
+    for(var i in event.currentScope.listeners){
+      event.currentScope.listeners[i].destroy();
+    }
+    $scope.bots = [];
+  });
   $scope.editable = false;
 
 }]);

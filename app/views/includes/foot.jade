@@ -22,6 +22,7 @@ script(type='text/javascript', src='/lib/angular/angular.js')
 script(type='text/javascript', src='/lib/angular-cookies/angular-cookies.js')
 script(type='text/javascript', src='/lib/angular-resource/angular-resource.js')
 script(type='text/javascript', src='/lib/ng-file-upload/angular-file-upload.min.js')
+script(type='text/javascript', src='/lib/ngFitText/ng-FitText.js')
 
 //Angular-socket-io
 script(type='text/javascript', src='/lib/angular-socket-io/socket.js')
@@ -44,7 +45,12 @@ script(type='text/javascript', src='/js/services/avatars.js')
 script(type='text/javascript', src='/js/services/bots.js')
 
 //Application Controllers
+script(type='text/javascript', src='/js/controllers/system.js')
+script(type='text/javascript', src='/js/controllers/log.js')
+script(type='text/javascript', src='/js/controllers/profit.js')
+script(type='text/javascript', src='/js/controllers/rooms.js')
 script(type='text/javascript', src='/js/controllers/bots.js')
+script(type='text/javascript', src='/js/controllers/players.js')
 script(type='text/javascript', src='/js/controllers/avatars.js')
 script(type='text/javascript', src='/js/controllers/index.js')
 script(type='text/javascript', src='/js/controllers/header.js')
@@ -79,6 +85,7 @@ script(type='text/javascript', src='/lib/ace/js/date-time/bootstrap-datepicker.m
 script(type='text/javascript', src='/lib/ace/js/date-time/bootstrap-timepicker.min.js')
 script(type='text/javascript', src='/lib/ace/js/date-time/moment.min.js')
 script(type='text/javascript', src='/lib/ace/js/date-time/daterangepicker.min.js')
+script(type='text/javascript', src='/lib/ace/js/jquery.dataTables.bootstrap.js')
 script(type='text/javascript', src='/lib/ace/js/bootstrap-colorpicker.min.js')
 script(type='text/javascript', src='/lib/ace/js/jquery.knob.min.js')
 script(type='text/javascript', src='/lib/ace/js/jquery.autosize-min.js')
@@ -86,9 +93,18 @@ script(type='text/javascript', src='/lib/ace/js/jquery.inputlimiter.1.3.1.min.js
 script(type='text/javascript', src='/lib/ace/js/jquery.maskedinput.min.js')
 script(type='text/javascript', src='/lib/ace/js/bootstrap-tag.min.js')
 
+script(type='text/javascript', src='/lib/ace/js/bootbox.min.js')
+script(type='text/javascript', src='/lib/viewporter/scripts/inflateText.js')
+
 script(type='text/javascript', src='/lib/ace/js/ace-elements.min.js')
 script(type='text/javascript', src='/lib/ace/js/ace.min.js')
 script(type='text/javascript', src='/lib/ace/js/custom.js')
+
+script(type='text/javascript', src='/lib/viewporter/scripts/image-picker.min.js')
+script(type='text/javascript', src='/lib/viewporter/scripts/custom.js')
+script(type='text/javascript', src='/lib/viewporter/scripts/vars.js')
+script(type='text/javascript', src='/lib/viewporter/scripts/functions.js')
+
 script(type='text/javascript').
   function show_box(id) { $('.widget-box.visible').removeClass('visible'); $('#'+id).addClass('visible');}
 script(type='text/javascript', src='/lib/ng-grid/build/ng-grid.debug.js')

@@ -1,0 +1,75 @@
+div#viewporter(data-ng-show="identity.roles.indexOf('player')>=0")
+  div#checker-bl
+    spinner.modal.spinner.center#spinner(data-ng-show='loading')
+    div.contentmodal(style='display:none;', data-ng-class="{logged_out:!identity.name,out_of_money:!balance}")
+      div.SettingsContentModal(style='display:none;')            
+        div.wrapper.group
+          div.modtitle.mtmain
+            |  Settings
+          ul.butlist
+            li.tabbuttons
+              button.active.uinfo.setbut(onclick='ShowContentModal(this, "uinfo");')
+                i.icon-gear
+                span.nomob
+                  |   User Settings
+              button.cashout.setbut(onclick='ShowContentModal(this, "cashout");')
+                i.icon-signout
+                span.nomob
+                  |   Cash Out
+              button.urefill.setbut(onclick='ShowContentModal(this, "urefill")', ng-disabled="!follower.scalars.canrefill")
+                i.icon-usd
+                span.nomob
+                  |   Refill                  
+              button.uavatars.setbut(onclick='ShowContentModal(this, "uavatars");')
+                i.icon-user
+                span.nomob
+                  |   Avatars
+              button.ulogout.setbut(onclick='ShowContentModal(this, "ulogout");')
+                i.icon-signout
+                span.nomob
+                  |   Logout
+              button.uclose.setbut(onclick='ShowContentModal(this, "uclose");')
+                i.icon-remove
+                span.nomob
+                  |   Close
+        hr.botshad                   
+        div.cModal.SetContentModal
+          div.moddescription
+            |  Choose Your settings  
+        div.cModal.AvatarContentModal(style='display:none;')
+          div.moddescription
+            |  Choose Your avatar settings 
+            hr.botshad               
+          form(id='Settings')
+            div(ng-include='"/views/avatars/select.html"')              
+        div.cModal.LogoutContentModal(style='display:none;')
+          div.moddescription
+            |  Logout
+            hr.botshad               
+          form(id='Logout')
+            div(ng-include='"/views/logout.html"')              
+        div.cModal.DoBuyInContentModal(style='display:none;')
+          div.moddescription
+            |  Refill account
+          div.moddescription
+            |  Would You like to play more? Click button below to refill your account!  
+          form(id='DoBuyIn')
+            input(type='submit', value='ReFill', class='bigbut', ng-disabled="balance", ng-click="refill()")          
+        div.cModal.CashOutContentModal(style='display:none;')
+          div.moddescription
+            |  Congratulations!<br />Click button below to get paid for Your win!<br />Looking forward to see You soon again! 
+          form(id='CashOut')
+            input(type='submit', value='Cash Out', class='bigbut')
+    div#lobbydiv(data-ng-show='rendererIsLobby()' data-ng-include='"/views/playerlobby.html"')
+    canvas(id='casino')
+  div(id='checker-tr')
+    button.toogle.btn.btn-primary(id='tooglebut', type='button')
+      span.glyphicon.glyphicon-align-justify
+    div(id='side-content')
+      //button.settings(onclick='ShowModal("SettingsContentModal");')
+        //i.icon-gear         
+      div#side-head(data-ng-class="{logged_out:!identity.name}", ng-include='"/views/player.html"', onclick='ShowModal("SettingsContentModal");')
+      //div.move-up.up
+        //i.icon-chevron-up
+      div(ng-include='"/views/engagements.html"')
+
