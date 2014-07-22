@@ -3,6 +3,7 @@
 .sass-cache/
 node_modules/*
 !node_modules/hersdata
+!node_modules/hersdb
 !node_modules/herstimeout
 !node_modules/pokerbots
 !node_modules/realm_site
