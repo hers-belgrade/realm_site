@@ -97,11 +97,11 @@
 											 <div class="span12">
 												 	<ul class="span6">
 												 		<li class="plabel"><i class="icon-Bot"></i> Bot earning</li>
-												 		<li class="pvalue green">6,235</li>
+                            <li class="pvalue green">{{today.profit_per_playertype['bot'] | number}}</li>
 												 	</ul>
 												 	<ul class="span6">
 												 		<li class="plabel"><i class="icon-renren"></i> Rake earning</li>
-												 		<li class="pvalue green">225</li>
+												 		<li class="pvalue green">{{today.profit_per_playertype['player'] | number}}</li>
 												 	</ul>
 											 </div>
 											</div>
@@ -712,8 +712,10 @@
 																</select>	
 															</div>
 															<div class="active span8">
+                                <!--//
                                 <a data-toggle="tab" class="btn btn-mini btn-primary" href="#{{klass}}-room-stream"><i class="icon-rss"></i> Room stream</a>
-																<a data-toggle="tab" class="btn btn-mini btn-primary" href="#room-stat"><i class="icon-gear"></i> Room Settings</a>
+                                <a data-toggle="tab" class="btn btn-mini btn-primary" href="#{{klass}}-room-stat"><i class="icon-gear"></i> Room Settings</a>
+                                //-->
 															</div>																					
 													</div>
 												</div>
@@ -721,7 +723,7 @@
 											<div class="tab-content">
                         <div id="{{klass}}-room-stream" class="tab-pane in active" data-ng-include="'/views/'+klass+'events.html'">
 												</div>
-												<div id="room-stat" class="tab-pane">
+                        <div id="{{klass}}-room-stat" class="tab-pane">
 													<div class="room-stat">
 														<div class="row-fluid">
 															<div class="span12">

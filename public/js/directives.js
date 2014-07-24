@@ -133,7 +133,11 @@ angular.module('mean.ui').directive('chosenselect',function(){
           for(var i in val){
             var r = val[i];
             if(r.name){
-              elem.append('<option value="'+r.name+'">'+r.name+'</option>');
+              if(typeof r.name === 'object'){
+                elem.append('<option value="'+r.name.name+'">'+r.name.caption+'</option>');
+              }else{
+                elem.append('<option value="'+r.name+'">'+r.name+'</option>');
+              }
             }
           }
           if(!elem.isChosen){

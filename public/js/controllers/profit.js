@@ -26,6 +26,7 @@ function doStats(period){
     follower.listenToCollection({$scope:this.$scope,follower:follower,period:this.period,per:'room'},'profit_per_room',{activator:doProfitPer});
     follower.listenToCollection({$scope:this.$scope,follower:follower,period:this.period,per:'flavor'},'profit_per_flavor',{activator:doProfitPer});
     follower.listenToCollection({$scope:this.$scope,follower:follower,period:this.period,per:'class'},'profit_per_class',{activator:doProfitPer});
+    follower.listenToCollection({$scope:this.$scope,follower:follower,period:this.period,per:'playertype'},'profit_per_playertype',{activator:doProfitPer});
   }});
 }
 

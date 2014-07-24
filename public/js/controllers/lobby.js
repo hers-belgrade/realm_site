@@ -241,9 +241,73 @@ var LobbyPokerEventsTranslator = (function () {
   }
 })();
 
+var LobbySlotEventsTranslator = (function(){
+  function iconForCode(obj){
+    switch(obj.eventcode){
+      case 'init':
+        return 'icon-play';
+      case 'spin':
+        if(obj.win){
+          return 'icon-ok-sign';
+        }else{
+          return 'icon-thumbs-down';
+        }
+      case 'change_state':
+        if(obj.to==='double_up'){
+          return 'icon-hand-up';
+        }else{
+          return 'icon-hand-up';
+        }
+      case 'finish':
+        return 'icon-stop';
+      default:
+        console.log('no icon for',obj.eventcode,obj);
+    }
+  }
+  return function(obj){
+    try{
+      obj = JSON.parse(obj);
+    }catch(e){return {};}
+    console.log(obj);
+    var ret = {
+      klass:'Slot',
+      player:obj.name,
+      realm:obj.realm,
+      code:obj.eventcode,
+      codeicon:iconForCode(obj),
+      amount:obj.delta,
+      hasplayer:true
+    };
+    return ret;
+  };
+})();
+
+function rescanEventsForAvatar(events,fullname,avatar){
+  var el = events.length;
+  for(var i=0; i<el; i++){
+    var ev = events[i];
+    if(ev.hasplayer && ev.player+'@'+ev.realm===fullname){
+      ev.avatar = avatar;
+    }
+  }
+}
+
+function slotName(name){
+  var tname = name.replace(/\d+$/,'');
+  switch(tname){
+    case 'queen_of_the_nile':
+      return {name:name,caption:'Queen Of The Nile'};
+  }
+}
+
 angular.module('HERS').controller('LobbyController',['$scope','follower',function($scope, follower){
-  $scope.translate = LobbyPokerEventsTranslator;
+  $scope.translate = null;
   $scope.lobby = {};
+  $scope.slotDeltaColor = function(delta){
+    if(delta<=100){return '#eee';}
+    if(delta<=200){return '#ee2';}
+    return '#e22';
+  }
   $scope.isActive = function(){
     return follower.scalars && follower.scalars.renderer === 'lobby';
   };
@@ -271,12 +335,17 @@ angular.module('HERS').controller('LobbyController',['$scope','follower',functio
         if(typeof val === 'undefined'){
           //removal
           var k = this.$scope.lobby[this.obj.class];
-          if(k){
+          if(k && name){
             delete k[name];
           }
           return;
         }
-        this.obj[name] = val;
+        if(name==='name' && this.obj.class==='Slot'){
+          val = slotName(val);
+        }
+        if(typeof val !== 'undefined'){
+          this.obj[name] = val;
+        }
         if(name==='class'){
           if(!this.$scope.lobby[val]){
             this.$scope.lobby[val] = {};
@@ -286,20 +355,39 @@ angular.module('HERS').controller('LobbyController',['$scope','follower',functio
         }
       }});
       if(name==='preview'){
-        follower.follow('casino').follow(name).listenToCollections({tr:$scope.translate,obj:obj},{activator:function(name){
+        follower.follow('casino').follow('preview').listenToScalar($scope,'class',{setter:function(val){
+          if(typeof val==='undefined'){
+            this.translate = null;
+            return;
+          }
+          switch(val){
+            case 'Poker':
+              this.translate = LobbyPokerEventsTranslator;
+              break;
+            case 'Slot':
+              this.translate = LobbySlotEventsTranslator;
+              break;
+          }
+        }});
+        follower.follow('casino').follow(name).listenToCollections({$scope:$scope,obj:obj},{activator:function(name){
           switch(name){
             case 'events':
               this.obj.events = [];
               follower.follow('casino').follow('preview').follow('events').listenToScalars(this,{setter:function(name,val){
                 //console.log(name,val);
                 if(typeof val === 'undefined'){
-                  this.obj.events=[];
+                  //this.obj.events=[];
                   //delete this.obj.events[name];
                 }else{
-                  val = this.tr(val);
+                  var tr = this.$scope.translate;
+                  if(!tr){return;}
+                  val = tr(val);
                   if(!val.klass){return;}
                   if(val.hasplayer){
                     var fn = val.player+'@'+val.realm;
+                    if(!(this.obj.avatars && this.obj.avatars[fn])){
+                      console.log('no avatar for',fn,'in',this.obj.avatars);
+                    }
                     val.avatar=(this.obj.avatars && this.obj.avatars[fn]) ? this.obj.avatars[fn] : '-';
                   }
                   val.hasamount = typeof val.amount === 'number';
@@ -310,8 +398,22 @@ angular.module('HERS').controller('LobbyController',['$scope','follower',functio
                 }
               }});
               break;
+            case 'avatars':
+              this.obj.avatars = this.obj.avatars || {};
+              follower.follow('casino').follow('preview').follow('avatars').listenToScalars(this.obj,{setter:function(name,val){
+                if(typeof val !== 'undefined'){
+                  val = '/img/avatars/'+val;
+                  if(typeof this.avatars[name] === 'undefined'){
+                    rescanEventsForAvatar(this.events,name,val);
+                  }
+                  this.avatars[name] = val;
+                }else{
+                  delete this[name];
+                }
+                console.log('Slot avatars',this);
+              }});
             case 'players':
-              this.obj.avatars = {};
+              this.obj.avatars = this.obj.avatars || {};
               follower.follow('casino').follow('preview').follow('players').listenToCollections(this.obj.avatars,{activator:function(name){
                 follower.follow('casino').follow('preview').follow('players').follow(name).listenToMultiScalars(this,['name','realm','avatar'],function(map){
                   this[map.name+'@'+map.realm]='/img/avatars/'+map.avatar;
