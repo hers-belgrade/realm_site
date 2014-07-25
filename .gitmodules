@@ -22,3 +22,6 @@
 [submodule "node_modules/realm_site"]
 	path = node_modules/realm_site
 	url = hersrepos:hers_repos/node_modules/realm_site
+[submodule "node_modules/hersdb"]
+	path = node_modules/hersdb
+	url = git@github.com:hers-belgrade/hersdb

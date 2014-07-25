@@ -10,13 +10,8 @@
       <a class='eventcode' href='javascript:void()' tooltip="{{item.code}}"><i class={{item.codeicon}}></i></a>
       <span ng-switch='item.hasamount'>
         <span ng-switch-when='true'>
-          <span class='money'>{{item.amount}}</span>
+          <span class='money' style="color:{{slotDeltaColor(item.amount)}}">{{item.amount}}%</span>
         </span>
-      </span>
-      <span ng-switch='item.hascards'>
-        <span class='card flop' ng-repeat='card in item.flop'>{{card}}</span>
-        <span class='card turn'>{{item.turn}}</span>
-        <span class='card river'>{{item.river}}</span>
       </span>
     </div>
   </div>                         	

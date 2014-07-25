@@ -1,5 +1,5 @@
 module.exports = {
-    db: "mongodb://localhost/ppw-dev",
+    db: "mongodb://mongoserver/ppw-dev",
     app: {
         name: "PPW - Development"
     },

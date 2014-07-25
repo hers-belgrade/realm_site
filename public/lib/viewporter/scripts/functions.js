@@ -1,7 +1,4 @@
 function Case(context) {
-// return 'standard';
-
-
 	if ((window.matchMedia("(max-resolution: 1.5dppx)").matches) && (context >= 1224)) {
 		return 'standard';
  	} else if ((window.matchMedia("(min-resolution: 1.5dppx)").matches) && (window.matchMedia("(max-resolution: 3dppx)").matches) && (context >= 1224)) {
@@ -17,7 +14,6 @@ function Case(context) {
 	}	else {
 		return 'standard';	
 	}	
-
 }
 
 function ResetStyle () {

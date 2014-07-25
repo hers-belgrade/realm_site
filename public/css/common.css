@@ -176,5 +176,20 @@ div.ngHeaderCell{border-color:#DDD;font-weight:bold}
 
 div.swarm-cg {
 	padding-top:6px;
-	}	
+}	
 
+
+/* OVDE STAVLJAM SAV CSS KOJI NE ZNAM GDE BIH ... TREBA OVO RASPERTLATI ... */
+#user-name {
+  text-transform:capitalize;
+}
+
+/* lobby page na admin strani ... */
+#myTab .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+  background-color: transparent;
+  border-color: #c5d0dc;
+}
+body.adminbody #sidebar .nav-list > li > .submenu > li > a:hover, 
+body.adminbody #sidebar .nav-list > li > .submenu > li.active > a:hover {
+  background-color:#4f4f4f;
+}
