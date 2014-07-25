@@ -292,11 +292,16 @@ function rescanEventsForAvatar(events,fullname,avatar){
   }
 }
 
+var SLOTNAMES_MAP = {
+  'queen_of_the_nile': 'Queen Of The Nile'
+  ,'forest': 'Fantasy Forest'
+}
+
 function slotName(name){
   var tname = name.replace(/\d+$/,'');
-  switch(tname){
-    case 'queen_of_the_nile':
-      return {name:name,caption:'Queen Of The Nile'};
+  return {
+    name: name
+    ,caption: SLOTNAMES_MAP[tname]
   }
 }
 
