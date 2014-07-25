@@ -208,9 +208,9 @@
 									<i class="icon-usd"></i>
 								</div>
 				
-								<div class="infobox-data">
-                  <span class="infobox-data-number playertotalmoney">{{playertotals.totalmoney | number}}</span>
-                  <span class="infobox-data-number playerengagedmoney">{{playertotals.totalengaged | number}}</span>
+								<div class="infobox-data mnt">
+                  <span class="infobox-data-number playertotalmoney"><i class="icon-github-alt"></i> {{playertotals.totalmoney | number}}</span>
+                  <span class="infobox-data-number playerengagedmoney"><i class="icon-play"></i> {{playertotals.totalengaged | number}}</span>
 									<div class="infobox-content">Money on tables</div>
 								</div>
 								<div class="stat stat-important">+2%</div>
@@ -236,34 +236,27 @@
 											</div>
 										</div>
 		
-										<div class="modal-body no-padding">
+										<div class="modal-body">
 											<div class="row-fluid">
 												<div class='span12'>											
 												  <form data-ng-submit='setSwarmParams()' class="form-horizontal">
 												  	<input class="input-medium" type='hidden' ng-model='botparams.botprefix' value='Bot'/>
-														<div class="swarm-cg control-group span4 limit-holder">
+												  	<div class="span1"></div>
+														<div class="swarm-cg control-group span3 limit-holder">
 												    	<label class="control-label" for='limit'>Limit</label>			
-												    	<input id='limit' type='text' ng-model='botparams.botcount' class='input-mini' />
+												    	<input id='limit' ng-model='botparams.botcount' class='input-mini' hrs-ace hrs-ace-config='{"min":0,"max":5000,"step":25, "icon_up":"icon-plus", "icon_down":"icon-minus", "btn_up_class":"btn-success" , "btn_down_class":"btn-danger"}'/>
 														</div>
-														<div class="swarm-cg control-group span4 factor-holder">
+														<div class="swarm-cg control-group span3 factor-holder">
 													    <label class="control-label" for='leavefactor'>Leave Factor</label>
-													    <input id='leavefactor' class="input-mini" type='text' ng-model='botparams.leavefactor' />
+													    <input id='leavefactor' class="input-mini" type='text' ng-model='botparams.leavefactor' hrs-ace hrs-ace-config='{"min":0,"max":1000,"step":10, "icon_up":"icon-plus", "icon_down":"icon-minus", "btn_up_class":"btn-success" , "btn_down_class":"btn-danger"}'/>
 														</div>			    
 														<div class="span3"><button ng-controller="BotsController" class="btn btn-small btn-success" type='submit'>Change <i class="icon-arrow-right icon-on-right bigger-110"></i></button></div>
-												  </form>	
-													<script type="text/javascript">
-														$('#leavefactor').ace_spinner({value:0,min:0,max:1000,step:10, icon_up:'icon-plus', icon_down:'icon-minus', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
-														$('#limit').ace_spinner({value:0,min:0,max:5000,step:25, icon_up:'icon-plus', icon_down:'icon-minus', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
-													</script>													
+												  </form>													
 												</div>
 											</div>
 										</div>
 		
 										<div class="modal-footer">
-											<button class="btn btn-small btn-danger pull-left" data-dismiss="modal">
-												<i class="icon-remove"></i>
-												Close
-											</button>
 										</div>
 									</div><!--PAGE CONTENT ENDS-->
 <!--

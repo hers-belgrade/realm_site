@@ -2089,3 +2089,12 @@ body.adminbody #by_kind ul li.plabel {
 body.adminbody #by_kind ul li.pvalue {
   font-size: 1.6em;
 }
+/* line 661, ../sass/admin.scss */
+body.adminbody #bot-config .swarm-cg label {
+  padding: 0;
+}
+/* line 665, ../sass/admin.scss */
+body.adminbody .mnt i {
+  color: white;
+  font-size: 20px;
+}

@@ -247,8 +247,8 @@ angular.module('mean.bots').controller('BotsController', ['$scope', 'Bots', 'fol
   }});
   $scope.setSwarmParams = function(){
     follower.do_command(':commitTransaction',{txnalias:'botcount_change',txns:[
-      ['set',['local','bots','botcount'],[this.botparams.botcount]],
-      ['set',['local','bots','leavefactor'],[this.botparams.leavefactor]]
+      ['set',['local','bots','botcount'],[parseInt($scope.botparams.botcount)]],
+      ['set',['local','bots','leavefactor'],[parseInt($scope.botparams.leavefactor)]]
     ]});
     //follower.do_command('/local/bots/pokerbots/setSwarmParams',this.botparams);
   };
@@ -261,4 +261,47 @@ angular.module('mean.bots').controller('BotsController', ['$scope', 'Bots', 'fol
   });
   $scope.editable = false;
 
-}]);
+}])
+.directive('hrsAce', function () {
+	return {
+		restrict: 'A'
+		,require:'ngModel'
+		,link: function (scope,element,attrs, ngModel) {
+			var setup = false;
+			
+			ngModel.$render = function () {
+				var val = ngModel.$viewValue;
+				element.html(val || '');
+
+				if (isNaN(val)) return;
+				if (setup) return;
+				var config = JSON.parse(attrs.hrsAceConfig);	
+				config.value = val;
+				element.ace_spinner(config);
+				element.on('change', function () {
+					read();
+				});	
+				setup = true;
+			}
+			
+			setTimeout (function () {
+				
+				
+				
+			},1000);
+			
+			function read() {
+        var html = element.val();         
+        // When we clear the content editable the browser leaves a <br> behind
+        // If strip-br attribute is provided then we strip this out
+        if( attrs.stripBr && html == '<br>' ) {
+          html = '';
+        }
+        ngModel.$setViewValue(html);
+      }
+			
+			
+		}
+	}
+})
+;

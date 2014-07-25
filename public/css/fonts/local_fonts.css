@@ -92,3 +92,25 @@
     font-style: normal;
 
 }
+
+@font-face {
+    font-family: 'Trajan Pro';
+    src: url('faces/trajan_pro.eot');
+    src: url('faces/trajan_pro.eot?#iefix') format('embedded-opentype'),
+         url('faces/trajan_pro.woff') format('woff'),
+         url('faces/trajan_pro.ttf') format('truetype'),
+         url('faces/trajan_pro.svg#Trajan Pro') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Vrinda Bold';
+    src: url('faces/vrindab-webfont.eot');
+    src: url('faces/vrindab-webfont.eot?#iefix') format('embedded-opentype'),
+         url('faces/vrindab-webfont.woff') format('woff'),
+         url('faces/vrindab-webfont.ttf') format('truetype'),
+         url('faces/vrindab-webfont.svg#vrindabold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
