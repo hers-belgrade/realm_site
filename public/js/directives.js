@@ -33,10 +33,42 @@ angular.module('mean.ui').directive('sparkline',function(){
   return {
     restrict: 'E',
     link: function(scope,elem,attrs){
-      var clr = (window.getComputedStyle(elem[0])).color;
-      scope.$watch(attrs.ngModel,function(val){
-        elem.sparkline(val,{barColor:clr,chartRangeMin:attrs.min,type:attrs.type});
-      },true);
+      switch(attrs.type){
+        case 'bar':
+          var data = attrs.data.split(',');
+          switch(data.length){
+            case 1:
+              var clr = (window.getComputedStyle(elem[0])).color;
+              scope.$watch(data[0],function(val){
+                elem.sparkline(val,{barColor:clr,chartRangeMin:attrs.min,type:attrs.type});
+              },true);
+              break;
+            default:
+              var stackedcolors = [(window.getComputedStyle(elem[0])).color];
+              var attrcolors = attrs.colors.split(',');
+              for(var i in attrcolors){
+                stackedcolors.push(attrcolors[i]);
+              }
+              var vals = [];
+              for(var i in data){
+                scope.$watch(data[i],(function(i){
+                  return function(val){
+                  console.log('series #',i,'is',val);
+                  for(var j in val){
+                    if(!vals[j]){
+                      vals[j] = [0,0];
+                    }
+                    vals[j][i] = val[j];
+                  }
+                  console.log('sparklining',vals);
+                  elem.sparkline(vals,{stackedBarColor:stackedcolors,chartRangeMin:attrs.min,type:attrs.type});
+                };
+                })(i),true);
+              }
+              break;
+          }
+          break;
+      }
     }
   };
 });
