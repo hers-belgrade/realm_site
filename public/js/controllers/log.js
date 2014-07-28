@@ -58,8 +58,9 @@ function __LogItemFull(item){
 angular.module('mean.system').controller('LogController',['$scope','follower',function($scope,follower){
   follower.do_command(':activate','log');
   $scope.items = [];
+  $scope.listener = null;
   follower.listenToCollection($scope.items,'log',{activator:function(){
-    follower.follow('log').listenToCollections(this,{activator:function(name){
+    $scope.listener = follower.follow('log').listenToCollections(this,{activator:function(name){
       var o = {};
       follower.follow('log').follow(name).listenToScalars({t:this,o:o},{setter:function(name,val){
         if(typeof val === 'undefined'){
@@ -74,14 +75,22 @@ angular.module('mean.system').controller('LogController',['$scope','follower',fu
             if(!this.t[this.o.category]){
               this.t[this.o.category] = [];
             }
+            //console.log('unshifting',this.o);
             this.t[this.o.category].unshift(this.o);
             if(this.t[this.o.category].length>30){
               this.t[this.o.category].pop();
             }
+            this.o={};
           }
         }
       }});
     }});
+  },deactivator:function(){
+    for(var i in this){
+      delete this[i];
+    }
+    $scope.listener.destroy();
+    follower.do_command(':activate','log');
   }});
   $scope.$on('$destroy',function(event){
     follower.do_command(':deactivate','log');
