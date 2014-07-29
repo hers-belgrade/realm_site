@@ -45,7 +45,7 @@ function RemoveRightAd() {
 
 function AddRightAd() {
 	if ($('#rightad').length == 0) {
-				$('#side-content').after( "<div id='rightad'><a href='#'><img src='/img/banners/bonus-left-side.jpg' /></a></div>" );
+				//$('#side-content').after( "<div id='rightad'><a href='#'><img src='/img/banners/bonus-left-side.jpg' /></a></div>" );
 	}	
 }
 

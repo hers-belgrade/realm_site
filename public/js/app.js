@@ -6,4 +6,3 @@ angular.module('mean.system', []);
 angular.module('mean.avatars', []);
 angular.module('mean.bots', ['ngGrid']);
 angular.module('mean.players', ['ngGrid']);
-

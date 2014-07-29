@@ -141,7 +141,6 @@ angular.module('mean.ui').directive('chosenselect',function(){
             }
           }
           if(!elem.isChosen){
-            console.log(elem,'is chosen');
             elem.chosen();
             elem.isChosen = true;
           }

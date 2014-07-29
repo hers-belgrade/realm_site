@@ -1,4 +1,4 @@
-.navbar(style="display:none", data-ng-show="identity.roles.indexOf('admin')>=0")
+.navbar(style="display:none", data-ng-show="identity && identity.roles && identity.roles.indexOf('admin')>=0")
   .navbar-inner
     .container-fluid
       a.brand(href="#")

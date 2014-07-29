@@ -1,6 +1,5 @@
 div#viewporter(data-ng-show="identity.roles.indexOf('player')>=0")
   div#checker-bl
-    spinner.modal.spinner.center#spinner(data-ng-show='loading')
     div.contentmodal(style='display:none;', data-ng-class="{logged_out:!identity.name,out_of_money:!balance}")
       div.SettingsContentModal(style='display:none;')            
         div.wrapper.group
@@ -60,11 +59,13 @@ div#viewporter(data-ng-show="identity.roles.indexOf('player')>=0")
             |  Congratulations!<br />Click button below to get paid for Your win!<br />Looking forward to see You soon again! 
           form(id='CashOut')
             input(type='submit', value='Cash Out', class='bigbut')
+
+    img.center#spinner(src="/lib/casino/css/imgs/throbber.gif", data-ng-show="loading")
     div#lobbydiv(data-ng-show='rendererIsLobby()' data-ng-include='"/views/playerlobby.html"')
     canvas(id='casino')
   div(id='checker-tr')
-    button.toogle.btn.btn-primary(id='tooglebut', type='button')
-      span.glyphicon.glyphicon-align-justify
+    //button.toogle.btn.btn-primary(id='tooglebut', type='button')
+    //  span.glyphicon.glyphicon-align-justify
     div(id='side-content')
       //button.settings(onclick='ShowModal("SettingsContentModal");')
         //i.icon-gear         
