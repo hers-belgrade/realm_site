@@ -54,7 +54,7 @@ div#viewporter(data-ng-show="identity.roles.indexOf('player')>=0")
           div.moddescription
             |  Would You like to play more? Click button below to refill your account!  
           form(id='DoBuyIn')
-            input(type='submit', value='ReFill', class='bigbut', ng-disabled="balance", ng-click="refill()")          
+            input(type='submit', value='ReFill', class='bigbut', ng-disabled="!follower.scalars.canrefill", ng-click="refill()")          
         div.cModal.CashOutContentModal(style='display:none;')
           div.moddescription
             |  Congratulations!<br />Click button below to get paid for Your win!<br />Looking forward to see You soon again! 
