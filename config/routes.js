@@ -17,8 +17,8 @@ module.exports = function(server, app, passport, auth) {
     app.post('/users', users.create);
 
     app.post('/users/session', passport.authenticate('local', {
-        failureRedirect: '/', //instead of '/signin'
-        failureFlash: 'Invalid email or password.'
+        failureRedirect: '/',
+        failureFlash: true
     }), users.session);
 
     app.get('/users/me', users.me);

@@ -65,7 +65,6 @@ module.exports = function(passport) {
                       message: 'Invalid credentials'
                     });
                 }
-                console.log('USER!',user);
                 return done(null, user);
             });
         }

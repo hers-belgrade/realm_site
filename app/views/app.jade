@@ -55,7 +55,9 @@ head
   link(rel='stylesheet', href='/css/common.css')
   link(rel='stylesheet', href='/lib/casino/css/casino.css')
   body(data-ng-controller='CasinoController', data-ng-class="{logged_out:!identity.name,'login-layout':!identity.name,playerbody:identity.roles.indexOf('player')>=0,adminbody:identity.roles.indexOf('admin')>=0}")
-  div#loginwidget(data-ng-hide='identity.name', data-ng-class="{logged_out:!identity.name}", data-ng-include='"/views/login.html"')
+  div#loginwidget(data-ng-hide='identity.name', data-ng-class="{logged_out:!identity.name}")
+    indexwidget(data-ng-hide='identity.name', data-ng-class="{logged_out:!identity.name}", error="#{errors}")
+
   include includes/adminmarkup
   include includes/playmarkup
   include includes/foot

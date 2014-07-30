@@ -182,3 +182,16 @@ angular.module('mean.ui').directive('chosenselect',function(){
     }
   };
 });
+//function show_box(id) { $('.widget-box.visible').removeClass('visible'); $('#'+id).addClass('visible');}
+angular.module('mean.ui').directive('indexwidget', function () {
+  return {
+    restrict: 'E'
+    ,controller: function ($scope) {
+      $scope.state = 'login';
+    }
+    ,scope: {
+      'error' : '@'
+    }
+    ,templateUrl: '/views/login.html'
+  }
+});

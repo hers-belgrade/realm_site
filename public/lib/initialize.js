@@ -9,6 +9,7 @@ WebFont.load({
 });
 
 addEventListener("click", function() {
+  return; ///ZA SAD ...
     var el = document.documentElement ,
     rfs = el.requestFullScreen || el.webkitRequestFullscreen || el.webkitRequestFullScreen || el.mozRequestFullScreen  || el.requestFullscreen || el.msRequestFullscreen;
     rfs.call(el,Element.ALLOW_KEYBOARD_INPUT);
