@@ -54,7 +54,8 @@ module.exports = function(app, passport, db) {
             store: new mongoStore({
                 db: db.connection.db,
                 collection: 'sessions'
-            })
+            }),
+            cookie:{ path: '/', httpOnly: false, maxAge: null }
         }));
 
         //connect flash for flash messages

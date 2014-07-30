@@ -60,15 +60,13 @@ exports.session = function(req, res) {
 /**
  * Create user
  */
-exports.create = function(req, res) {
+exports.create = function(req, res, next) {
     var user = new User(req.body);
     user.provider = 'local';
     user.save(function(err) {
       if (err) {
-        return res.render('users/signup', {
-          errors: err.errors,
-          user: user
-        });
+        res.locals.errors="Unable to register";
+        return res.redirect('/');
       }
       req.logIn(user, function(err) {
         if (err) return next(err);
@@ -126,6 +124,7 @@ exports.execute = function(req, res, next) {
   }
   req.query.name = req.user.username;
   req.query.roles = req.user.roles;
+  req.query.address = req.connection.remoteAddress;
   dataMaster.functionalities.sessionuserfunctionality.produceAndExecute(req.query,function(errc,errp,errm){
     if(errc==='OK'){
       res.jsonp(errp[0]);

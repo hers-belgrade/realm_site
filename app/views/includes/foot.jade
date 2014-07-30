@@ -61,10 +61,6 @@ script(type='text/javascript', src='/js/controllers/lobby.js')
 script(type="text/javascript").
     angular.module('HERS').run(function(go){go();});
 
-if (req.host=='localhost')
-    //Livereload script rendered 
-    script(type='text/javascript', src='http://localhost:35729/livereload.js')
-
 //Ace Theme
 
 script(type='text/javascript', src='/lib/ace/js/bootstrap.min.js')
@@ -74,9 +70,9 @@ script(type='text/javascript', src='/lib/ace/js/jquery.ui.touch-punch.min.js')
 script(type='text/javascript', src='/lib/ace/js/jquery.slimscroll.min.js')
 script(type='text/javascript', src='/lib/ace/js/jquery.easy-pie-chart.min.js')
 script(type='text/javascript', src='/lib/ace/js/jquery.sparkline.min.js')
-script(type='text/javascript', src='/lib/ace/js/flot/jquery.flot.min.js')
-script(type='text/javascript', src='/lib/ace/js/flot/jquery.flot.pie.min.js')
-script(type='text/javascript', src='/lib/ace/js/flot/jquery.flot.resize.min.js')
+//script(type='text/javascript', src='/lib/ace/js/flot/jquery.flot.min.js')
+//script(type='text/javascript', src='/lib/ace/js/flot/jquery.flot.pie.min.js')
+//script(type='text/javascript', src='/lib/ace/js/flot/jquery.flot.resize.min.js')
 
 script(type='text/javascript', src='/lib/ace/js/chosen.jquery.min.js')
 script(type='text/javascript', src='/lib/ace/js/fuelux/fuelux.spinner.min.js')
@@ -84,7 +80,6 @@ script(type='text/javascript', src='/lib/ace/js/date-time/bootstrap-datepicker.m
 script(type='text/javascript', src='/lib/ace/js/date-time/bootstrap-timepicker.min.js')
 script(type='text/javascript', src='/lib/ace/js/date-time/moment.min.js')
 script(type='text/javascript', src='/lib/ace/js/date-time/daterangepicker.min.js')
-script(type='text/javascript', src='/lib/ace/js/jquery.dataTables.bootstrap.js')
 script(type='text/javascript', src='/lib/ace/js/bootstrap-colorpicker.min.js')
 script(type='text/javascript', src='/lib/ace/js/jquery.knob.min.js')
 script(type='text/javascript', src='/lib/ace/js/jquery.autosize-min.js')

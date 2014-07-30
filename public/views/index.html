@@ -166,12 +166,12 @@
 								<div class="bottom-stats">
 	
 									<div class="bottom-infobox-data left">
-                    <sparkline type='bar' data-ng-model = 'stats'></sparkline>
+                    <sparkline type='bar' data = 'stats'></sparkline>
 										<span class="lab">Last week</span>
 									</div>
 	
 									<div class="bottom-infobox-data left">
-                    <sparkline type='bar' data-ng-model = 'stats'></sparkline>
+                    <sparkline type='bar' data = 'stats'></sparkline>
 										<span class="lab">Last hour</span>
 									</div>
 									
@@ -189,10 +189,15 @@
 								</div>
 				
 								<div class="infobox-data">
-                  <span class="infobox-data-number">{{playertotals.playing}}</span>
-									<div class="infobox-content">Curently playing users</div>
+                  <span class="infobox-data-number">{{playertotals.active}}/{{playertotals.playing}}</span>
+									<div class="infobox-content">Active Users / Engagements</div>
 								</div>
-								<div class="stat stat-success">8%</div>
+                <trend class="stat" good="down" data-ng-model = 'playertotals.playing'></trend>
+                <div class="bottom-stats">
+                  <div class="bottom-infobox-data left">
+                    <sparkline type='bar' colors='#aaf' data = 'playertotalhistory.active,playertotalhistory.playing'></sparkline>
+                  </div>
+                </div>
 							</div>			
 				
 							<div class="span4 infobox infobox-red  ">
@@ -268,7 +273,7 @@
 				
 								<div class="bottom-stats">								
                   <div class="bottom-infobox-data left">
-                    <sparkline type='bar' data-ng-model = 'botparamhistory.botcount'></sparkline>
+                    <sparkline type='bar' data = 'botparamhistory.botcount'></sparkline>
                   </div>
                 </div>
 							</div>						
@@ -286,7 +291,7 @@
                          
 								<div class="bottom-stats">								
                   <div class="bottom-infobox-data left">
-                    <sparkline type='bar' data-ng-model = 'botparamhistory.engagementcount'></sparkline>
+                    <sparkline type='bar' data = 'botparamhistory.engagementcount'></sparkline>
                   </div>
                 </div>
 							</div>			
@@ -303,7 +308,7 @@
                 <trend class="stat" data-ng-model = 'botparams.totalengaged'></trend>
 								<div class="bottom-stats">								
                   <div class="bottom-infobox-data left">
-                    <sparkline type='bar' data-ng-model = 'botparamhistory.totalengaged'></sparkline>
+                    <sparkline type='bar' data = 'botparamhistory.totalengaged'></sparkline>
                   </div>
                 </div>
 							</div>						
