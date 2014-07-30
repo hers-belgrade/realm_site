@@ -68,14 +68,14 @@
 
             <div class="toolbar clearfix">
               <div>
-                <a href="#" data-ng-click="state='forgot'" class="forgot-password-link">
+                <a href="#" data-ng-click="goto_state($event, 'forgot')" class="forgot-password-link">
                   <i class="icon-arrow-left"></i>
                   I forgot my password
                 </a>
               </div>
 
               <div>
-                <a href="#" data-ng-click="state='register'" class="user-signup-link">
+                <a href="#" data-ng-click="goto_state($event,'register')" class="user-signup-link">
                   I want to register
                   <i class="icon-arrow-right"></i>
                 </a>
@@ -117,7 +117,7 @@
             </div><!--/widget-main-->
 
             <div class="toolbar center">
-              <a href="#" data-ng-click="state='login'" class="back-to-login-link">
+              <a href="#" data-ng-click="goto_state($event, 'login')" class="back-to-login-link">
                 Back to login
                 <i class="icon-arrow-right"></i>
               </a>
@@ -199,7 +199,7 @@
             </div>
 
             <div class="toolbar center">
-              <a href="#" data-ng-click="state='login'" class="back-to-login-link">
+              <a href="#" data-ng-click="goto_state($event, 'login')" class="back-to-login-link">
                 <i class="icon-arrow-left"></i>
                 Back to login
               </a>

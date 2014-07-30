@@ -187,7 +187,13 @@ angular.module('mean.ui').directive('indexwidget', function () {
   return {
     restrict: 'E'
     ,controller: function ($scope) {
+      $scope.error_message = $scope.error;
       $scope.state = 'login';
+      $scope.goto_state = function (evnt, state) {
+        $scope.state = state || 'login';
+        $scope.error = '';
+        evnt.preventDefault();
+      }
     }
     ,scope: {
       'error' : '@'
