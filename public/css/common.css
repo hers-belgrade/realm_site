@@ -193,3 +193,22 @@ body.adminbody #sidebar .nav-list > li > .submenu > li > a:hover,
 body.adminbody #sidebar .nav-list > li > .submenu > li.active > a:hover {
   background-color:#4f4f4f;
 }
+
+#spinner {
+  height:15px;
+  width: 128px;
+  z-index:1000;
+  margin-left:0px;
+  border:none;
+  position:fixed;
+  top:30%;
+  left:36%;
+}
+
+.invisible {
+  display:none;
+}
+
+#viewporter {
+  background-color:#282828;
+}

@@ -3,7 +3,7 @@
 and (min-width : 1224px) {
 
 #checker-tr {
-	background:none repeat scroll 0 0 #000;
+	background:#282828;
 	}	
 #checker-bl, #checker-tr {
 	left:auto;
