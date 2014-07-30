@@ -2093,8 +2093,29 @@ body.adminbody #by_kind ul li.pvalue {
 body.adminbody #bot-config .swarm-cg label {
   padding: 0;
 }
-/* line 665, ../sass/admin.scss */
+/* line 664, ../sass/admin.scss */
+body.adminbody .mnt {
+  width: 187px;
+}
+/* line 666, ../sass/admin.scss */
+body.adminbody .mnt span.infobox-data-number {
+  font-size: 16px;
+}
+/* line 669, ../sass/admin.scss */
 body.adminbody .mnt i {
   color: white;
-  font-size: 20px;
+  font-size: 16px;
+}
+/* line 674, ../sass/admin.scss */
+body.adminbody div.undermnt {
+  margin-top: 34px;
+  text-align: right;
+}
+/* line 677, ../sass/admin.scss */
+body.adminbody div.undermnt:before {
+  top: 5px;
+}
+/* line 681, ../sass/admin.scss */
+body.adminbody .infobox > .stat.stat-important:after {
+  bottom: 0;
 }
