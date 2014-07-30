@@ -1,0 +1,12 @@
+      li
+        a.dropdown-toggle(href="#")
+          i.icon-file-text
+          span.menu-text
+            |  Reports 
+          b.arrow.icon-angle-down  
+        ul.submenu
+          li
+            a(href="#!/moneyflow")
+              i.icon-money
+              |  Moneyflow
+

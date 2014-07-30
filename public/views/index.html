@@ -1,3 +1,4 @@
+<!--
 <div id="breadcrumbs" class="breadcrumbs">
 <ul class="breadcrumb">
 	<li>
@@ -11,6 +12,7 @@
 </ul>
 	<div id="nav-search" class="nav-search"></div>
 </div>
+//-->
 <div class="page-content">
 	<div class="page-header position-relative">
 		<h1>
@@ -28,6 +30,7 @@
 				<div class="row-fluid">
 					<div class="span4 mainstats" data-ng-controller='ProfitController'>
 						<div class="span12">
+              <!--
 							<div class="widget-header group widget-header-flat widget-header-small">
 								<div class="widget-toolbar no-border">
 									<button data-toggle="dropdown" class="btn btn-small btn-primary dropdown-toggle">
@@ -63,14 +66,16 @@
 									</ul>
 								</div>
 							</div>							
+              //-->
 							<div class="row-fluid main">
 								<div class="span2 incon"><i class="icon-usd"></i></div>
 								<div class="span7 data">
-									<div class="row-fluid datalabel">Total earnings</div>
+									<div class="row-fluid datalabel font_large white">Total earnings</div>
                   <div class="row-fluid dataValue green">{{today.netprofit | number}}</div>
 								</div>
-								<div class="span3 graph">Graph</div>					
+								<!--<div class="span3 graph">Graph</div>-->					
 							</div>
+
 							<div class="row-fluid main">
 								<div class="span2 incon"><i class="icon-Poker"></i></div>
 								<div class="span10 data">
@@ -110,9 +115,9 @@
 											 <div class="span12">
 												 	<ul class="span4" data-ng-repeat = '(room,amount) in today.profit_per_room'>
                             <li class="plabel">{{room}}</li>
-                            <li class="pvalue green">{{amount}}</li>
+                            <li class="pvalue green">{{amount | number}}</li>
 												 	</ul>
-												 	<div class="full-list"><i class="icon-list-alt bigger-160"></i></div>
+												 	<!--<div class="full-list"><i class="icon-list-alt bigger-160"></i></div>-->
 												 	</ul>
 											 </div>
 											</div>
@@ -132,7 +137,7 @@
 												<a data-toggle="tab" href="#by_rooms">by Rooms</a>
 											</li>
 										</ul>
-                    <ul class="span3 pokerearning"><li class="green">{{today.profit_per_class.Poker | number}}</li></ul>
+                    <span class="minheight10 span3 green font_large">{{today.profit_per_class.Poker | number}}</span>
 										</div>
 									</div>
 								</div>				
@@ -140,7 +145,7 @@
 							<div class="row-fluid main">
 								<div class="span2 incon"><i class="icon-truck"></i></div>
 								<div class="span7 data">
-									<div class="row-fluid datalabel">Total Slot earnings</div>
+									<div class="row-fluid datalabel white font_large">Total Slot earnings</div>
                   <div class="row-fluid dataValue green">{{today.profit_per_class.Slot | number}}</div>
 								</div>
 								<div class="span3 graph">Graph</div>					
@@ -158,7 +163,7 @@
                   <span class="infobox-data-number">{{playertotals.registered}}</span>
 									<div class="infobox-content">Total registered users</div>
 								</div>
-				
+			<!--	
 								<div class="badge badge-success">
 									+33%
 									<i class="icon-arrow-up"></i>
@@ -180,6 +185,7 @@
 									</div>	
 	
 								</div>
+                -->
 							</div>						
 							
 							<div class="span4 infobox infobox-green  ">
@@ -201,23 +207,23 @@
 							</div>			
 				
 							<div class="span4 infobox infobox-red  ">
+                <!--
 								<div class="infobox-icon">
 									<i class="icon-usd"></i>
 								</div>
+                //-->
 				
 								<div class="infobox-data mnt">
-                  <span class="span6 infobox-data-number playertotalmoney"><i class="icon-github-alt"></i> {{playertotals.totalmoney | number}}</span>
-                  <span class="span6 infobox-data-number playerengagedmoney"><i class="icon-play"></i> {{playertotals.totalengaged | number}}</span>
-									<div class="span9 infobox-content">Money on tables</div>
+                  <span class="span6 infobox-data-number playertotalmoney minheight10 "><i class="big icon-github-alt"></i> {{playertotals.totalmoney | number}}</span>
+                  <span class="span6 infobox-data-number playerengagedmoney minheight10 "><i class="big icon-money"></i> {{playertotals.totalengaged | number}}</span>
+									<div class="span12 infobox-content minheight10 ">Player money wallets/rooms</div>
 								</div>
-								<div class="undermnt span3 stat stat-important">+2%</div>								
-								<div class="bottom-stats">								
-									<div class="bottom-infobox-data">
-										<span class="registered-bar">52, -120, 223, -16, -55, 422, -250, 55, 41, -300</span>
-										<span class="lab">Last hour</span>
-									</div>								
-								</div>
-							</div>
+                <trend class="stat" good="up" data-ng-model = 'playertotals.totalengaged'></trend>
+                <div class="bottom-stats">
+                  <div class="bottom-infobox-data left">
+                    <sparkline type='bar' colors='#aaf' data = 'playertotalhistory.totalmoney,playertotalhistory.totalengaged'></sparkline>
+                  </div>
+                </div>
 						</div>		
 						
 						<div class="three_gutter row-fluid" data-ng-controller='BotsController'>
@@ -228,7 +234,7 @@
 									<div id="bot-config" class="modal hide fade botconf" tabindex="-1">
 										<div class="modal-header no-padding">
 											<div class="table-header">
-												<button type="button" class="close" data-dismiss="modal">&times;</button>
+												<button type="button" class="close" data-dismiss="modal"><i class="icon-remove"></i></button>
 												Please set targeted number of Bots and leave factor
 											</div>
 										</div>
@@ -319,7 +325,8 @@
 								<div class="three_gutter row-fluid">
 									<div class="span8 lico"><i class="icon-shield"></i> <span class="lablab">CPU</span></div>
 									<div class="span4">
-                    <div class="memvalue" style="width:50px;">{{CPU}}%</div>
+                    <div class="memvalue" style="width:50px;">{{system.CPU}}%</div>
+
 <!--
 										<div class="infobox-data">
 											<div class="infobox-progress">
@@ -330,8 +337,13 @@
 										</div>
 -->
 									</div>
-									<div class="span12"><div id="cpugraph"></div></div>	
+                  <div class="span12 bottom-stats">
+                    <div class="span8 bottom-infobox-data left">
+                      <sparkline type='bar' data = 'systemhistory.CPU' id='testme'></sparkline>
+                    </div>
+                  </div>
 								</div>
+
 <!--
 								<div class="infobox-content"><i class="icon-shield"></i> Task</div>
 								<div class="infobox-content">Completion</div>
@@ -343,15 +355,22 @@
 								<div class="three_gutter row-fluid">
 									<div class="span7 lico"><i class="icon-hdd"></i> <span class="lablab">RAM usage</span></div>
 									<div class="span5">
-                    <div class="memvalue"><span class="memoryusage">{{memoryusage}}</span>/<span class="memoryavailable">{{memoryavailable}}</span>MB</div>
+                    <div class="memvalue"><span class="memoryusage">{{system.memoryusage}}</span>/<span class="memoryavailable">{{system.memoryavailable}}</span>MB</div>
 								</div>	
+
 							</div>
+              <div class="bottom-stats">
+                <div class="bottom-infobox-data left">
+                  <sparkline type='bar' colors='#f22' data = 'systemhistory.memoryavailable,systemhistory.memoryusage'></sparkline>
+                </div>
+              </div>
+
 							</div>
 							<div class="span3 infobox infobox-orange infobox-small infobox-dark last" data-ng-controller="RoomsController">
-								<div class="span4 memvalue">
+								<div class="span6 memvalue">
 									<div class="numrum">{{count}}</div><div class="acr"><span class="above">Active</span><br /><span class="below">rooms</span></div>
 								</div>
-								<div class="span8 actrooms">
+								<div class="span6 actrooms">
 									<div class="span12" data-ng-repeat='(klass,count) in classcounts'><div class="aholder"><i class="icon-{{klass}}"></i> {{klass}} {{count}}</div></div>
 								</div>
 							</div>
@@ -374,14 +393,16 @@
 									<li>
 										<a data-toggle="tab" href="#cash-tab">Cash flow</a>
 									</li>
-
+<!--
 									<li>
 										<a data-toggle="tab" href="#top-tab">Top players</a>
 									</li>
+-->
 								</ul>
 
 
 								<div class="widget-toolbar no-border">
+                <!--
 									<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown">
 										This Week
 										<i class="icon-angle-down icon-on-right"></i>
@@ -404,6 +425,7 @@
 											<a href="#">Last Month</a>
 										</li>
 									</ul>
+                  -->
 								</div>
 							</div>
 

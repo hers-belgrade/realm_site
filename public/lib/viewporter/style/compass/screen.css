@@ -2066,11 +2066,11 @@ body.adminbody #by_game ul li {
   padding: 3px;
 }
 /* line 639, ../sass/admin.scss */
-body.adminbody #by_game ul li.plabel {
+body.adminbody ul li.plabel {
   color: white;
 }
 /* line 642, ../sass/admin.scss */
-body.adminbody #by_game ul li.pvalue {
+body.adminbody ul li.pvalue {
   font-size: 1.6em;
 }
 /* line 648, ../sass/admin.scss */

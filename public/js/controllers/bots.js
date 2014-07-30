@@ -1,29 +1,3 @@
-var _historylen = 20;
-
-function doValue(hash,historyhash,trendhash,name,value){
-  if(typeof value === 'undefined'){
-    delete hash[name];
-  }else{
-    if(!historyhash[name]){
-      historyhash[name] = [];
-    }
-    historyhash[name].push(value);
-    if(historyhash[name].length>_historylen){
-      historyhash[name].shift();
-    }
-    for(var i in historyhash){
-      if(i===name){continue;}
-      if(historyhash[i].length<_historylen){
-        historyhash[i].push(historyhash[i][historyhash[i].length-1]);
-      }
-    }
-    if(hash[name]){
-      trendhash[name] = ~~((value-hash[name])/hash[name]*100);
-    }
-    hash[name] = value;
-  }
-}
-
 function Distincter(resarray){
   if(!resarray){return;}
   this.map = {};
@@ -96,7 +70,7 @@ function handleBot(bot,follower,scope){
   //handleBotField('lastAnswer');
 };
 
-angular.module('mean.bots').controller('BotsController', ['$scope', 'Bots', 'follower', function($scope,Bots,follower) {
+angular.module('mean.bots').controller('BotsController', ['$scope', 'Bots', 'follower', 'historize', function($scope,Bots,follower,historize) {
 	
   $scope.bots = [];
   $scope.display_data = [];
@@ -230,7 +204,7 @@ angular.module('mean.bots').controller('BotsController', ['$scope', 'Bots', 'fol
   $scope.botparamhistory = {};
   $scope.botparamtrend = {};
   follower.follow('bots').listenToScalars($scope,{setter:function(name,val){
-    doValue(this.botparams,this.botparamhistory,this.botparamtrend,name,val);
+    historize(this.botparams,this.botparamhistory,this.botparamtrend,name,val);
   }});
   follower.follow('bots').listenToCollection($scope,'bots',{activator:function(){
     var botf = follower.follow('bots').follow('bots');

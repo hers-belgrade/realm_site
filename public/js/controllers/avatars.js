@@ -51,6 +51,6 @@ directive('selectAvatar',function(){
       av_mdel: '=avMdel',
       av_size: '@avSize'
     },
-    template: '<select ng-model="av_mdel"><option data-ng-repeat="avatar in avatars">{{avatar.name}}</option></select><img src="/img/avatars/{{av_mdel}}" width="{{av_size}}"/>'
+    template: '<label class="control-label" for="avatar">Avatar<select class="margin-left-10" ng-model="av_mdel"><option data-ng-repeat="avatar in avatars">{{avatar.name}}</option></select></label><img src="/img/avatars/{{av_mdel}}" width="{{av_size}}" data-ng-show="av_mdel && av_mdel.length">'
   };
 });

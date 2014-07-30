@@ -212,3 +212,31 @@ body.adminbody #sidebar .nav-list > li > .submenu > li.active > a:hover {
 #viewporter {
   background-color:#282828;
 }
+
+.minheight10 {
+  min-height:10px !important;
+}
+
+.infobox>trend.stat:before {
+  background-color:transparent;
+}
+
+.font_large {
+  font-size: 20px;
+}
+
+body.adminbody .mnt i.big
+{
+  font-size:28px;
+}
+
+.modal-header .close{
+  font-size:26px;
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus{
+  color:beige;
+}
+
+.margin-left-10 {
+  margin-left:10px;
+}

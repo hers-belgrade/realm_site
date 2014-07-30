@@ -1,7 +1,7 @@
 
 <div id="modal-form" class="modal hide" tabindex="-1">
 	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">&times;</button>
+		<button type="button" class="close" data-dismiss="modal"><i class="icon-remove"></i></button>
 		<h4 class="blue bigger">Please fill the following form fields</h4>
 	</div>
 
@@ -12,12 +12,12 @@
 
 <form ng-show="setup.editable" name="botform">
   <div class="control-group">
-    <label class="control-label" for="name">Name</label>
     <div class="controls">
-      <input type="text" id="username" name="username" data-ng-model="bot.username" required></input>
+      <label class="control-label" for="name">Name
+        <input type="text" class="margin-left-10" id="username" name="username" data-ng-model="bot.username" required></input>
+      </label>
     </div>
-    <label class="control-label" for="avatar">Avatar</label>
-    <div class="controls">
+    <div class="controls" style="min-height:80px;">
         <select-avatar av-mdel="bot.avatar" av-size="80px"></select-avatar>
     </div>
   </div>
@@ -28,8 +28,6 @@
 	</div>
 
 	<div class="modal-footer">
-
-
     <div class="controls">
       <button data-ng-click="setup.editable=false" class="btn btn-small" data-dismiss="modal"><i class="icon-remove"></i>Cancel</button>
       <button type="submit" class="btn btn-small btn-primary" data-ng-click="save()" data-dismiss="modal"><i class="icon-ok"></i>Save</button>

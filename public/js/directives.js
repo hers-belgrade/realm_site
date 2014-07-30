@@ -40,7 +40,7 @@ angular.module('mean.ui').directive('sparkline',function(){
             case 1:
               var clr = (window.getComputedStyle(elem[0])).color;
               scope.$watch(data[0],function(val){
-                elem.sparkline(val,{barColor:clr,chartRangeMin:attrs.min,type:attrs.type});
+                elem.sparkline(val,{barColor:clr,chartRangeMin:attrs.min,chartRangeMax:attrs.max,type:attrs.type});
               },true);
               break;
             default:
@@ -53,15 +53,13 @@ angular.module('mean.ui').directive('sparkline',function(){
               for(var i in data){
                 scope.$watch(data[i],(function(i){
                   return function(val){
-                  console.log('series #',i,'is',val);
                   for(var j in val){
                     if(!vals[j]){
                       vals[j] = [0,0];
                     }
                     vals[j][i] = val[j];
                   }
-                  console.log('sparklining',vals);
-                  elem.sparkline(vals,{stackedBarColor:stackedcolors,chartRangeMin:attrs.min,type:attrs.type});
+                  elem.sparkline(vals,{stackedBarColor:stackedcolors,chartRangeMin:attrs.min,chartRangeMax:attrs.max,type:attrs.type});
                 };
                 })(i),true);
               }
@@ -105,7 +103,7 @@ angular.module('mean.ui').directive('trend',function(){
             elem.removeClass('stat-down');
             elem.removeClass('stat-up');
           }
-          elem[0].innerHTML = ~~((val-lastval)/val*100)+'%';
+          elem[0].innerHTML = (lastval ? (~~((val-lastval)/lastval*100)) : 100)+'%';
           //console.log(elem,'trend',elem.innerHTML,val,lastval);
         }
         lastval = val;
