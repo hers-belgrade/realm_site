@@ -32,17 +32,16 @@ $(document).ready( function(){
 
     $('#side-content').css('height',$(this).outerHeight());
     $('#rightad').css('height',$(this).outerHeight());
+
     if ((Case(GetCurent('w')) == 'standard') || (Case(GetCurent('w')) == 'mobile')) {
       RemoveToogleButton();
       var SideMargin = GetPredicted('w');
       var SideWidth = ViewPorterWidth - GetPredicted('w');
       if (GetCurent('h') >= 724) {
-        var SideMargin = 979;
-        var SideWidth = 1224 - 979;			
+        //var SideMargin = 979;
+        //SideWidth = 1224 - 979;			
         console.log('Curent width = ' + GetCurent('w'));			
         console.log('Predicted width = ' + GetPredicted('w'));
-
-
       }
       $('#checker-tr').css({
         width : SideWidth,
