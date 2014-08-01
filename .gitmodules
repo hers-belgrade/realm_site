@@ -32,3 +32,6 @@
 [submodule "node_modules/hersexecutable"]
 	path = node_modules/hersexecutable
 	url = hersrepos:hers_repos/node_modules/hersexecutable
+[submodule "public/lib/vektr"]
+	path = public/lib/vektr
+	url = hersrepos:hers_repos/projects/vektr
