@@ -2,7 +2,7 @@ angular.module('mean.players').controller('PlayersController', ['$scope','follow
   $scope.playertotals = {};
   $scope.playertotalhistory = {};
   $scope.playertotaltrend = {};
-  follower.listenToCollection($scope,'players',{activator:function(){
+  follower.listenToCollection('bla','players',{activator:function(){
     follower.follow('players').listenToScalars(this,{setter:function(name,val,oldval){
       console.log('historizing');
       console.log(this.playertotals,this.playertotalhistory,this.playertotaltrend,name,val);
@@ -16,8 +16,8 @@ angular.module('mean.players').controller('PlayersController', ['$scope','follow
       */
     }});
   },deactivator:function(){
-    for(var i in this){
-      delete this[i];
-    }
+    $scope.playertotals = {};
+    $scope.playertotalhistory = {};
+    $scope.playertotaltrend = {};
   }});
 }]);

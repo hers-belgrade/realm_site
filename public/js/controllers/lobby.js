@@ -320,116 +320,126 @@ angular.module('HERS').controller('LobbyController',['$scope','follower',functio
     console.log(this.previewroomname);
     follower.do_command(':preview',this.previewroomname);
   };
-  follower.listenToScalar({$scope:$scope,follower:follower},'renderer',{setter:function(val){
+  function rendererSetter(val){
     if (!val || val.length === 0) return;
 
     var split = val.split(':');
     if(split[0]==='lobby'){
       
     }else{
-      this.$scope.lobby = {};
+      $scope.lobby = {};
     }
-  }});
-  follower.listenToCollection($scope,'casino',{activator:function(){
-    follower.follow('casino').listenToCollections(this,{activator:function(name){
-      var obj = {};
-      follower.follow('casino').follow(name).listenToScalars({$scope:this,obj:obj,name:name},{setter:function(name,val){
-        if(this.name==='preview'&&name==='name'){
-          this.$scope.previewroomname = val;
-        }
-        if(typeof val === 'undefined'){
-          //removal
-          var k = this.$scope.lobby[this.obj.class];
-          if(k && name){
-            delete k[name];
-          }
-          return;
-        }
-        if(name==='name' && this.obj.class==='Slot'){
-          val = slotName(val);
-        }
-        if(typeof val !== 'undefined'){
-          this.obj[name] = val;
-        }
-        if(name==='class'){
-          if(!this.$scope.lobby[val]){
-            this.$scope.lobby[val] = {};
-          }
-          this.$scope.lobby[val][this.name] = this.obj;
-          //console.log(name,val,this.$scope.lobby);
-        }
-      }});
-      if(name==='preview'){
-        follower.follow('casino').follow('preview').listenToScalar($scope,'class',{setter:function(val){
-          if(typeof val==='undefined'){
-            this.translate = null;
-            return;
-          }
-          switch(val){
-            case 'Poker':
-              this.translate = LobbyPokerEventsTranslator;
-              break;
-            case 'Slot':
-              this.translate = LobbySlotEventsTranslator;
-              break;
-          }
-        }});
-        follower.follow('casino').follow(name).listenToCollections({$scope:$scope,obj:obj},{activator:function(name){
-          switch(name){
-            case 'events':
-              this.obj.events = [];
-              follower.follow('casino').follow('preview').follow('events').listenToScalars(this,{setter:function(name,val){
-                //console.log(name,val);
-                if(typeof val === 'undefined'){
-                  //this.obj.events=[];
-                  //delete this.obj.events[name];
-                }else{
-                  var tr = this.$scope.translate;
-                  if(!tr){return;}
-                  val = tr(val);
-                  if(!val.klass){return;}
-                  if(val.hasplayer){
-                    var fn = val.player+'@'+val.realm;
-                    if(!(this.obj.avatars && this.obj.avatars[fn])){
-                      console.log('no avatar for',fn,'in',this.obj.avatars);
-                    }
-                    val.avatar=(this.obj.avatars && this.obj.avatars[fn]) ? this.obj.avatars[fn] : '-';
-                  }
-                  val.hasamount = typeof val.amount === 'number';
-                  val.hascards = typeof val.flop === 'object';
-                  if(val){
-                    this.obj.events.unshift(val);
-                  }
-                }
-              }});
-              break;
-            case 'avatars':
-              this.obj.avatars = this.obj.avatars || {};
-              follower.follow('casino').follow('preview').follow('avatars').listenToScalars(this.obj,{setter:function(name,val){
-                if(typeof val !== 'undefined'){
-                  val = '/img/avatars/'+val;
-                  if(typeof this.avatars[name] === 'undefined'){
-                    rescanEventsForAvatar(this.events,name,val);
-                  }
-                  this.avatars[name] = val;
-                }else{
-                  delete this[name];
-                }
-                console.log('Slot avatars',this);
-              }});
-            case 'players':
-              this.obj.avatars = this.obj.avatars || {};
-              follower.follow('casino').follow('preview').follow('players').listenToCollections(this.obj.avatars,{activator:function(name){
-                follower.follow('casino').follow('preview').follow('players').follow(name).listenToMultiScalars(this,['name','realm','avatar'],function(map){
-                  this[map.name+'@'+map.realm]='/img/avatars/'+map.avatar;
-                });
-              }});
-              break;
-          }
-        }});
+  }
+  follower.listenToScalar('bla','renderer',{setter:rendererSetter});
+  function casinoCollectionScalarSetter(colname,obj,name,val){
+    if(colname==='preview'&&name==='name'){
+      $scope.previewroomname = val;
+    }
+    if(typeof val === 'undefined'){
+      //removal
+      var k = $scope.lobby[obj.class];
+      if(k && name){
+        delete k[name];
       }
-    }});
-  },deactivator:function(){
-    this.lobby = {};
-  }});
+      return;
+    }
+    if(name==='name' && obj.class==='Slot'){
+      val = slotName(val);
+    }
+    if(typeof val !== 'undefined'){
+      obj[name] = val;
+    }
+    if(name==='class'){
+      if(!$scope.lobby[val]){
+        $scope.lobby[val] = {};
+      }
+      $scope.lobby[val][colname] = obj;
+    }
+  }
+  function translatorSetter(val){
+    if(typeof val==='undefined'){
+      $scope.translate = null;
+      return;
+    }
+    switch(val){
+      case 'Poker':
+        $scope.translate = LobbyPokerEventsTranslator;
+        break;
+      case 'Slot':
+        $scope.translate = LobbySlotEventsTranslator;
+        break;
+    }
+  }
+  function previewEventSetter(obj,name,val){
+    //console.log(name,val);
+    if(typeof val === 'undefined'){
+      //obj.events=[];
+      //delete obj.events[name];
+    }else{
+      var tr = scope.translate;
+      if(!tr){return;}
+      val = tr(val);
+      if(!val.klass){return;}
+      if(val.hasplayer){
+        var fn = val.player+'@'+val.realm;
+        if(!(obj.avatars && obj.avatars[fn])){
+          console.log('no avatar for',fn,'in',obj.avatars);
+        }
+        val.avatar=(obj.avatars && obj.avatars[fn]) ? obj.avatars[fn] : '-';
+      }
+      val.hasamount = typeof val.amount === 'number';
+      val.hascards = typeof val.flop === 'object';
+      if(val){
+        obj.events.unshift(val);
+      }
+    }
+  }
+  function avatarSetter(obj,name,val){
+    if(typeof val !== 'undefined'){
+      val = '/img/avatars/'+val;
+      if(typeof obj.avatars[name] === 'undefined'){
+        rescanEventsForAvatar(obj.events,name,val);
+      }
+      obj.avatars[name] = val;
+    }else{
+      delete obj[name];
+    }
+    console.log('Slot avatars',this);
+  }
+  function playerAvatarResolver(avatarobj,map){
+    avatarobj[map.name+'@'+map.realm]='/img/avatars/'+map.avatar;
+  }
+  function previewPlayerActive(avatarobj,name){
+    follower.follow('casino').follow('preview').follow('players').follow(name).listenToMultiScalars('bla',['name','realm','avatar'],playerAvatarResolver);
+  }
+  function casinoSubCollectionActivated(obj,name){
+    switch(name){
+      case 'events':
+        obj.events = [];
+        follower.follow('casino').follow('preview').follow('events').listenToScalars('bla',{setter:[null,previewEventSetter,[obj]]});
+        break;
+      case 'avatars':
+        obj.avatars = obj.avatars || {};
+        follower.follow('casino').follow('preview').follow('avatars').listenToScalars('bla',{setter:[null,avatarSetter,[obj]]});
+      case 'players':
+        obj.avatars = obj.avatars || {};
+        follower.follow('casino').follow('preview').follow('players').listenToCollections('bla',{activator:[null,previewPlayerActive,[obj.avatars]]});
+        break;
+    }
+  }
+  function casinoCollectionActivated(name){
+    var obj = {};
+    follower.follow('casino').follow(name).listenToScalars({$scope:this,obj:obj,name:name},{setter:[null,casinoCollectionScalarSetter,[name,obj]]});
+    if(name==='preview'){
+      follower.follow('casino').follow('preview').listenToScalar('bla','class',{setter:translatorSetter});
+      follower.follow('casino').follow(name).listenToCollections({$scope:$scope,obj:obj},{activator:[null,casinoSubCollectionActivated,[obj]]});
+    }
+  }
+  function casinoActivated(){
+    follower.follow('casino').listenToCollections('bla',{activator:casinoCollectionActivated});
+  }
+  function casinoDeactivated(){
+    $scope.lobby = {};
+  }
+  follower.listenToCollection('bla','casino',{activator:casinoActivated,deactivator:casinoDeactivated});
 }]);

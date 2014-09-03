@@ -62,8 +62,8 @@ div#viewporter(data-ng-show="identity.roles.indexOf('player')>=0")
 
     img.center#spinner(src="/lib/casino/css/imgs/throbber.gif", data-ng-show="loading")
     div#lobbydiv(data-ng-show='rendererIsLobby()' data-ng-include='"/views/playerlobby.html"')
-    canvas(id='casino')
-  div(id='checker-tr')
+    canvas(id='casino',width=800,height=600)
+  div(id='checker-tr',style='display:none;')
     //button.toogle.btn.btn-primary(id='tooglebut', type='button')
     //  span.glyphicon.glyphicon-align-justify
     div(id='side-content')

@@ -86,10 +86,12 @@ angular.module('mean.system').controller('LogController',['$scope','follower',fu
       }});
     }});
   },deactivator:function(){
-    for(var i in this){
-      delete this[i];
+    for(var i in $scope.items){
+      delete $scope.items[i];
     }
-    $scope.listener.destroy();
+    if($scope.listener){
+      $scope.listener.destroy();
+    }
     follower.do_command(':activate','log');
   }});
   $scope.$on('$destroy',function(event){

@@ -134,29 +134,6 @@ exports.execute = function(req, res, next) {
   });
 };
 
-
-function storeUserToTree (u, cb) {
-  if (dataMaster.userExists(u.username)) {
-    return cb ();
-  }else{
-    User.findOne({username: u.username}).exec (function(err, user) {
-      if (err) return cb(err);
-      if (!user) return cb (new Error('Failed to load User '+username));
-
-      var roles = user.roles.split(',');
-      if (roles.indexOf('player') >= 0){
-        console.log('will put player into data tree:', u.username);
-        if (typeof(user.balance) === 'undefined') {
-          user.balance = 2000;
-          user.save();
-        }
-        dataMaster.storeUser(u, {balance: user.balance, avatar: user.avatar});
-      }
-      cb ();
-    });
-  }
-}
-
 exports.setup = function(app){
   var io = require('socket.io').listen(app, { log: false });
   console.log('socket.io listening');
